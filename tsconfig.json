@@ -20,7 +20,15 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2018",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/kit/*": ["core/kit/*"],
+      "@/kit": ["core/kit/index.ts"],
+      "@/assets/*": ["assets/*"],
+      "@/core/*": ["core/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
