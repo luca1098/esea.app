@@ -27,9 +27,16 @@
       "@/kit/*": ["core/kit/*"],
       "@/kit": ["core/kit/index.ts"],
       "@/assets/*": ["assets/*"],
-      "@/core/*": ["core/*"]
+      "@/graphql/*": ["lib/graphql/*"],
+      "@/core/*": ["core/*"],
+      "@/lib/*": ["lib/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
