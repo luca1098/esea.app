@@ -23,13 +23,11 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"],
       "@/kit/*": ["core/kit/*"],
       "@/kit": ["core/kit/index.ts"],
-      "@/assets/*": ["assets/*"],
-      "@/graphql/*": ["lib/graphql/*"],
+      "@/graphql/*": ["src/lib/graphql/*"],
       "@/core/*": ["core/*"],
-      "@/lib/*": ["lib/*"]
+      "@/lib/*": ["src/lib/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

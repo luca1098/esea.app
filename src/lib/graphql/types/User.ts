@@ -1,4 +1,4 @@
-import { enumType, extendType, objectType, queryField } from 'nexus';
+import { enumType, extendType, nonNull, objectType, stringArg } from 'nexus';
 
 export const User = objectType({
   name: 'User',
@@ -6,6 +6,7 @@ export const User = objectType({
     t.string('id');
     t.string('name');
     t.string('image');
+    t.string('password');
     t.string('email', { description: 'Email of the user' });
     t.field('role', { type: Role });
   },
@@ -31,10 +32,20 @@ export const GetAllUsers = extendType({
   },
 });
 
-// id            String    @id @default(cuid())
-// name          String?
-// email         String?   @unique
-// emailVerified DateTime?
-// image         String?
-// accounts      Account[]
-// sessions      Session[]
+export const GetUsers = extendType({
+  type: 'Query',
+
+  definition(t) {
+    t.field('user', {
+      type: User,
+      args: {
+        email: nonNull(stringArg()),
+      },
+      resolve(_parents, args, ctx) {
+        return ctx.prisma.user.findUnique({
+          where: { email: args.email },
+        });
+      },
+    });
+  },
+});
