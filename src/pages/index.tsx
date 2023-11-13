@@ -1,17 +1,7 @@
 import { Heading, Stack } from '@chakra-ui/react';
 import Link from 'next/link';
 
-type HomeProps = {
-  users: {
-    id: string;
-    image?: string | null;
-    name?: string | null;
-    email?: string | null;
-    role?: 'ADMIN' | 'USER' | null;
-  }[];
-};
-
-const Home = ({ users }: HomeProps) => {
+const Home = () => {
   return (
     <>
       <Heading textAlign={'center'}>Welcome to Esea.app</Heading>

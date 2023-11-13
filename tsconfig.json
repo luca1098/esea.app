@@ -23,10 +23,10 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/kit/*": ["core/kit/*"],
-      "@/kit": ["core/kit/index.ts"],
+      "@/kit/*": ["src/core/kit/*"],
+      "@/kit": ["src/core/kit/index.ts"],
       "@/graphql/*": ["src/lib/graphql/*"],
-      "@/core/*": ["core/*"],
+      "@/core/*": ["src/core/*"],
       "@/lib/*": ["src/lib/*"]
     }
   },

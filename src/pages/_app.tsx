@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
-import { theme } from '@/core/theme';
+import { theme } from 'src/core/theme';
 import { ApolloProvider } from '@apollo/client';
 import apolloClient from 'src/lib/apollo';
 import { SessionProvider } from 'next-auth/react';
