@@ -1,14 +1,16 @@
+import Layout from '@/kit/Layout/Layout';
 import { Heading, Stack } from '@chakra-ui/react';
-import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
-const Home = () => {
+type HomeProps = {};
+
+const Home = (props: HomeProps) => {
+  const { data: session } = useSession();
   return (
-    <>
-      <Heading textAlign={'center'}>Welcome to Esea.app</Heading>
-      <Stack alignItems={'center'} justifyContent={'center'}>
-        <Link href={'/sign-in'}>Login</Link>
-      </Stack>
-    </>
+    <Layout user={session?.user}>
+      <Heading textAlign={'center'}>Landing Esea.app </Heading>
+      <Stack alignItems={'center'} justifyContent={'center'}></Stack>
+    </Layout>
   );
 };
 
