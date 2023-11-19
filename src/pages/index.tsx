@@ -1,4 +1,4 @@
-import Layout from '@/kit/Layout/Layout';
+import Layout from '@/components/Layout/Layout';
 import { Heading, Stack } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 

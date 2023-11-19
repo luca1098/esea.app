@@ -13,7 +13,7 @@ export type MenuItemProps = {
   id: string;
   path: string;
   label: string;
-  icon: IconType;
+  icon?: IconType;
   disabled?: boolean;
 };
 
@@ -97,3 +97,18 @@ export const menuByUserRole: Record<Role, MenuItemProps[]> = {
   USER: userMenu,
   ADMIN: adminMenu,
 };
+
+export const publicMenu: MenuItemProps[] = [
+  {
+    id: '1',
+    path: '/feature/',
+    label: 'Feature',
+    disabled: false,
+  },
+  {
+    id: '2',
+    path: '/pricing/',
+    label: 'Prezzo',
+    disabled: false,
+  },
+];

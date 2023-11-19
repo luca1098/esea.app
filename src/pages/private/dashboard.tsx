@@ -1,5 +1,5 @@
 import { Box, Heading, Stack } from '@chakra-ui/react';
-import PrivateLayout from '@/kit/Layout/PrivateLayout';
+import PrivateLayout from '@/components/Layout/PrivateLayout';
 import { getSession, useSession } from 'next-auth/react';
 
 type DashboardProps = {};

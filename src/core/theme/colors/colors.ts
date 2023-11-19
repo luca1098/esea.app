@@ -1,10 +1,11 @@
 import { ThemeOverride } from '@chakra-ui/react';
 
 export const colors: ThemeOverride['colors'] = {
-  // vita: {
-  //   primary: 'var(--unavitavistamare-primary)',
-  //   light: 'var(--unavitavistamare-light)',
-  //   dark: 'var(--unavitavistamare-dark)',
-  // },
-  // black: 'var(--unavitavistamare-black)',
+  esea: {
+    primary: 'var(--esea-app-primary)',
+    gray: 'var(--esea-app-gray)',
+    dark: 'var(--esea-app-primary-dark)',
+  },
+  black: 'var(--esea-app-black)',
+  text: { gray: 'var(--esea-app-text-gray)' },
 };

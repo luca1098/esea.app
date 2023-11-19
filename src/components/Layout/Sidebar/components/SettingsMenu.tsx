@@ -9,7 +9,7 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react';
-import Image from '@/components/Image/Image';
+import Image from '@/kit/Image/Image';
 import { signOut } from 'next-auth/react';
 import PROFILE_PLACEHOLDER from '@/assets/profile-placeholder.jpg';
 import { PropsWithUser } from '@/core/shared/types/user';

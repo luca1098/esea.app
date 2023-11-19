@@ -1,5 +1,5 @@
-import Layout from '@/kit/Layout/Layout';
-import PrivateLayout from '@/kit/Layout/PrivateLayout';
+import Layout from '@/components/Layout/Layout';
+import PrivateLayout from '@/components/Layout/PrivateLayout';
 import { useSession } from 'next-auth/react';
 import React from 'react';
 

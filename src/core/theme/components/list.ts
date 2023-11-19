@@ -14,12 +14,23 @@ const variants: ComponentMultiStyleConfig['variants'] = {
       listStyle: 'none',
     }),
     item: defineStyle({
-      bg: 'white',
-      borderWidth: 1,
-      padding: 3,
       mb: 1,
       cursor: 'pointer',
-      rounded: 'lg',
+      rounded: '2xl',
+      fontWeight: '600',
+      color: 'text.gray',
+      px: 2,
+      py: 3,
+      fontSize: 'lg',
+    }),
+    icon: defineStyle({
+      rounded: '2xl',
+      width: '50px',
+      height: '50px',
+      padding: 3.5,
+      bg: 'white',
+
+      shadow: 'menu.item',
     }),
   }),
 };

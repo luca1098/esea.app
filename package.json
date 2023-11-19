@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": " npm run theme && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -19,17 +19,20 @@
     "db:seed": "npx dotenv -e .env.local -- prisma db seed",
     "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
     "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
-    "production:build": "npx prisma generate && npx prisma migrate deploy && next build"
+    "production:build": "npx prisma generate && npx prisma migrate deploy && next build",
+    "theme": "chakra-cli tokens src/core/theme/index.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",
     "@apollo/server": "^4.9.5",
     "@as-integrations/next": "^2.0.2",
     "@auth/prisma-adapter": "^1.0.5",
+    "@chakra-ui/cli": "^2.4.1",
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.5.2",
     "framer-motion": "^10.16.4",
     "graphql": "^16.8.1",
@@ -39,7 +42,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.47.0",
-    "react-icons": "^4.12.0"
+    "react-icons": "^4.12.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "20.8.9",

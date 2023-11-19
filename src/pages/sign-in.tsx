@@ -1,45 +1,17 @@
-import Layout from '@/kit/Layout/Layout';
-import { Stack, Box, Input, Button, useToast } from '@chakra-ui/react';
-import { GetSessionParams, getSession, signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import Layout from '@/components/Layout/Layout';
+import { GetSessionParams, getSession } from 'next-auth/react';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import HeroSection from '@/components/pages/Login/HeroSection';
+import SignInForm from '@/components/pages/Login/SignInForm';
 
 const SignIn = () => {
-  const { register, handleSubmit } = useForm();
-  const router = useRouter();
-  const toast = useToast();
-
-  const onSubmit = async (values: any) => {
-    const res = await signIn('credentials', {
-      email: values.email,
-      password: values.password,
-      redirect: false,
-    });
-    if (res?.error) {
-      toast({
-        title: 'Errore',
-        description: res?.error,
-        status: 'error',
-        isClosable: true,
-      });
-    }
-    if (res?.status === 200 && !res.error) router.push('/private/dashboard');
-  };
-
   return (
     <Layout>
-      <Box maxW={500} mx={'auto'} mt={8}>
-        <Stack as={'form'} spacing={3} onSubmit={handleSubmit(onSubmit)}>
-          <Input type='email' placeholder='Email' {...register('email')} />
-          <Input
-            type='password'
-            placeholder='Password'
-            {...register('password')}
-          />
-          <Button type='submit'>Submit</Button>
-        </Stack>
-      </Box>
+      <HeroSection
+        title='Bentornato'
+        subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit.'
+      />
+      <SignInForm />
     </Layout>
   );
 };

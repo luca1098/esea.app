@@ -9,7 +9,6 @@ import { menuByUserRole } from '@/core/config/menu';
 type PrivateLayoutProps = PropsWithChildren & PropsWithUser;
 
 const PrivateLayout = ({ children, user }: PrivateLayoutProps) => {
-  console.log('####', { role: user?.role });
   return (
     <>
       <Flex>

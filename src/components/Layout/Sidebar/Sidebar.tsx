@@ -11,6 +11,7 @@ import { MenuItemProps } from '@/core/config/menu';
 import SettingsMenu from './components/SettingsMenu';
 import { PropsWithUser } from '@/core/shared/types/user';
 import { DoubleArrowDxIcon } from '@/kit/Icons/icons';
+import ExpandButton from './components/ExpandButton';
 
 type SidebarProps = {
   menu: MenuItemProps[];
@@ -24,7 +25,7 @@ const Sidebar = ({ menu }: SidebarProps) => {
     <Stack
       as='aside'
       w={isExpanded ? '30%' : 'auto'}
-      bg={'gray.200'}
+      bg={'esea.gray'}
       h={'100vh'}
       maxW={'350px'}
       position={'sticky'}
@@ -33,7 +34,7 @@ const Sidebar = ({ menu }: SidebarProps) => {
       padding={4}
       spacing={8}
     >
-      <IconButton as={DoubleArrowDxIcon} onClick={onToggle} aria-label='TODO' />
+      <ExpandButton onClick={onToggle} isExpanded={isExpanded} />
       <Heading>{isExpanded ? 'Esea.app' : 'E'}</Heading>
       <NavigationMenu menu={menu} isMenuExpanded={isExpanded} />
     </Stack>
