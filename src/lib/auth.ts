@@ -12,6 +12,7 @@ import apolloClient from './apollo';
 import { userQuery } from './graphql/queries/user';
 import { authPage } from '@/core/config/authpage';
 import { redirect } from 'next/navigation';
+import bcrypt from 'bcryptjs';
 
 export const config = {
   adapter: PrismaAdapter(prisma),
@@ -66,7 +67,11 @@ export const config = {
 
         if (data.user) {
           const { password } = data.user;
-          if (password === credentials.password)
+          const isPwCorrect = await bcrypt.compare(
+            credentials.password,
+            password,
+          );
+          if (isPwCorrect) {
             return {
               id: data.user.id,
               name: data.user.name,
@@ -74,6 +79,7 @@ export const config = {
               image: data.user.image,
               role: data.user.role,
             };
+          }
         }
         return null;
       },
