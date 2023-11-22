@@ -23,13 +23,20 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/kit/*": ["core/kit/*"],
-      "@/kit": ["core/kit/index.ts"],
-      "@/assets/*": ["assets/*"],
-      "@/core/*": ["core/*"]
+      "@/kit/*": ["src/core/kit/*"],
+      "@/kit": ["src/core/kit/index.ts"],
+      "@/graphql/*": ["src/lib/graphql/*"],
+      "@/core/*": ["src/core/*"],
+      "@/lib/*": ["src/lib/*"],
+      "@/components/*": ["src/components/*"],
+      "@/assets/*": ["src/assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
