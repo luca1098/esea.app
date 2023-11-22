@@ -1,19 +1,14 @@
-import { Box, Heading, Stack } from '@chakra-ui/react';
-import PrivateLayout from '@/components/Layout/PrivateLayout';
-import { getSession, useSession } from 'next-auth/react';
-
-type ProfiloProps = {};
-
-const Profilo = (props: ProfiloProps) => {
-  const { data: session } = useSession();
-  return (
-    <PrivateLayout user={session?.user}>
-      <Stack spacing={2}>
-        <Heading textAlign={'center'}>Profilo, {session?.user?.name}</Heading>
-        <Box></Box>
-      </Stack>
-    </PrivateLayout>
-  );
+const index = () => {
+  return <></>;
 };
 
-export default Profilo;
+export default index;
+
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      permanent: true,
+      destination: '/private/dashboard',
+    },
+  };
+}

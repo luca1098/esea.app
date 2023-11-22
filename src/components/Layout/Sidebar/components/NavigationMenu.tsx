@@ -18,17 +18,14 @@ const NavigationMenu = ({ menu, isMenuExpanded }: NavigationMenuProps) => {
       margin={0}
       sx={{ a: { _hover: { textDecoration: 'none' } } }}
     >
-      {menu.map((item, index) => {
-        console.log('##', { path: item.path });
-        return (
-          <NavigationMenuItem
-            key={item.id}
-            isMenuExpanded={isMenuExpanded}
-            {...item}
-            isActive={currentpath.includes(item.path)}
-          />
-        );
-      })}
+      {menu.map((item) => (
+        <NavigationMenuItem
+          key={item.id}
+          isMenuExpanded={isMenuExpanded}
+          {...item}
+          isActive={currentpath.includes(item.path)}
+        />
+      ))}
     </UnorderedList>
   );
 };
