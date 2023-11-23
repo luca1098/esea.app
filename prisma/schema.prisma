@@ -14,19 +14,21 @@ datasource db {
 model User {
   id            String    @id @default(cuid())
   name          String?
+  companyName   String?
   email         String?   @unique
   emailVerified DateTime?
   password      String?
   image         String?
-  role      Role     @default(USER)
+  role      Role     @default(OWNER)
   accounts      Account[]
   sessions      Session[]
 }
 
 
 enum Role {
-  USER
+  COLLABORATOR
   ADMIN
+  OWNER
 }
 
 
