@@ -23,8 +23,9 @@ export const User = objectType({
 export const Role = enumType({
   name: 'Role',
   members: {
-    USER: 'USER',
+    OWNER: 'OWNER',
     ADMIN: 'ADMIN',
+    COLLABORATOR: 'COLLABORATOR',
   },
 });
 
