@@ -29,8 +29,22 @@ const solid = defineStyle({
     background: 'esea.dark',
   },
 });
+const action = defineStyle({
+  background: 'transparent',
+  backdropFilter: 'auto',
+  color: 'black',
+  _hover: {
+    background: 'white',
+    _disabled: {
+      background: 'rgba(255,255,255,0.5)',
+    },
+  },
+  _active: {
+    background: 'white',
+  },
+});
 
-const variants: ComponentSingleStyleConfig['variants'] = { solid };
+const variants: ComponentSingleStyleConfig['variants'] = { solid, action };
 
 export const button: ComponentSingleStyleConfig = defineStyleConfig({
   variants,

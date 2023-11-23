@@ -18,7 +18,7 @@ const NavigationMenu = ({ menu, isMenuExpanded }: NavigationMenuProps) => {
       margin={0}
       sx={{ a: { _hover: { textDecoration: 'none' } } }}
     >
-      {menu.map((item) => (
+      {menu?.map((item) => (
         <NavigationMenuItem
           key={item.id}
           isMenuExpanded={isMenuExpanded}

@@ -11,8 +11,8 @@ type PrivateLayoutProps = PropsWithChildren & PropsWithUser;
 const PrivateLayout = ({ children, user }: PrivateLayoutProps) => {
   return (
     <>
-      <Flex>
-        <Sidebar menu={menuByUserRole[(user?.role ?? 'USER') as Role]} />
+      <Flex bg={'esea.gray'}>
+        <Sidebar menu={menuByUserRole[(user?.role ?? 'OWNER') as Role]} />
         <Box w={'full'}>
           <Header user={user} />
           <Box px={4}>{children}</Box>

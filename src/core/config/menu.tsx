@@ -8,6 +8,7 @@ import {
 } from '@/kit/Icons/icons';
 import { Role } from '../shared/types/user';
 import { IconType } from 'react-icons';
+import { navigation } from './navigation';
 
 export type MenuItemProps = {
   id: string;
@@ -17,45 +18,45 @@ export type MenuItemProps = {
   disabled?: boolean;
 };
 
-const userMenu: MenuItemProps[] = [
+const ownerMenu: MenuItemProps[] = [
   {
     id: '1',
-    path: '/private/dashboard',
+    path: navigation.private.dashboard,
     label: 'Dashboard',
     icon: HomeIcon,
     disabled: false,
   },
   {
     id: '2',
-    path: '/private/calendario',
+    path: navigation.private.calendario,
     label: 'Calendario',
     icon: CalendarIcon,
     disabled: false,
   },
   {
     id: '3',
-    path: '/private/statistiche',
+    path: navigation.private.statistiche,
     label: 'Statistiche',
     icon: StatsIcon,
     disabled: false,
   },
   {
     id: '4',
-    path: '/private/skippers',
+    path: navigation.private.skippers,
     label: 'Skippers',
     icon: UserIcon,
     disabled: false,
   },
   {
     id: '5',
-    path: '/private/documenti',
+    path: navigation.private.documenti,
     label: 'Documenti',
     icon: DocsIcon,
     disabled: false,
   },
   {
     id: '6',
-    path: '/private/gestione',
+    path: navigation.private.gestione.index,
     label: 'Gestione',
     icon: GestioneIcon,
     disabled: false,
@@ -65,28 +66,28 @@ const userMenu: MenuItemProps[] = [
 const adminMenu: MenuItemProps[] = [
   {
     id: '1',
-    path: '/admin/',
+    path: navigation.admin.dashboard,
     label: 'Dashboard',
     icon: HomeIcon,
     disabled: false,
   },
   {
     id: '2',
-    path: '/admin/statistiche',
+    path: navigation.admin.statistiche,
     label: 'Statistiche',
     icon: StatsIcon,
     disabled: false,
   },
   {
     id: '3',
-    path: '/admin/clienti',
+    path: navigation.admin.clienti,
     label: 'Clienti',
     icon: UserIcon,
     disabled: false,
   },
   {
     id: '4',
-    path: '/admin/barche',
+    path: navigation.admin.barche,
     label: 'Barche',
     icon: DocsIcon,
     disabled: false,
@@ -94,20 +95,20 @@ const adminMenu: MenuItemProps[] = [
 ];
 
 export const menuByUserRole: Record<Role, MenuItemProps[]> = {
-  USER: userMenu,
+  OWNER: ownerMenu,
   ADMIN: adminMenu,
 };
 
 export const publicMenu: MenuItemProps[] = [
   {
     id: '1',
-    path: '/feature/',
+    path: navigation.public.feature,
     label: 'Feature',
     disabled: false,
   },
   {
     id: '2',
-    path: '/pricing/',
+    path: navigation.public.pricing,
     label: 'Prezzo',
     disabled: false,
   },
