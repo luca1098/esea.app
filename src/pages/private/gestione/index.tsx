@@ -1,5 +1,6 @@
 import React from 'react';
 import GestioneLayout from '@/components/pages/Gestione/GestioneLayout';
+import { GetSessionParams, getSession, useSession } from 'next-auth/react';
 
 const user = {
   name: 'Test',
@@ -9,7 +10,8 @@ const user = {
   id: '#id',
 };
 const Gestione = () => {
-  return <GestioneLayout user={user}>Overview</GestioneLayout>;
+  const { data } = useSession();
+  return <GestioneLayout user={data?.user}>Overview</GestioneLayout>;
 };
 
 export default Gestione;

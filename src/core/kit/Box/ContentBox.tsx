@@ -6,7 +6,7 @@ type ContentBoxProps = Omit<BoxProps, 'bg' | 'backgroundColor'> &
 
 const ContentBox = ({ children, ...props }: ContentBoxProps) => {
   return (
-    <Box p={6} rounded={'2xl'} bg={'white'} borderWidth={'2px'} {...props}>
+    <Box p={6} rounded={'2xl'} bg={'white'} {...props}>
       {children}
     </Box>
   );

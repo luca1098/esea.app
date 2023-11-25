@@ -2,13 +2,14 @@ import PrivateLayout from '@/components/Layout/PrivateLayout';
 import { PropsWithUser } from '@/core/shared/types/user';
 import React, { PropsWithChildren } from 'react';
 import UserPanel from './UserPanel';
+import { Box } from '@chakra-ui/react';
 
 type GestioneLayoutProps = PropsWithUser & PropsWithChildren;
 const GestioneLayout = ({ user, children }: GestioneLayoutProps) => {
   return (
-    <PrivateLayout>
+    <PrivateLayout user={user}>
       <UserPanel user={user} />
-      {children}
+      <Box py={4}>{children}</Box>
     </PrivateLayout>
   );
 };

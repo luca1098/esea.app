@@ -16,7 +16,10 @@ export const navigation = {
     documenti: `${privatePrefix}/documenti`,
     gestione: {
       index: `${privatePrefix}/gestione`,
-      barche: `${privatePrefix}/gestione/barche`,
+      barche: {
+        index: `${privatePrefix}/gestione/barche`,
+        inserisci: `${privatePrefix}/gestione/barche/inserisci`,
+      },
       personale: `${privatePrefix}/gestione/personale`,
     },
   },
