@@ -3,6 +3,8 @@ import {
   FaUser as UserIcon,
   FaHome as HomeIcon,
   FaTools as GestioneIcon,
+  FaArrowRight as RightArrowIcon,
+  FaArrowLeft as LeftArrowIcon,
 } from 'react-icons/fa';
 import {
   IoStatsChartSharp as StatsIcon,
@@ -19,4 +21,6 @@ export {
   GestioneIcon,
   DoubleArrowDxIcon,
   BackIcon,
+  RightArrowIcon,
+  LeftArrowIcon,
 };
