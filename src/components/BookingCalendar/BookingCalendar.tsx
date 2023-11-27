@@ -9,6 +9,7 @@ const BookingCalendar = () => {
   const {
     currentMontLabel,
     currentYear,
+    currentMont,
     weekDays,
     daysInWeek,
     onNext,
@@ -27,7 +28,11 @@ const BookingCalendar = () => {
         onNext={onNext}
         onPrev={onPrev}
       />
-      <BookingCalendarBody days={daysInWeek} view={view} />
+      <BookingCalendarBody
+        days={daysInWeek}
+        view={view}
+        currentMont={currentMont}
+      />
     </Box>
   );
 };

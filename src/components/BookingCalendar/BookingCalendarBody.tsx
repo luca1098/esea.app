@@ -12,13 +12,17 @@ type DayOfMontProps = {
 type BookingCalendarBodyProps = {
   days: DayOfMontProps[];
   view: CalendarView;
+  currentMont: number;
 };
-const BookingCalendarBody = ({ days }: BookingCalendarBodyProps) => {
+const BookingCalendarBody = ({
+  days,
+  currentMont,
+}: BookingCalendarBodyProps) => {
   const today = new Date();
   const isCurrentDay = (day: DayOfMontProps) =>
     day.monthIndex === today.getMonth() && day.numbDay === today.getDate();
 
-  const isOtherMonth = (monthId: number) => monthId !== today.getMonth();
+  const isOtherMonth = (monthId: number) => currentMont !== monthId;
   return (
     <Grid templateColumns='repeat(7, 1fr)'>
       {days?.map((d, i) => (

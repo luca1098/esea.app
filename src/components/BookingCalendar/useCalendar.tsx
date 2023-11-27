@@ -110,6 +110,7 @@ const useCalendar = () => {
   const daysInWeek = getDaysInWeek(currentDay, currentMont, currentYear);
   return {
     currentMontLabel,
+    currentMont,
     currentYear,
     daysOfCurrentMonth,
     weekDays,
