@@ -1,4 +1,4 @@
-import BookingCalendar from '@/components/BookingCalendar/BookingCalendar';
+import BookingCalendar from '@/components/Calendar/BookingCalendar/BookingCalendar';
 import PrivateLayout from '@/components/Layout/PrivateLayout';
 import ContentBox from '@/kit/Box/ContentBox';
 import PageTitle from '@/kit/Text/PageTitle';

@@ -4,6 +4,7 @@ import BookingCalendarHeader from './BookingCalendarHeader';
 import useCalendar from './useCalendar';
 import { useState } from 'react';
 import { CalendarView } from './utils';
+import { fakeBoats } from 'mok';
 
 const BookingCalendar = () => {
   const {
@@ -28,11 +29,15 @@ const BookingCalendar = () => {
         onNext={onNext}
         onPrev={onPrev}
       />
-      <BookingCalendarBody
-        days={daysInWeek}
-        view={view}
-        currentMont={currentMont}
-      />
+      {fakeBoats?.map((b) => (
+        <BookingCalendarBody
+          key={b.id}
+          days={daysInWeek}
+          view={view}
+          boat={b}
+          currentYear={currentYear}
+        />
+      ))}
     </Box>
   );
 };

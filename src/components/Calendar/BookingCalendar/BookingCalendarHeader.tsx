@@ -58,7 +58,8 @@ const BookingCalendarHeader = ({
         </Stack>
       </Stack>
       <Stack>
-        <Grid templateColumns='repeat(7, 1fr)'>
+        <Grid templateColumns='repeat(8, 1fr)'>
+          <GridItem>Barca</GridItem>
           {weekDays?.map((day) => <GridItem key={day}>{day}</GridItem>)}
         </Grid>
       </Stack>
