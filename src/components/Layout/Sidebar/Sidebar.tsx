@@ -1,16 +1,7 @@
-import {
-  Box,
-  Heading,
-  IconButton,
-  Stack,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Heading, Stack, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import NavigationMenu from './components/NavigationMenu';
 import { MenuItemProps } from '@/core/config/menu';
-import SettingsMenu from './components/SettingsMenu';
-import { PropsWithUser } from '@/core/shared/types/user';
-import { DoubleArrowDxIcon } from '@/kit/Icons/icons';
 import ExpandButton from './components/ExpandButton';
 
 type SidebarProps = {
@@ -20,7 +11,6 @@ const Sidebar = ({ menu }: SidebarProps) => {
   const { isOpen: isExpanded, onToggle } = useDisclosure({
     defaultIsOpen: true,
   });
-  console.log('##', { isExpanded });
   return (
     <Stack
       as='aside'

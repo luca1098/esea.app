@@ -5,9 +5,9 @@ import {
 } from '@chakra-ui/react';
 import { Link as NextLink } from '@chakra-ui/next-js';
 
-export type BtnVariant = 'solid' | 'link' | 'outline' | 'tool';
+export type BtnVariant = 'solid' | 'action' | 'outline' | 'link';
 
-type ButtonProps = {
+export type ButtonProps = {
   href?: string;
   isExternal?: boolean;
   label: string;

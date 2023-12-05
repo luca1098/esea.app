@@ -7,6 +7,7 @@ import {
   objectType,
   stringArg,
 } from 'nexus';
+import { Boat } from './Barche';
 
 export const User = objectType({
   name: 'User',
@@ -17,14 +18,16 @@ export const User = objectType({
     t.string('password');
     t.string('email', { description: 'Email of the user' });
     t.field('role', { type: Role });
+    t.list.field('boats', { type: Boat });
   },
 });
 
 export const Role = enumType({
   name: 'Role',
   members: {
-    USER: 'USER',
+    OWNER: 'OWNER',
     ADMIN: 'ADMIN',
+    COLLABORATOR: 'COLLABORATOR',
   },
 });
 

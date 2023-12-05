@@ -30,17 +30,17 @@ const SignUpForm = () => {
       const { data, errors } = await createUser({
         variables: { credentials: { name, email, password: cryptedPw } },
       });
-      if (errors || data.user.error) {
+      if (errors || data?.user?.error) {
         toast({
           title: 'Errore',
-          description: data.user.message,
+          description: data?.user?.message,
           status: 'error',
           isClosable: true,
         });
       } else {
         toast({
           title: 'Successo',
-          description: data.user.message,
+          description: data?.user?.message,
           status: 'success',
           isClosable: true,
         });
