@@ -70,6 +70,8 @@ const InserisciForm = ({ user }: PropsWithUser) => {
             <GridItem>
               <InputField name='maxPeople' label='Massimo persone' />
             </GridItem>
+            <GridItem colSpan={2}>TODO:section calendar</GridItem>
+            <GridItem colSpan={2}>TODO:section services</GridItem>
           </Grid>
           <Button
             label='Inserisci'
