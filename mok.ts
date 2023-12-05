@@ -7,8 +7,7 @@ export const fakeUser = {
 
 const fakeBoat = {
   name: 'Super boat',
-  image:
-    'https://www.unavitavistamare.com/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FOVR10jQXSze4HwfTVUFA&w=1920&q=75',
+  image: 'https://esea-app.s3.eu-west-2.amazonaws.com/barca-test.webp',
   maxPeople: 12,
 };
 export const event = {
