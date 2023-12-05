@@ -1,9 +1,8 @@
 import CardBarche from '@/components/Card/CardBarche';
 import GestioneLayout from '@/components/pages/Gestione/GestioneLayout';
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { GetSessionParams, getSession, useSession } from 'next-auth/react';
 import React from 'react';
-import BARCA_IMG from '@/assets/barca-test.webp';
 import PageTitle from '@/kit/Text/PageTitle';
 import Button from '@/kit/Button/Button';
 import { navigation } from '@/core/config/navigation';
@@ -15,12 +14,12 @@ import { useGestioneParametri } from '@/components/pages/Gestione/queries';
 
 const Barche = () => {
   const { data: session } = useSession();
-  const { loading, error, data } = useGestioneParametri({
+  const { data } = useGestioneParametri({
     email: session?.user?.email || '',
   });
 
   const { gestioneParametri } = data || {};
-  console.log({ loading, error, data });
+
   return (
     <GestioneLayout user={session?.user}>
       <PageTitle

@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
     images: {
-    domains: ['www.unavitavistamare.com'], // Just for test
+    domains: [ 'esea-app.s3.eu-west-2.amazonaws.com'],
   },
   // publicRuntimeConfig: {
   //   version,
