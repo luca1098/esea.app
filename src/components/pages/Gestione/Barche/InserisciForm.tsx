@@ -20,13 +20,13 @@ const InserisciForm = ({ user }: PropsWithUser) => {
     resolver: zodResolver(FormInserisciBarcaSchema),
   });
 
-  const [addbBoat, { loading }] = useAddBoat({ email: user?.email || '' });
+  const [addBoat, { loading }] = useAddBoat({ email: user?.email || '' });
 
   const onSubmit = async (values: FormInserisciBarca) => {
     setFileUploadLoading(true);
     const { path } = await uploadImage(values.image, `${user?.id}/boats`);
     setFileUploadLoading(false);
-    const { data, errors } = await addbBoat({
+    const { data, errors } = await addBoat({
       variables: {
         args: {
           name: values.name,

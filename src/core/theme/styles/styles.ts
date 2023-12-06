@@ -3,7 +3,7 @@ import { ThemeOverride } from '@chakra-ui/react';
 export const styles: ThemeOverride['styles'] = {
   global: {
     ':host,:root': {
-      '--esea-app-primary': '#3b9eb5', //'#41BBCC', //#158785
+      '--esea-app-primary': '#3b9eb5', //'#41BBCC', //#158785 //#0E2452
       '--esea-app-primary-dark': '#136B80',
       '--esea-app-black': '#2D3748',
       '--esea-app-gray': '#F7FAFC', //'#F8F9FA',

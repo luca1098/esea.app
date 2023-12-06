@@ -4,6 +4,7 @@ import {
   inputObjectType,
   nonNull,
   objectType,
+  stringArg,
 } from 'nexus';
 import { User } from './User';
 
@@ -22,7 +23,7 @@ export const Boat = objectType({
 export const AddBoat = extendType({
   type: 'Mutation',
   definition(t) {
-    t.field('boat', {
+    t.field('addBoat', {
       type: AddBoatResponse,
       args: { args: nonNull(AddBoatArgs) },
       resolve: addBoatResolver,
@@ -62,6 +63,45 @@ const addBoatResolver: FieldResolver<'Mutation', 'AddBoat'> = async (
   } catch (e: any) {
     return {
       error: true,
+      message: e.message,
+    };
+  }
+};
+
+export const RemoveBoat = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.field('deleteBoat', {
+      type: RemoveBoatResponse,
+      args: { id: nonNull(stringArg()) },
+      resolve: removeBoatResolver,
+    });
+  },
+});
+
+const RemoveBoatResponse = objectType({
+  name: 'removeBoatResponse',
+  definition(t) {
+    t.string('message'), t.boolean('valido');
+  },
+});
+
+const removeBoatResolver: FieldResolver<'Mutation', 'AddBoat'> = async (
+  _parents,
+  args,
+  ctx,
+) => {
+  try {
+    await ctx.prisma.boat.delete({
+      where: {
+        id: args.id,
+      },
+    });
+
+    return { valido: true, message: 'Barca eliminata con successo' };
+  } catch (e: any) {
+    return {
+      valido: false,
       message: e.message,
     };
   }

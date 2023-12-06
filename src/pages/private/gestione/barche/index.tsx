@@ -1,6 +1,6 @@
 import CardBarche from '@/components/Card/CardBarche';
 import GestioneLayout from '@/components/pages/Gestione/GestioneLayout';
-import { Flex } from '@chakra-ui/react';
+import { Flex, useToast } from '@chakra-ui/react';
 import { GetSessionParams, getSession, useSession } from 'next-auth/react';
 import React from 'react';
 import PageTitle from '@/kit/Text/PageTitle';
@@ -9,16 +9,42 @@ import { navigation } from '@/core/config/navigation';
 import apolloClient from '@/lib/apollo';
 import { gestioneParametriQuery } from '@/graphql/queries/gestione';
 import { CardBarcheProps } from '@/components/Card/types';
-import { useQuery } from '@apollo/client';
-import { useGestioneParametri } from '@/components/pages/Gestione/queries';
+import {
+  useGestioneParametri,
+  useRemoveBoat,
+} from '@/components/pages/Gestione/queries';
 
 const Barche = () => {
   const { data: session } = useSession();
+  const toast = useToast();
   const { data } = useGestioneParametri({
     email: session?.user?.email || '',
   });
 
+  const [removeBoat, { loading }] = useRemoveBoat({
+    email: session?.user?.email || '',
+  });
+
   const { gestioneParametri } = data || {};
+
+  const handleDelete = async (id: string) => {
+    const { data, errors } = await removeBoat({ variables: { boatId: id } });
+    if (errors || !data?.deleteBoat?.valido) {
+      toast({
+        title: 'Errore',
+        description: data?.deleteBoat?.message,
+        status: 'error',
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Successo',
+        description: data?.deleteBoat?.message,
+        status: 'success',
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <GestioneLayout user={session?.user}>
@@ -35,7 +61,14 @@ const Barche = () => {
       <Flex gap={2} flexWrap={'wrap'}>
         {gestioneParametri?.boats
           ? gestioneParametri?.boats?.map((boat: CardBarcheProps) => (
-              <CardBarche key={boat.id} name={boat.name} image={boat.image} />
+              <CardBarche
+                key={boat.id}
+                id={boat.id}
+                name={boat.name}
+                image={boat.image}
+                onDelete={handleDelete}
+                isDeleteLoading={loading}
+              />
             ))
           : 'inserisci la tua prima barca '}
       </Flex>

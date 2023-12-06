@@ -63,8 +63,6 @@ const FileUploader = ({
     maxSize,
   });
 
-  // console.log('val', { value });
-
   const renderChildred = () => {
     let msg = 'Clicca o trascina la tua immagine qui';
     if (value) {

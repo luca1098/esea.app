@@ -6,6 +6,7 @@ import {
   FaArrowRight as RightArrowIcon,
   FaArrowLeft as LeftArrowIcon,
 } from 'react-icons/fa';
+import { FaRegTrashCan as TrashIcon } from 'react-icons/fa6';
 import {
   IoStatsChartSharp as StatsIcon,
   IoArrowBack as BackIcon,
@@ -23,4 +24,5 @@ export {
   BackIcon,
   RightArrowIcon,
   LeftArrowIcon,
+  TrashIcon,
 };
