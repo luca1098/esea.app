@@ -19,9 +19,18 @@ export const event = {
   clienteId: 'client-id',
   skipperId: 'skipper-id',
 };
+export const event2 = {
+  from: 1701262809 * 1000,
+  to: 1701280809 * 1000,
+  id: 'event-1s21313sad',
+  boatId: 'boat-id',
+  titolo: 'Escursione con skipper',
+  clienteId: 'client-id',
+  skipperId: 'skipper-id',
+};
 
 export const fakeBoats = [
-  { ...fakeBoat, id: 'boat-id', events: [event] },
+  { ...fakeBoat, id: 'boat-id', events: [event, event2] },
   { ...fakeBoat, id: 'boat-id-2' },
   { ...fakeBoat, id: 'boat-id-3' },
 ];

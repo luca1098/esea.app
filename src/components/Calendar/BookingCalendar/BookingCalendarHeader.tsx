@@ -1,8 +1,9 @@
-import { Grid, GridItem, IconButton, Stack, Text } from '@chakra-ui/react';
+import { Grid, IconButton, Stack, Text } from '@chakra-ui/react';
 import { LeftArrowIcon, RightArrowIcon } from '@/kit/Icons/icons';
 import { ActionButton } from '@/kit/Button/ActionButton';
 import { CalendarView, viewButtons } from './utils';
 import { Dispatch, SetStateAction } from 'react';
+import { HeaderCell } from './components/HeaderCell';
 
 type BookingCalendarHeaderProps = {
   currentMontLabel?: string;
@@ -59,8 +60,8 @@ const BookingCalendarHeader = ({
       </Stack>
       <Stack>
         <Grid templateColumns='repeat(8, 1fr)'>
-          <GridItem>Barca</GridItem>
-          {weekDays?.map((day) => <GridItem key={day}>{day}</GridItem>)}
+          <HeaderCell>Barca</HeaderCell>
+          {weekDays?.map((day) => <HeaderCell key={day}>{day}</HeaderCell>)}
         </Grid>
       </Stack>
     </>

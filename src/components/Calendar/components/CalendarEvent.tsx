@@ -10,44 +10,37 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
+import { ellipsText } from '@/core/utils/normalize';
 
 const bgColors = [
   'red.100',
-  'red.200',
   'orange.100',
-  'orange.200',
   'yellow.100',
-  'yellow.200',
   'green.100',
-  'green.200',
   'teal.100',
-  'teal.200',
   'blue.100',
-  'blue.200',
   'cyan.100',
-  'cyan.200',
   'purple.100',
-  'purple.200',
   'pink.100',
-  'pink.200',
 ];
 
-const CalendarEvent = ({ id, from, to, titolo }: Event) => {
+type CalendarEventProps = {
+  index: number;
+} & Event;
+
+const CalendarEvent = ({ id, from, to, titolo, index }: CalendarEventProps) => {
   return (
     <Popover>
       <PopoverTrigger>
         <Box
           key={id}
-          bg={'orange.100'}
+          bg={bgColors[index] || 'orange.100'}
           rounded={'sm'}
           px={0.5}
           cursor={'pointer'}
         >
           <Text fontSize={'xs'} fontWeight={'bold'}>
-            {titolo}
-          </Text>
-          <Text fontSize={'xs'}>
-            {formatTime(from)} - {formatTime(to)}
+            {`${ellipsText(titolo, 5)} ${formatTime(from)} - ${formatTime(to)}`}
           </Text>
         </Box>
       </PopoverTrigger>

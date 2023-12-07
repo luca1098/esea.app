@@ -1,6 +1,6 @@
 import { Event } from '@/core/shared/types/event';
 import { formatTime } from '@/core/shared/utils/date';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Stack, Text } from '@chakra-ui/react';
 import CalendarEvent from '../../components/CalendarEvent';
 
 type CalendarCellProps = {
@@ -44,7 +44,9 @@ const CalendarCell = ({ day, isCurrent, events }: CalendarCellProps) => {
       >
         {day}
       </Text>
-      {events?.map((e) => <CalendarEvent key={e.id} {...e} />)}
+      <Stack gap={1}>
+        {events?.map((e, i) => <CalendarEvent key={e.id} {...e} index={i} />)}
+      </Stack>
     </Box>
   );
 };

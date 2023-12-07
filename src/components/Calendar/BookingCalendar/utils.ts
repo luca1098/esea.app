@@ -16,13 +16,13 @@ export const viewButtons: ViewButtonProps[] = [
 export const getDayEvents =
   (day: number, month: number, years: number) => (events: Event[]) => {
     const firteredEvents = events?.filter((e) => {
-      const formDate = new Date(e.from);
+      const fromDate = new Date(e.from);
       const toDate = new Date(e.to);
 
       return (
-        (formDate.getFullYear() === years || toDate.getFullYear() === years) &&
-        (formDate.getMonth() === month || toDate.getMonth() === month) &&
-        (formDate.getDate() === day || toDate.getDate() === day)
+        (fromDate.getFullYear() === years || toDate.getFullYear() === years) &&
+        (fromDate.getMonth() === month || toDate.getMonth() === month) &&
+        (fromDate.getDate() === day || toDate.getDate() === day)
       );
     });
     return firteredEvents;
