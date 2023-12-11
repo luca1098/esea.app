@@ -1,9 +1,12 @@
 import { ThemeOverride } from '@chakra-ui/react';
+import { dataPickerStyles } from './data-picker';
 
 export const styles: ThemeOverride['styles'] = {
   global: {
     ':host,:root': {
-      '--esea-app-primary': '#3b9eb5', //'#41BBCC', //#158785 //#0E2452
+      '--esea-app-primary': '#0E2452', //'#41BBCC', //#158785 //#0E2452
+      '--esea-app-blue': '#0E2452',
+      '--esea-app-blue-light': '#364d7d',
       '--esea-app-primary-dark': '#136B80',
       '--esea-app-black': '#2D3748',
       '--esea-app-gray': '#F7FAFC', //'#F8F9FA',
@@ -12,6 +15,9 @@ export const styles: ThemeOverride['styles'] = {
     html: {
       scrollBehavior: 'smooth',
       fontFamily: 'DM Sans, sans-serif',
+    },
+    body: {
+      ...dataPickerStyles,
     },
     ul: {
       margin: 0,

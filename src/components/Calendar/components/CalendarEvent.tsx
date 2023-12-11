@@ -10,7 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { ellipsText } from '@/core/utils/normalize';
+import { ellipsText } from '@/core/shared/utils/normalize';
 
 const bgColors = [
   'red.100',

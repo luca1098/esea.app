@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { FormInserisciBarca, FormInserisciBarcaSchema } from '../schemas';
+import { FormInserisciBarca, FormInserisciBarcaSchema } from './schemas';
 import InputField from '@/kit/Input/InputField';
 import Button from '@/kit/Button/Button';
 import { Box, Grid, GridItem, useToast } from '@chakra-ui/react';

@@ -20,12 +20,13 @@ const NavigationMenuItem = ({
         display={'flex'}
         gap={isMenuExpanded ? 2 : 0}
         alignItems={'center'}
-        {...(isActive
-          ? { bg: 'white', textColor: 'black', shadow: 'menu.item' }
-          : {})}
+        fontWeight={'normal'}
+        color={'white'}
+        {...(isActive ? { bg: 'esea.blueLight' } : {})}
       >
         <ListIcon
           as={icon}
+          m={0}
           {...(isActive
             ? { shadow: 'none', bg: 'esea.primary', color: 'white' }
             : { color: 'esea.primary' })}

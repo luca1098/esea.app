@@ -6,3 +6,7 @@ export const formatTime = (timestamp: Nullish<number>) => {
   if (typeof timestamp !== 'number') return '';
   return format(new Date(timestamp), getLocaleConfig().timeFormat);
 };
+export const formatDate = (timestamp: Nullish<number>) => {
+  if (typeof timestamp !== 'number') return '';
+  return format(new Date(timestamp), getLocaleConfig().dateFormat);
+};

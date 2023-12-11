@@ -5,6 +5,8 @@ export const colors: ThemeOverride['colors'] = {
     primary: 'var(--esea-app-primary)',
     gray: 'var(--esea-app-gray)',
     dark: 'var(--esea-app-primary-dark)',
+    blue: 'var(--esea-app-blue)',
+    blueLight: 'var(--esea-app-blue-light)',
   },
   black: 'var(--esea-app-black)',
   text: { gray: 'var(--esea-app-text-gray)' },

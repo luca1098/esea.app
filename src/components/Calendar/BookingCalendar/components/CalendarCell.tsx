@@ -1,5 +1,4 @@
 import { Event } from '@/core/shared/types/event';
-import { formatTime } from '@/core/shared/utils/date';
 import { Box, Stack, Text } from '@chakra-ui/react';
 import CalendarEvent from '../../components/CalendarEvent';
 

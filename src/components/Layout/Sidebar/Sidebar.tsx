@@ -3,6 +3,7 @@ import React from 'react';
 import NavigationMenu from './components/NavigationMenu';
 import { MenuItemProps } from '@/core/config/menu';
 import ExpandButton from './components/ExpandButton';
+import CompanyBox from './components/CompanyBox';
 
 type SidebarProps = {
   menu: MenuItemProps[];
@@ -15,7 +16,7 @@ const Sidebar = ({ menu }: SidebarProps) => {
     <Stack
       as='aside'
       w={isExpanded ? '30%' : 'auto'}
-      bg={'esea.gray'}
+      bg={'esea.primary'}
       h={'100vh'}
       maxW={'350px'}
       position={'sticky'}
@@ -25,7 +26,8 @@ const Sidebar = ({ menu }: SidebarProps) => {
       spacing={8}
     >
       <ExpandButton onClick={onToggle} isExpanded={isExpanded} />
-      <Heading>{isExpanded ? 'Esea.app' : 'E'}</Heading>
+      <Heading color={'white'}>{isExpanded ? 'Esea.app' : 'E'}</Heading>
+      <CompanyBox isExpandend={isExpanded} />
       <NavigationMenu menu={menu} isMenuExpanded={isExpanded} />
     </Stack>
   );

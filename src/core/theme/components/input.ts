@@ -38,8 +38,6 @@ export const inputBaseStyle: ComponentMultiStyleConfig['baseStyle'] =
     },
   });
 export const input = helpers.defineMultiStyleConfig({
-  // sizes: inputSizes,
-  // defaultProps: inputDefaultProps,
   baseStyle: inputBaseStyle,
   variants: inputVariants,
 });
