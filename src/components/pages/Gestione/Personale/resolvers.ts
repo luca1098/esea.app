@@ -16,7 +16,7 @@ export const nuovoPersonaleFormCustomResolver: Resolver<
   );
 
   const imageSizeErr =
-    values.image.size > DEFAULT_MAX_FILE_SIZE &&
+    values.image?.size > DEFAULT_MAX_FILE_SIZE &&
     'La dimenzione massima del file è di 3MB.';
 
   const imagTypeError =

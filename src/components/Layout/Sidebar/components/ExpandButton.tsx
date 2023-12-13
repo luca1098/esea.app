@@ -7,9 +7,10 @@ type ExpandButtonProps = {
 } & Omit<IconButtonProps, 'aria-label' | 'aria-expanded'>;
 
 const ExpandButton = forwardRef<HTMLButtonElement, ExpandButtonProps>(
-  ({ onClick, isExpanded }, ref) => {
+  ({ onClick, isExpanded, ...rest }, ref) => {
     return (
       <IconButton
+        {...rest}
         ref={ref}
         icon={<DoubleArrowDxIcon />}
         onClick={onClick}

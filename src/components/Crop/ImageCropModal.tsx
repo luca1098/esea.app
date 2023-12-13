@@ -82,7 +82,7 @@ const ImageCropModal = ({
                 onChange={setZoom}
                 value={zoom}
                 min={0.5}
-                max={10}
+                max={2}
                 step={0.01}
               />
               <Slider
