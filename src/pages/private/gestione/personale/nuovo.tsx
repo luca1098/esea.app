@@ -9,7 +9,7 @@ const Nuovo = () => {
   const { data: session } = useSession();
   return (
     <GestioneLayout user={session?.user}>
-      <PageTitle title='Aggiungi personale' endElement={<BackButton />} />
+      <PageTitle title='Aggiungi collaboratore' endElement={<BackButton />} />
       <ContentBox>
         <NuovoPersonaleForm />
       </ContentBox>

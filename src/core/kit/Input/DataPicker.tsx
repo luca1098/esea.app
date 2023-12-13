@@ -68,7 +68,6 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
         maxDate={maxDate}
         onChange={onDataChange}
         withPortal
-        onSelect={() => console.log('###', { ref: ref })}
         popperPlacement='bottom'
         excludeDates={excludeDates}
         customInput={

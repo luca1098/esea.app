@@ -6,6 +6,7 @@ import { input } from './input';
 import { heading } from './heading';
 import { card } from './card';
 import { select } from './select';
+import { avatar } from './avatar';
 
 export const components: ThemeOverride['components'] = {
   List: listItem,
@@ -15,4 +16,5 @@ export const components: ThemeOverride['components'] = {
   Select: select,
   Heading: heading,
   Card: card,
+  Avatar: avatar,
 };

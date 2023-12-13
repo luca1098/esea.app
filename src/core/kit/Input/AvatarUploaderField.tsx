@@ -1,10 +1,10 @@
 import FormField, { FormFieldProps } from '../Form/FormField';
-import FileUploader, { FileUploaderProps } from './FileUploader';
+import AvatarUploader, { AvatarUploaderProps } from './AvatarUploader';
 
 export type FileUploaderFieldProps = {
   name: string;
-  value?: FileUploaderProps['value'];
-} & Omit<FileUploaderProps, 'name' | 'onDrop' | 'value'> &
+  value?: AvatarUploaderProps['value'];
+} & Omit<AvatarUploaderProps, 'name' | 'onDrop' | 'value'> &
   Omit<FormFieldProps, 'renderField'>;
 
 const FileUploaderField = (props: FileUploaderFieldProps) => {
@@ -20,18 +20,14 @@ const FileUploaderField = (props: FileUploaderFieldProps) => {
 
         const { invalid, error } = fieldState;
         return (
-          <FileUploader
+          <AvatarUploader
             {...props}
             {...fieldRest}
             {...formState}
             isInvalid={invalid}
             errorMsg={error?.message}
             onChange={(f) => {
-              const isOneFile = props.maxFiles === 1;
-              const value =
-                isOneFile && f.target.files
-                  ? (f.target.files || [])[0]
-                  : f.target.files;
+              const value = (f.target.files || [])[0];
 
               onFieldChange(value);
               props.onChange && props.onChange(f);

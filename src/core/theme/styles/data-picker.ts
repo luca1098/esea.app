@@ -11,9 +11,14 @@ export const dataPickerStyles: SystemStyleObject = {
     border: '1px solid var(--esea-app-gray)',
     borderRadius: '.75rem',
     top: '3px',
+    px: '8',
+    py: '6',
   },
   '.react-datepicker-wrapper': {
     width: 'auto',
+  },
+  '.react-datepicker__year-select': {
+    fontSize: 'lg',
   },
   '.react-datepicker__header': {
     bgColor: 'white',
@@ -32,6 +37,8 @@ export const dataPickerStyles: SystemStyleObject = {
   '.react-datepicker__year-dropdown .react-datepicker__year-option:hover': {
     bgColor: 'vita.light',
   },
+  '.react-datepicker__navigation--previous': { top: 8, left: 4 },
+  '.react-datepicker__navigation--next': { top: 8, right: 4 },
   '.react-datepicker__navigation:hover *::before': {
     borderColor: 'esea.dark',
   },
