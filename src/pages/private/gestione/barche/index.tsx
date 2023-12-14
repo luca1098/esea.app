@@ -27,8 +27,10 @@ const Barche = () => {
 
   const { gestioneParametri } = data || {};
 
+  console.log({ cache: apolloClient.cache });
   const handleDelete = async (id: string) => {
     const { data, errors } = await removeBoat({ variables: { boatId: id } });
+
     if (errors || !data?.deleteBoat?.valido) {
       toast({
         title: 'Errore',

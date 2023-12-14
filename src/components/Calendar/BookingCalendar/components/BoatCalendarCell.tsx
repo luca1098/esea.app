@@ -8,10 +8,11 @@ type BoatCalendarCellProps = {
 
 const BoatCalendarCell = ({ boat }: BoatCalendarCellProps) => {
   return (
-    <Stack justifyContent={'center'} gap={2}>
+    <Stack justifyContent={'center'} alignItems={'center'}>
       <Box
         height={'50px'}
-        maxW={'50px'}
+        w={'50px'}
+        display={'block'}
         position={'relative'}
         overflow={'hidden'}
         rounded={'2xl'}

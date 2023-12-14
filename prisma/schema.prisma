@@ -65,6 +65,7 @@ maxPeople      Int?
 user           User?   @relation(fields: [userId], references: [id])
 unaviableSlots Slot[]  
 userId         String?
+events        Event[]
 }
 
 model Slot {
@@ -74,6 +75,18 @@ to     Float?
 boat   Boat?   @relation(fields: [boatId], references: [id])
 boatId String?
 }
+
+model Event {
+  id        String @id @unique @default(cuid())
+  titolo    String
+  from      Float?
+  to        Float?
+  boatId    String
+  clientId  String
+  skipperId String
+  boat   Boat?   @relation(fields: [boatId], references: [id])
+}
+
 enum Role {
   COLLABORATOR
   ADMIN

@@ -1,52 +1,88 @@
 import { Event } from '@/core/shared/types/event';
-import { Box, Stack, Text } from '@chakra-ui/react';
+import { Box, Popover, PopoverTrigger, Stack, Text } from '@chakra-ui/react';
 import CalendarEvent from '../../components/CalendarEvent';
+import CellPopperContent from './CellPopperContent';
 
-type CalendarCellProps = {
+export type CalendarCellProps = {
   day: number;
   isCurrent: boolean;
   events: Event[];
+  currentMontLabel: string;
+  onNuovoClick: () => void;
 };
-const CalendarCell = ({ day, isCurrent, events }: CalendarCellProps) => {
+
+const CalendarCell = ({
+  day,
+  isCurrent,
+  events,
+  currentMontLabel,
+  onNuovoClick,
+}: CalendarCellProps) => {
   const getBgColor = () => {
     if (isCurrent) return 'gray.50';
     return 'white';
   };
-
   return (
-    <Box
-      height={'100px'}
-      borderWidth={1}
-      bg={getBgColor()}
-      p={1}
-      cursor={'pointer'}
-    >
-      <Text
-        p={1}
-        fontSize={'sm'}
-        rounded={'full'}
-        w={'25px'}
-        h={'25px'}
-        display={'flex'}
-        alignItems={'center'}
-        justifyContent={'center'}
-        fontWeight={'bold'}
-        mb={1}
-        sx={
-          isCurrent
-            ? {
-                bg: 'esea.primary',
-                color: 'white',
-              }
-            : {}
-        }
-      >
-        {day}
-      </Text>
-      <Stack gap={1}>
-        {events?.map((e, i) => <CalendarEvent key={e.id} {...e} index={i} />)}
-      </Stack>
-    </Box>
+    <Popover>
+      {({ onClose }) => (
+        <>
+          <PopoverTrigger>
+            <Box
+              height={'100px'}
+              borderWidth={1}
+              bg={getBgColor()}
+              p={1}
+              cursor={'pointer'}
+              overflowY={'scroll'}
+              css={{
+                '&': {
+                  '-ms-overflow-style': 'none',
+                  'scrollbar-width': 'none',
+                },
+                '&::-webkit-scrollbar': {
+                  display: 'none',
+                },
+              }}
+            >
+              <Text
+                p={1}
+                fontSize={'sm'}
+                rounded={'full'}
+                w={'25px'}
+                h={'25px'}
+                display={'flex'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                fontWeight={'bold'}
+                mb={1}
+                sx={
+                  isCurrent
+                    ? {
+                        bg: 'esea.primary',
+                        color: 'white',
+                      }
+                    : {}
+                }
+              >
+                {day}
+              </Text>
+              <Stack gap={1}>
+                {events?.map((e, i) => (
+                  <CalendarEvent key={e.id} {...e} index={i} restricted />
+                ))}
+              </Stack>
+            </Box>
+          </PopoverTrigger>
+          <CellPopperContent
+            day={day}
+            currentMontLabel={currentMontLabel}
+            events={events}
+            onNuovoClick={onNuovoClick}
+            closePopover={onClose}
+          />
+        </>
+      )}
+    </Popover>
   );
 };
 

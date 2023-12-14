@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
 export type CalendarBoat = {
+  id: string;
   name: string;
   image: string;
-  events?: any; // todo
 };
 
 export const BoatSchema = z.object({

@@ -2,11 +2,13 @@ import {
   FieldResolver,
   extendType,
   inputObjectType,
+  list,
   nonNull,
   objectType,
   stringArg,
 } from 'nexus';
 import { User } from './User';
+import { Event } from './Events';
 
 export const Boat = objectType({
   name: 'Boat',
@@ -17,6 +19,7 @@ export const Boat = objectType({
     // t.field('services', {type:Service})
     // t.int('maxPeople');
     t.field('user', { type: User });
+    t.field('events', { type: list(Event) });
   },
 });
 

@@ -23,7 +23,11 @@ type BaseDataPicker = {
   id?: string;
 } & Pick<
   ReactDatePickerProps,
-  'excludeDates' | 'showYearDropdown' | 'wrapperClassName'
+  | 'excludeDates'
+  | 'showYearDropdown'
+  | 'wrapperClassName'
+  | 'withPortal'
+  | 'showTimeSelect'
 >;
 
 export type DataPickerProps = BaseDataPicker & Omit<InputProps, 'width'>;
@@ -41,6 +45,8 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
       placeholder,
       wrapperClassName,
       iconColor,
+      withPortal = true,
+      showTimeSelect,
       ...inputProps
     },
     ref,
@@ -67,9 +73,10 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
         minDate={minDate}
         maxDate={maxDate}
         onChange={onDataChange}
-        withPortal
+        withPortal={withPortal}
         popperPlacement='bottom'
         excludeDates={excludeDates}
+        showTimeSelect={showTimeSelect}
         customInput={
           <Input
             {...inputProps}

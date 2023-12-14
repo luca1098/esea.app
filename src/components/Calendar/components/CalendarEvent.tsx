@@ -1,14 +1,6 @@
-import { Event } from '@/core/shared/types/event';
+import { Event as EventProps } from '@/core/shared/types/event';
 import { formatTime } from '@/core/shared/utils/date';
-import Button from '@/kit/Button/Button';
-import {
-  Box,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 import { ellipsText } from '@/core/shared/utils/normalize';
 
@@ -26,37 +18,58 @@ const bgColors = [
 
 type CalendarEventProps = {
   index: number;
-} & Event;
+  restricted?: boolean;
+} & EventProps;
 
-const CalendarEvent = ({ id, from, to, titolo, index }: CalendarEventProps) => {
+const CalendarEvent = ({
+  id,
+  from,
+  to,
+  titolo,
+  index,
+  restricted,
+}: CalendarEventProps) => {
   return (
-    <Popover>
-      <PopoverTrigger>
-        <Box
-          key={id}
-          bg={bgColors[index] || 'orange.100'}
-          rounded={'sm'}
-          px={0.5}
-          cursor={'pointer'}
-        >
-          <Text fontSize={'xs'} fontWeight={'bold'}>
-            {`${ellipsText(titolo, 5)} ${formatTime(from)} - ${formatTime(to)}`}
-          </Text>
-        </Box>
-      </PopoverTrigger>
-      <PopoverContent p={6}>
-        <Stack gap={2}>
-          <Box>
-            <Text fontWeight={700}>{titolo}</Text>
-            <Text fontSize={'sm'}>
-              {formatTime(from)} - {formatTime(to)}
-            </Text>
-          </Box>
-          <Button label='Vai alla prenotazione' />
-        </Stack>
-      </PopoverContent>
-    </Popover>
+    <Box
+      key={id}
+      bg={bgColors[index] || 'orange.100'}
+      rounded={'sm'}
+      px={0.5}
+      cursor={'pointer'}
+    >
+      <Text fontSize={'xs'} fontWeight={'bold'}>
+        {restricted ? (
+          <RestrictedEvent titolo={titolo} from={from} to={to} />
+        ) : (
+          <Event titolo={titolo} from={from} to={to} />
+        )}
+      </Text>
+    </Box>
   );
 };
 
 export default CalendarEvent;
+
+const RestrictedEvent = ({
+  titolo,
+  from,
+  to,
+}: Pick<EventProps, 'titolo' | 'from' | 'to'>) => (
+  <Text fontSize={'xs'} fontWeight={'bold'}>
+    {`${ellipsText(titolo, 5)} ${formatTime(from)} - ${formatTime(to)}`}
+  </Text>
+);
+const Event = ({
+  titolo,
+  from,
+  to,
+}: Pick<EventProps, 'titolo' | 'from' | 'to'>) => (
+  <>
+    <Text fontSize={'xs'} fontWeight={'bold'}>
+      {titolo}
+    </Text>
+    <Text>
+      {formatTime(from)} - {formatTime(to)}`
+    </Text>
+  </>
+);

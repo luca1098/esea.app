@@ -4,13 +4,20 @@ import BookingCalendarHeader from './BookingCalendarHeader';
 import useCalendar from './useCalendar';
 import { useState } from 'react';
 import { CalendarView } from './utils';
-import { fakeBoats } from 'mok';
+import { CalendarBoat } from '@/core/shared/types/barca';
 
-const BookingCalendar = () => {
+type BookingCalendarProps = {
+  boats: CalendarBoat[];
+  openCreateEventDrawer: () => void;
+};
+
+const BookingCalendar = ({
+  boats,
+  openCreateEventDrawer,
+}: BookingCalendarProps) => {
   const {
     currentMontLabel,
     currentYear,
-    currentMont,
     weekDays,
     daysInWeek,
     onNext,
@@ -29,13 +36,15 @@ const BookingCalendar = () => {
         onNext={onNext}
         onPrev={onPrev}
       />
-      {fakeBoats?.map((b) => (
+      {boats?.map((b) => (
         <BookingCalendarBody
           key={b.id}
           days={daysInWeek}
           view={view}
           boat={b}
           currentYear={currentYear}
+          currentMontLabel={currentMontLabel}
+          openCreateEventDrawer={openCreateEventDrawer}
         />
       ))}
     </Box>

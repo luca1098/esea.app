@@ -13,8 +13,8 @@ const fakeBoat = {
   maxPeople: 12,
 };
 export const event = {
-  from: 1701241200 * 1000,
-  to: 1701255600 * 1000,
+  from: 1701241200000,
+  to: 1701255600000,
   id: 'event-1s21313sad',
   boatId: 'boat-id',
   titolo: 'Escursione con skipper',
@@ -24,7 +24,7 @@ export const event = {
 export const event2 = {
   from: 1701262809 * 1000,
   to: 1701280809 * 1000,
-  id: 'event-1s21313sad',
+  id: 'event-1s213131sad',
   boatId: 'boat-id',
   titolo: 'Escursione con skipper',
   clienteId: 'client-id',
