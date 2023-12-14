@@ -8,7 +8,7 @@ const UserPannelActions = () => {
   const { asPath } = useRouter();
   const [path] = asPath.split('?');
   return (
-    <Flex gap={2}>
+    <Flex gap={2} direction={{ base: 'column', md: 'row' }}>
       {userPannelActions.map((a, i) => (
         <ActionButton key={i} {...a} isActive={path === a.href} />
       ))}

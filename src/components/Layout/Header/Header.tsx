@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import SigninButton from './components/SigninButton';
 import { PropsWithUser } from '@/core/shared/types/user';
 import SettingsMenu from '../Sidebar/components/SettingsMenu';
-import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import { SidebarContext } from '../PrivateLayout';
 import { BurgerIcon } from '@/kit/Icons/icons';
 
@@ -13,8 +12,8 @@ const Header = ({ user }: HeaderProps) => {
   const { onMobileOpen, onExpandedOpen } = useContext(SidebarContext);
 
   return (
-    <>
-      <Box as={'header'} py={2} px={4} boxShadow={'menu.item'} bg={'white'}>
+    <Box as={'header'} py={2} px={4} boxShadow={'menu.item'} bg={'white'}>
+      <Container>
         <Flex
           alignItems={'center'}
           justifyContent={{ base: 'space-between', lg: 'flex-end' }}
@@ -30,9 +29,8 @@ const Header = ({ user }: HeaderProps) => {
           />
           <Box>{user ? <SettingsMenu user={user} /> : <SigninButton />}</Box>
         </Flex>
-      </Box>
-      <Breadcrumb />
-    </>
+      </Container>
+    </Box>
   );
 };
 

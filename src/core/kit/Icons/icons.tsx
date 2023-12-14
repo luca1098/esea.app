@@ -15,6 +15,10 @@ import {
 import { SiGoogledocs as DocsIcon } from 'react-icons/si';
 import { RxDoubleArrowRight as DoubleArrowDxIcon } from 'react-icons/rx';
 import { GiHamburgerMenu as BurgerIcon } from 'react-icons/gi';
+import {
+  IoMdNotifications as NotificationIcon,
+  IoMdSettings as SettingsIcon,
+} from 'react-icons/io';
 export {
   CalendarIcon,
   HomeIcon,
@@ -29,4 +33,6 @@ export {
   TrashIcon,
   CameraIcon,
   BurgerIcon,
+  NotificationIcon,
+  SettingsIcon,
 };

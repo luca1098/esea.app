@@ -16,16 +16,21 @@ const UserBox = ({ user, endComponent }: UserBoxProps) => {
       zIndex={2}
       position={'relative'}
       display='flex'
+      flexDir={{ base: 'column', md: 'row' }}
       alignItems={'center'}
-      justifyContent={'space-between'}
+      justifyContent={{ base: 'center', md: 'space-between' }}
     >
-      <Flex gap={4} alignItems={'center'}>
+      <Flex
+        gap={4}
+        alignItems={'center'}
+        direction={{ base: 'column', md: 'row' }}
+      >
         <Avatar
           src={user?.image ?? undefined}
           name={user?.name ?? ''}
           size={'xl'}
         />
-        <Box>
+        <Box textAlign={{ base: 'center', md: 'left' }}>
           <Badge colorScheme='cyan'>{user?.role}</Badge>
           <Text fontSize={'xl'} fontWeight={'bold'} color={'black'}>
             {user?.name}

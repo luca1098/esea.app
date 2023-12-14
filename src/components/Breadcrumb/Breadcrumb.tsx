@@ -14,7 +14,7 @@ const Breadcrumb = () => {
   }
 
   return (
-    <ChakraBreadcrumb>
+    <ChakraBreadcrumb py={4}>
       {rest.map((routes, index) => (
         <BreadcrumbItem
           key={index}

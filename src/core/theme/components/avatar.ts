@@ -21,6 +21,9 @@ const baseStyle: ComponentMultiStyleConfig['baseStyle'] =
         borderRadius: 'none',
       },
     },
+    excessLabel: {
+      borderRadius: '2xl',
+    },
   });
 
 const sizes: ComponentMultiStyleConfig['sizes'] = defineStyle({

@@ -34,7 +34,9 @@ export const event2 = {
 export const fakeBoats = [
   { ...fakeBoat, id: 'boat-id', events: [event, event2] },
   { ...fakeBoat, id: 'boat-id-2' },
+  { ...fakeBoat, id: 'boat-id-4' },
   { ...fakeBoat, id: 'boat-id-3' },
+  { ...fakeBoat, id: 'boat-id-8' },
 ];
 
 export const personaleMok: PersonaleProps[] = [
@@ -50,6 +52,24 @@ export const personaleMok: PersonaleProps[] = [
   {
     id: 'pers-2',
     name: 'Maurizio costanzo',
+    image: '',
+    salary: 80,
+    birthday: 787104000 * 1000,
+    role: 'SKIPPER',
+    salaryType: 'DAY',
+  },
+  {
+    id: 'pers-3',
+    name: 'Luigi cozza',
+    image: '',
+    salary: 80,
+    birthday: 787104000 * 1000,
+    role: 'SKIPPER',
+    salaryType: 'DAY',
+  },
+  {
+    id: 'pers-5',
+    name: 'Andrea mucca',
     image: '',
     salary: 80,
     birthday: 787104000 * 1000,

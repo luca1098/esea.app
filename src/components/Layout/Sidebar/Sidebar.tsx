@@ -1,10 +1,18 @@
-import { CloseButton, Heading, Stack, useDisclosure } from '@chakra-ui/react';
+import {
+  CloseButton,
+  Heading,
+  Stack,
+  useDisclosure,
+  useMediaQuery,
+} from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import NavigationMenu from './components/NavigationMenu';
 import { MenuItemProps } from '@/core/config/menu';
 import ExpandButton from './components/ExpandButton';
 import CompanyBox from './components/CompanyBox';
 import { SidebarContext } from '../PrivateLayout';
+import { breakpoint } from '@/core/theme/utils';
+import { scrollToTop } from '@/core/shared/utils/helpers';
 
 type SidebarProps = {
   menu: MenuItemProps[];
@@ -13,6 +21,9 @@ const Sidebar = ({ menu }: SidebarProps) => {
   const { isMobileOpen, isExpanded, onMobileClose, onExpandedToggle } =
     useContext(SidebarContext);
 
+  const [isMobile] = useMediaQuery(`(max-width: ${breakpoint.lg})`);
+
+  const espanded = isMobile || isExpanded;
   return (
     <>
       <Stack
@@ -21,21 +32,21 @@ const Sidebar = ({ menu }: SidebarProps) => {
           base: '100%',
           lg: isExpanded ? '30%' : 'auto',
         }}
-        overflow={'hidden'}
+        overflow={{ base: 'hidden', lg: 'visible' }}
         bg={'esea.primary'}
-        h={'100vh'}
+        h={{ base: '100%', lg: '100vh' }}
         maxW={{ lg: '350px' }}
         position={{ base: 'fixed', lg: 'sticky' }}
         top={0}
         left={isMobileOpen ? 0 : '-100%'}
         padding={{ base: isMobileOpen ? 8 : 0, lg: 8 }}
         spacing={8}
-        zIndex={10}
+        zIndex={'sticky'}
         transition={'all .2s ease-in-out'}
       >
         <ExpandButton
           onClick={onExpandedToggle}
-          isExpanded={isExpanded}
+          isExpanded={espanded}
           hideBelow={'lg'}
         />
         <CloseButton
@@ -46,9 +57,20 @@ const Sidebar = ({ menu }: SidebarProps) => {
           right={4}
           hideFrom={'lg'}
         />
-        <Heading color={'white'}>{isExpanded ? 'Esea.app' : 'E'}</Heading>
-        <CompanyBox isExpandend={isExpanded} />
-        <NavigationMenu menu={menu} isMenuExpanded={isExpanded} />
+        <Heading color={'white'}>{espanded ? 'Esea.app' : 'E'}</Heading>
+        <CompanyBox isExpandend={espanded} />
+        <NavigationMenu
+          menu={menu}
+          isMenuExpanded={espanded}
+          closeSidebar={
+            isMobile
+              ? () => {
+                  onMobileClose();
+                  scrollToTop();
+                }
+              : () => null
+          }
+        />
       </Stack>
     </>
   );

@@ -8,8 +8,13 @@ import { getNormalizedPath } from '../utils';
 type NavigationMenuProps = {
   menu: MenuItemProps[];
   isMenuExpanded: boolean;
+  closeSidebar: () => void;
 };
-const NavigationMenu = ({ menu, isMenuExpanded }: NavigationMenuProps) => {
+const NavigationMenu = ({
+  menu,
+  isMenuExpanded,
+  closeSidebar,
+}: NavigationMenuProps) => {
   const { asPath } = useRouter();
   const currentpath = getNormalizedPath(asPath);
   return (
@@ -22,6 +27,7 @@ const NavigationMenu = ({ menu, isMenuExpanded }: NavigationMenuProps) => {
         <NavigationMenuItem
           key={item.id}
           isMenuExpanded={isMenuExpanded}
+          onClick={closeSidebar}
           {...item}
           isActive={currentpath.includes(item.path)}
         />
