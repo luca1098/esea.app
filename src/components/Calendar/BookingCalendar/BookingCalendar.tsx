@@ -2,18 +2,21 @@ import { Box } from '@chakra-ui/react';
 import BookingCalendarBody from './BookingCalendarBody';
 import BookingCalendarHeader from './BookingCalendarHeader';
 import useCalendar from './useCalendar';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { CalendarView } from './utils';
-import { CalendarBoat } from '@/core/shared/types/barca';
+import { BoatProps } from '@/core/shared/types/barca';
+import { Nullish } from '@/core/shared/types/utils';
 
 type BookingCalendarProps = {
-  boats: CalendarBoat[];
-  openCreateEventDrawer: () => void;
+  boats: BoatProps[];
+  setSelectedBoat: Dispatch<SetStateAction<Nullish<BoatProps>>>;
+  setSelectedDataFrom: Dispatch<SetStateAction<Nullish<Date>>>;
 };
 
 const BookingCalendar = ({
   boats,
-  openCreateEventDrawer,
+  setSelectedBoat,
+  setSelectedDataFrom,
 }: BookingCalendarProps) => {
   const {
     currentMontLabel,
@@ -44,7 +47,8 @@ const BookingCalendar = ({
           boat={b}
           currentYear={currentYear}
           currentMontLabel={currentMontLabel}
-          openCreateEventDrawer={openCreateEventDrawer}
+          setSelectedBoat={setSelectedBoat}
+          setSelectedDataFrom={setSelectedDataFrom}
         />
       ))}
     </Box>

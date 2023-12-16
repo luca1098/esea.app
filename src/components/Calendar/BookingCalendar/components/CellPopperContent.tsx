@@ -9,6 +9,7 @@ import {
 import Button from '@/kit/Button/Button';
 import { CalendarCellProps } from './CalendarCell';
 import CalendarEvent from '../../components/CalendarEvent';
+import EmptyBox from '@/components/Empty/EmptyBox';
 
 type CellPopperContentProps = { closePopover: () => void } & Pick<
   CalendarCellProps,
@@ -22,6 +23,7 @@ const CellPopperContent = ({
   onNuovoClick,
   closePopover,
 }: CellPopperContentProps) => {
+  console.log('###', day);
   return (
     <PopoverContent>
       <PopoverHeader fontWeight='semibold'>{`${day} ${currentMontLabel}`}</PopoverHeader>
@@ -31,7 +33,7 @@ const CellPopperContent = ({
         {events?.length > 0 ? (
           events?.map((e, i) => <CalendarEvent key={e.id} {...e} index={i} />)
         ) : (
-          <p>Ancora nessun evento in programma (TODO cambiare)</p>
+          <EmptyBox msg='Ancora nessun evento in programma' />
         )}
       </PopoverBody>
       <PopoverFooter>

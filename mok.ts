@@ -7,10 +7,24 @@ export const fakeUser = {
   id: 'mok-1',
 };
 
+export const serviziMok = [
+  {
+    id: 'service-1',
+    label: 'Escursione ai delfini',
+    key: 'escursione-delfini',
+  },
+  {
+    id: 'service-2',
+    label: 'Noleggio con skipper ',
+    kay: 'noleggio-skipper',
+  },
+];
+
 const fakeBoat = {
   name: 'Super boat',
   image: 'https://esea-app.s3.eu-west-2.amazonaws.com/barca-test.webp',
   maxPeople: 12,
+  services: serviziMok,
 };
 export const event = {
   from: 1701241200000,
@@ -32,7 +46,7 @@ export const event2 = {
 };
 
 export const fakeBoats = [
-  { ...fakeBoat, id: 'boat-id', events: [event, event2] },
+  { ...fakeBoat, id: 'boat-id' },
   { ...fakeBoat, id: 'boat-id-2' },
   { ...fakeBoat, id: 'boat-id-4' },
   { ...fakeBoat, id: 'boat-id-3' },

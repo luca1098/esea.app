@@ -94,7 +94,24 @@ export const dataPickerStyles: SystemStyleObject = {
     bgColor: 'esea.dark',
     borderRadius: 'full',
   },
+  '.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected':
+    {
+      bgColor: 'esea.primary',
+    },
+  '.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected:hover':
+    {
+      bgColor: 'esea.blueLight',
+    },
   '.esea-dp-base': {
     width: '100%',
+  },
+  '.esea-event-calendar': {
+    display: 'flex',
+    boxShadow: 'card',
+    border: '1px solid',
+    p: 4,
+    borderColor: 'gray.200',
+    '.react-datepicker__navigation--previous': { top: 4, left: 4 },
+    '.react-datepicker__navigation--next': { top: 4, right: 24 },
   },
 };

@@ -5,5 +5,5 @@ export type Event = {
   boatId: string;
   titolo: string;
   clienteId: string;
-  people?: 8;
+  people?: number;
 };

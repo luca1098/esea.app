@@ -4,12 +4,16 @@ import ReactDataPicker, {
 } from 'react-datepicker';
 import { useRouter } from 'next/router';
 import { ChangeEvent, forwardRef, useEffect } from 'react';
-import { registerDataPickerConfig } from '@/core/utils/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Icon, IconProps } from '@chakra-ui/react';
 import { LocalesProps } from '@/core/shared/types/locale';
 import { CalendarIcon } from '../Icons/icons';
 import Input, { InputProps } from './Input';
+import {
+  LocaleConfig,
+  getLocaleConfig,
+  registerDataPickerConfig,
+} from '@/core/shared/utils/localeConfig';
 
 type BaseDataPicker = {
   selectDate: Date | null;
@@ -28,6 +32,12 @@ type BaseDataPicker = {
   | 'wrapperClassName'
   | 'withPortal'
   | 'showTimeSelect'
+  | 'popperClassName'
+  | 'calendarClassName'
+  | 'excludeTimes'
+  | 'excludeDateIntervals'
+  | 'filterTime'
+  | 'minTime'
 >;
 
 export type DataPickerProps = BaseDataPicker & Omit<InputProps, 'width'>;
@@ -44,9 +54,15 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
       excludeDates,
       placeholder,
       wrapperClassName,
+      popperClassName,
       iconColor,
       withPortal = true,
       showTimeSelect,
+      calendarClassName,
+      excludeTimes,
+      excludeDateIntervals,
+      minTime,
+      filterTime,
       ...inputProps
     },
     ref,
@@ -60,6 +76,10 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
       );
     }, [locale]);
 
+    const dataFormat = getLocaleConfig(locale as LocalesProps).dateFormat;
+    const dataTimeFormat = getLocaleConfig(
+      locale as LocalesProps,
+    ).dateTimeFormat;
     return (
       <ReactDataPicker
         locale={locale}
@@ -69,14 +89,20 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
         wrapperClassName={`${wrapperClassName} esea-dp-base`}
         showYearDropdown={showYearDropdown}
         dropdownMode='select'
-        dateFormat={'dd/MM/yyyy'}
+        dateFormat={showTimeSelect ? dataTimeFormat : dataFormat}
         minDate={minDate}
         maxDate={maxDate}
         onChange={onDataChange}
+        popperClassName={popperClassName}
         withPortal={withPortal}
+        excludeDateIntervals={excludeDateIntervals}
+        calendarClassName={calendarClassName}
+        timeCaption='Ora'
+        excludeTimes={excludeTimes}
         popperPlacement='bottom'
         excludeDates={excludeDates}
         showTimeSelect={showTimeSelect}
+        filterTime={filterTime}
         customInput={
           <Input
             {...inputProps}

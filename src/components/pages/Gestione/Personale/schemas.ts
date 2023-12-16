@@ -1,12 +1,11 @@
 import { z } from 'zod';
 import {
+  PersonaleBaseSchema,
   PersonaleRoleSchema,
   PersonaleSalaryLiteralSchema,
 } from '@/core/shared/types/personale';
 
-export const PersonaleSchema = z.object({
-  id: z.string(),
-  name: z.string(),
+export const PersonaleSchema = PersonaleBaseSchema.extend({
   image: z.string().nullish(),
   salary: z.number(),
   birthday: z.number(),

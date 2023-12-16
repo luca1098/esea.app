@@ -7,7 +7,7 @@ import { Grid, GridItem, Heading, Stack } from '@chakra-ui/react';
 import AziendaBox from '@/components/pages/Gestione/Overview/AziendaBox';
 import ProfiloBox from '@/components/pages/Gestione/Overview/ProfiloBox';
 import { CompanyProps } from '@/core/shared/types/company';
-import { fakeBoats, personaleMok } from 'mok';
+import { personaleMok } from 'mok';
 import { UserExtended } from '@/core/shared/types/user';
 
 const user: UserExtended = {
@@ -26,7 +26,7 @@ const companyMok: CompanyProps = {
   name: 'Unavitavistamare',
   id: 'unas-12312x',
   employees: personaleMok.map(({ id, image, name }) => ({ id, image, name })),
-  boats: fakeBoats,
+  boats: [],
   owner: {
     id: 'ownber-id',
     name: 'Luca La Marca',
