@@ -11,7 +11,7 @@ export const formatDate = (timestamp: Nullish<number>) => {
   return format(new Date(timestamp), getLocaleConfig().dateFormat);
 };
 export const dateToTimestamp = (date: Nullish<Date>) => {
-  if (!date || typeof date !== 'object') return '';
+  if (!date || typeof date !== 'object') return null;
   return Math.floor(date.getTime());
 };
 

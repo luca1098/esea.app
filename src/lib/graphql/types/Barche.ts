@@ -9,6 +9,7 @@ import {
 } from 'nexus';
 import { User } from './User';
 import { Event } from './Events';
+import { Service } from './Services';
 
 export const Boat = objectType({
   name: 'Boat',
@@ -16,10 +17,10 @@ export const Boat = objectType({
     t.string('id');
     t.string('name');
     t.string('image');
-    // t.field('services', {type:Service})
     // t.int('maxPeople');
     t.field('user', { type: User });
     t.field('events', { type: list(Event) });
+    t.field('services', { type: list(Service) });
   },
 });
 

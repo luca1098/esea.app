@@ -42,6 +42,9 @@ const BookingCalendarBody = ({
     setSelectedBoat(boat);
     setSelectedDataFrom(selectedDate);
   };
+
+  console.log('###', { b: boatEvents });
+
   return (
     <Grid templateColumns='repeat(8, 1fr)'>
       <HeaderCell borderWidth={1} borderColor={'gray.100'}>

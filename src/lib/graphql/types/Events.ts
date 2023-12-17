@@ -1,15 +1,24 @@
-import { extendType, nonNull, objectType, stringArg } from 'nexus';
+import {
+  FieldResolver,
+  extendType,
+  inputObjectType,
+  nonNull,
+  objectType,
+  stringArg,
+} from 'nexus';
 import { Boat } from './Barche';
 
 export const Event = objectType({
   name: 'Event',
   definition(t) {
     t.string('id');
-    t.string('titolo');
+    t.string('serviceSlug');
     t.float('from');
     t.float('to');
+    t.int('people');
     t.string('boatId');
     t.string('clientId');
+    t.string('note');
     t.string('skipperId');
     t.field('boat', { type: Boat });
   },
@@ -42,3 +51,56 @@ export const GetBoatEvents = extendType({
     });
   },
 });
+
+export const CreateEvents = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.field('createEvents', {
+      type: CreateEventsResponse,
+      args: { args: nonNull(CreateEventsArgs) },
+      resolve: createEventResolver,
+    });
+  },
+});
+
+const CreateEventsResponse = objectType({
+  name: 'createEventsResponse',
+  definition(t) {
+    t.string('message'), t.boolean('valido');
+  },
+});
+
+const CreateEventsArgs = inputObjectType({
+  name: 'createEventsArgs',
+  definition(t) {
+    t.nonNull.string('serviceSlug'),
+      t.nonNull.float('from'),
+      t.float('to'),
+      t.int('people');
+    t.nonNull.string('boatId');
+    t.string('clientId');
+    t.string('skipperId');
+    t.string('note');
+  },
+});
+
+const createEventResolver: FieldResolver<'Mutation', 'CreateEvents'> = async (
+  _parents,
+  args,
+  ctx,
+) => {
+  try {
+    await ctx.prisma.event.create({
+      data: {
+        ...args.args,
+      },
+    });
+
+    return { valido: true, message: 'Evento aggiunto con con successo' };
+  } catch (e: any) {
+    return {
+      valido: false,
+      message: e.message,
+    };
+  }
+};

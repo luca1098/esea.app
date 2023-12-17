@@ -1,3 +1,4 @@
+import { Nullish } from '@/core/shared/types/utils';
 import { z } from 'zod';
 
 export const NuovoEventoFormSchema = z.object({
@@ -11,5 +12,16 @@ export const NuovoEventoFormSchema = z.object({
   skipper: z.string().nullish(),
   note: z.string().nullish(),
 });
+
+export type AddEventsArgs = {
+  serviceSlug: string;
+  from: number;
+  to: number;
+  people: Nullish<number>;
+  boatId: string;
+  clientId: Nullish<string>;
+  skipperId: Nullish<string>;
+  note?: Nullish<string>;
+};
 
 export type NuovoEventoFormProps = z.infer<typeof NuovoEventoFormSchema>;

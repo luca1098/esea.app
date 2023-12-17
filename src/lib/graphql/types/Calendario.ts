@@ -12,7 +12,7 @@ export const CalendarioParametri = extendType({
       resolve(_parents, args, ctx) {
         return ctx.prisma.user.findUnique({
           where: { email: args.email },
-          include: { boats: true },
+          include: { boats: { include: { services: true } } },
         });
       },
     });

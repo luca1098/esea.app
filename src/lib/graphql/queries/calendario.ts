@@ -7,6 +7,11 @@ export const calendarioParametriQuery = gql`
         id
         image
         name
+        services {
+          id
+          label
+          slug
+        }
       }
     }
   }

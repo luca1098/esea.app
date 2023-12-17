@@ -25,7 +25,7 @@ const CalendarEvent = ({
   id,
   from,
   to,
-  titolo,
+  serviceSlug,
   index,
   restricted,
 }: CalendarEventProps) => {
@@ -39,9 +39,9 @@ const CalendarEvent = ({
     >
       <Text fontSize={'xs'} fontWeight={'bold'}>
         {restricted ? (
-          <RestrictedEvent titolo={titolo} from={from} to={to} />
+          <RestrictedEvent titolo={serviceSlug} from={from} to={to} />
         ) : (
-          <Event titolo={titolo} from={from} to={to} />
+          <Event titolo={serviceSlug} from={from} to={to} />
         )}
       </Text>
     </Box>
@@ -50,20 +50,16 @@ const CalendarEvent = ({
 
 export default CalendarEvent;
 
-const RestrictedEvent = ({
-  titolo,
-  from,
-  to,
-}: Pick<EventProps, 'titolo' | 'from' | 'to'>) => (
+type EventComponentProps = {
+  titolo: string;
+} & Pick<EventProps, 'from' | 'to'>;
+
+const RestrictedEvent = ({ titolo, from, to }: EventComponentProps) => (
   <Text fontSize={'xs'} fontWeight={'bold'}>
     {`${ellipsText(titolo, 5)} ${formatTime(from)} - ${formatTime(to)}`}
   </Text>
 );
-const Event = ({
-  titolo,
-  from,
-  to,
-}: Pick<EventProps, 'titolo' | 'from' | 'to'>) => (
+const Event = ({ titolo, from, to }: EventComponentProps) => (
   <>
     <Text fontSize={'xs'} fontWeight={'bold'}>
       {titolo}

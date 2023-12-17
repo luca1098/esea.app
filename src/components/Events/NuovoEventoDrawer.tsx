@@ -1,6 +1,6 @@
 import { BoatProps } from '@/core/shared/types/barca';
 import { PersonaleBaseProps } from '@/core/shared/types/personale';
-import { ServiceProps } from '@/core/shared/types/services';
+import { EseaResponse, ServiceProps } from '@/core/shared/types/services';
 import { Nullish } from '@/core/shared/types/utils';
 import { dateToTimestamp, filterTimeByHours } from '@/core/shared/utils/date';
 import Button from '@/kit/Button/Button';
@@ -24,16 +24,18 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Image from 'next/image';
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-import { FormProvider, useForm, useWatch } from 'react-hook-form';
-import { NuovoEventoFormProps, NuovoEventoFormSchema } from './schemas';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect, useRef } from 'react';
+import { FormProvider, UseFormReturn, useWatch } from 'react-hook-form';
+import { NuovoEventoFormProps } from './schemas';
+import { serviziMok } from 'mok';
 
 type NuovoEventoDrawerProps = {
   selectedDate: Nullish<Date>;
   selectedBoat: Nullish<BoatProps>;
-  setSelectedBoat: Dispatch<SetStateAction<Nullish<BoatProps>>>;
   personale: PersonaleBaseProps[];
+  isLoading: boolean;
+  methods: UseFormReturn<NuovoEventoFormProps>;
+  onCreate: (values: NuovoEventoFormProps) => void;
 } & Pick<DrawerProps, 'isOpen' | 'onClose'>;
 
 const NuovoEventoDrawer = ({
@@ -41,12 +43,12 @@ const NuovoEventoDrawer = ({
   selectedBoat,
   personale,
   isOpen,
+  isLoading,
+  methods,
   onClose,
+  onCreate,
 }: NuovoEventoDrawerProps) => {
   const firstField = useRef<HTMLInputElement>(null);
-  const methods = useForm<NuovoEventoFormProps>({
-    resolver: zodResolver(NuovoEventoFormSchema),
-  });
 
   const dataFrom = useWatch({ control: methods.control, name: 'from' });
 
@@ -56,23 +58,6 @@ const NuovoEventoDrawer = ({
       methods.setValue('to', selectedDate); // da cambiare
     }
   }, [isOpen, selectedDate, methods]);
-
-  const onSubmit = (values: NuovoEventoFormProps) => {
-    console.log({ values });
-
-    // createClient
-
-    const payload = {
-      serviceId: values.service,
-      titolo: values.service,
-      from: dateToTimestamp(values.from),
-      to: dateToTimestamp(values.to),
-      skipperId: values.skipper,
-      boatId: selectedBoat?.id,
-      clientId: 'cliente id',
-    };
-    console.log('###', { payload });
-  };
 
   return (
     <>
@@ -116,8 +101,8 @@ const NuovoEventoDrawer = ({
                     name='service'
                     label='Servizio'
                     placeholder='Seleziona un servizio'
-                    getKey={({ key }) => key}
-                    getValue={({ key }) => key}
+                    getKey={({ id }) => id}
+                    getValue={({ slug }) => slug}
                     getOptionLabel={({ label }) => label}
                     options={selectedBoat?.services || []}
                     isRequired
@@ -185,10 +170,16 @@ const NuovoEventoDrawer = ({
 
           <DrawerFooter borderTopWidth='1px'>
             <Flex gap={2}>
-              <Button label='Chiudi' onClick={onClose} variant='outline' />
+              <Button
+                label='Chiudi'
+                onClick={onClose}
+                variant='outline'
+                isLoading={isLoading}
+              />
               <Button
                 label='Crea evento'
-                onClick={methods.handleSubmit(onSubmit)}
+                onClick={methods.handleSubmit(onCreate)}
+                isLoading={isLoading}
               />
             </Flex>
           </DrawerFooter>

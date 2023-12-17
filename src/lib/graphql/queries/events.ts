@@ -8,8 +8,17 @@ export const boatEventsQuery = gql`
       from
       id
       skipperId
-      titolo
+      serviceSlug
       to
+    }
+  }
+`;
+
+export const addEventMutation = gql`
+  mutation AddEventMutation($args: createEventsArgs!) {
+    createEvents(args: $args) {
+      valido
+      message
     }
   }
 `;

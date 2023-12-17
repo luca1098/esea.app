@@ -3,7 +3,9 @@ export type Event = {
   to: number;
   id: string;
   boatId: string;
-  titolo: string;
+  skipperId: string;
+  serviceSlug: string;
   clienteId: string;
   people?: number;
+  note?: number;
 };

@@ -23,7 +23,6 @@ const CellPopperContent = ({
   onNuovoClick,
   closePopover,
 }: CellPopperContentProps) => {
-  console.log('###', day);
   return (
     <PopoverContent>
       <PopoverHeader fontWeight='semibold'>{`${day} ${currentMontLabel}`}</PopoverHeader>
