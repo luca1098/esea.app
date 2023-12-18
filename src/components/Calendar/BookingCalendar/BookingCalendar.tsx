@@ -4,8 +4,8 @@ import BookingCalendarHeader from './BookingCalendarHeader';
 import useCalendar from './useCalendar';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { CalendarView } from './utils';
-import { BoatProps } from '@/core/shared/types/barca';
-import { Nullish } from '@/core/shared/types/utils';
+import { BoatProps } from '@/core/types/barca';
+import { Nullish } from '@/core/types/utils';
 
 type BookingCalendarProps = {
   boats: BoatProps[];

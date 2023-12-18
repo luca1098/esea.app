@@ -6,14 +6,14 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, forwardRef, useEffect } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Icon, IconProps } from '@chakra-ui/react';
-import { LocalesProps } from '@/core/shared/types/locale';
+import { LocalesProps } from '@/core/types/locale';
 import { CalendarIcon } from '../Icons/icons';
 import Input, { InputProps } from './Input';
 import {
   LocaleConfig,
   getLocaleConfig,
   registerDataPickerConfig,
-} from '@/core/shared/utils/localeConfig';
+} from '@/core/utils/localeConfig';
 
 type BaseDataPicker = {
   selectDate: Date | null;

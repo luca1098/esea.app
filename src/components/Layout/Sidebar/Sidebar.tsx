@@ -12,7 +12,7 @@ import ExpandButton from './components/ExpandButton';
 import CompanyBox from './components/CompanyBox';
 import { SidebarContext } from '../PrivateLayout';
 import { breakpoint } from '@/core/theme/utils';
-import { scrollToTop } from '@/core/shared/utils/helpers';
+import { scrollToTop } from '@/core/utils/helpers';
 
 type SidebarProps = {
   menu: MenuItemProps[];

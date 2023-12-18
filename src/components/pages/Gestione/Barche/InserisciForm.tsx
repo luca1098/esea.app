@@ -4,7 +4,7 @@ import { FormInserisciBarca, FormInserisciBarcaSchema } from './schemas';
 import InputField from '@/kit/Input/InputField';
 import Button from '@/kit/Button/Button';
 import { Box, Grid, GridItem, useToast } from '@chakra-ui/react';
-import { PropsWithUser } from '@/core/shared/types/user';
+import { PropsWithUser } from '@/core/types/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { navigation } from '@/core/config/navigation';
 import { useAddBoat } from '../queries';

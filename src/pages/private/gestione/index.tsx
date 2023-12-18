@@ -6,9 +6,9 @@ import PageTitle from '@/kit/Text/PageTitle';
 import { Grid, GridItem, Heading, Stack } from '@chakra-ui/react';
 import AziendaBox from '@/components/pages/Gestione/Overview/AziendaBox';
 import ProfiloBox from '@/components/pages/Gestione/Overview/ProfiloBox';
-import { CompanyProps } from '@/core/shared/types/company';
+import { CompanyProps } from '@/core/types/company';
 import { personaleMok } from 'mok';
-import { UserExtended } from '@/core/shared/types/user';
+import { UserExtended } from '@/core/types/user';
 
 const user: UserExtended = {
   name: 'Test',

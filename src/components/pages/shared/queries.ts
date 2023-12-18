@@ -1,4 +1,4 @@
-import { boatEventsQuery } from '@/graphql/queries/events';
+import { addEventMutation, boatEventsQuery } from '@/graphql/queries/events';
 import { useQuery } from '@apollo/client';
 
 type BoatEventsParams = {
@@ -10,5 +10,20 @@ export const useBoatEvents = ({ boatId }: BoatEventsParams) => {
     variables: {
       boatId,
     },
+  });
+};
+
+import { useMutation } from '@apollo/client';
+
+export const useAddEvent = (boatId: string) => {
+  return useMutation(addEventMutation, {
+    refetchQueries: [
+      {
+        query: boatEventsQuery,
+        variables: {
+          boatId,
+        },
+      },
+    ],
   });
 };

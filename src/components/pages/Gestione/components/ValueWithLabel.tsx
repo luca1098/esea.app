@@ -1,4 +1,4 @@
-import { Nullish } from '@/core/shared/types/utils';
+import { Nullish } from '@/core/types/utils';
 import { Box, Text } from '@chakra-ui/react';
 
 type ValueWithLabelProps = {

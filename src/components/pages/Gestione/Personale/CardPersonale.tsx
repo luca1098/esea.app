@@ -1,5 +1,5 @@
-import { formatCurrency } from '@/core/shared/utils/currencies';
-import { formatDate } from '@/core/shared/utils/date';
+import { formatCurrency } from '@/core/utils/currencies';
+import { formatDate } from '@/core/utils/date';
 import { Avatar, Badge, Divider, Stack, Text } from '@chakra-ui/react';
 import { personaleRoleMapper, salaryMapper } from '../config';
 import { PersonaleProps } from './schemas';

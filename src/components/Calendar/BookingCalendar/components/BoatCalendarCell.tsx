@@ -1,4 +1,4 @@
-import { CalendarBoat } from '@/core/shared/types/barca';
+import { CalendarBoat } from '@/core/types/barca';
 import { Box, Stack, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 

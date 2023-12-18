@@ -1,6 +1,6 @@
 import { PropsWithChildren, createContext } from 'react';
 import Header from './Header/Header';
-import { PropsWithUser, Role } from '@/core/shared/types/user';
+import { PropsWithUser, Role } from '@/core/types/user';
 import Sidebar from './Sidebar/Sidebar';
 import { Box, Flex, useDisclosure } from '@chakra-ui/react';
 import Footer from './Footer/Footer';

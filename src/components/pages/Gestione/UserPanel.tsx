@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import UserBox from '@/components/User/UserBox';
-import { PropsWithUser } from '@/core/shared/types/user';
+import { PropsWithUser } from '@/core/types/user';
 import { Box, Container } from '@chakra-ui/react';
 import PROFILE_BG from '@/assets/bg-profile.png';
 import UserPannelActions from './UserPannelActions';

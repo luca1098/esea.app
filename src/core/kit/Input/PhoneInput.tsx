@@ -2,7 +2,7 @@ import { ChangeEvent, forwardRef, useState } from 'react';
 import {
   PhoneNumberPrefix,
   phoneNumbersPrefix,
-} from '@/core/shared/utils/numberPrefixList';
+} from '@/core/utils/numberPrefixList';
 import Select from './Select';
 import NumberInput, { NumberInputProps } from './NumberInput';
 

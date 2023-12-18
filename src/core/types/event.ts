@@ -1,5 +1,17 @@
-import { Nullish } from '@/core/shared/types/utils';
+import { Nullish } from '@/core/types/utils';
 import { z } from 'zod';
+
+export type EventProps = {
+  id: string;
+  from: number;
+  to: number;
+  serviceSlug: string;
+  people: Nullish<number>;
+  boatId: string;
+  clientId: Nullish<string>;
+  skipperId: Nullish<string>;
+  note?: Nullish<string>;
+};
 
 export const NuovoEventoFormSchema = z.object({
   service: z.string(),
@@ -13,15 +25,6 @@ export const NuovoEventoFormSchema = z.object({
   note: z.string().nullish(),
 });
 
-export type AddEventsArgs = {
-  serviceSlug: string;
-  from: number;
-  to: number;
-  people: Nullish<number>;
-  boatId: string;
-  clientId: Nullish<string>;
-  skipperId: Nullish<string>;
-  note?: Nullish<string>;
-};
+export type AddEventsArgs = Omit<EventProps, 'id'>;
 
 export type NuovoEventoFormProps = z.infer<typeof NuovoEventoFormSchema>;

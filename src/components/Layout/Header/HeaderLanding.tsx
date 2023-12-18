@@ -1,4 +1,4 @@
-import { PropsWithUser } from '@/core/shared/types/user';
+import { PropsWithUser } from '@/core/types/user';
 import Button from '@/kit/Button/Button';
 import {
   Box,

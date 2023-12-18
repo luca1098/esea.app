@@ -2,7 +2,7 @@ import { navigation } from '@/core/config/navigation';
 import {
   PersonaleRoleProps,
   PersonaleSalaryProps,
-} from '@/core/shared/types/personale';
+} from '@/core/types/personale';
 import { ActionButtonProps } from '@/kit/Button/ActionButton';
 import { keyBy } from 'lodash';
 

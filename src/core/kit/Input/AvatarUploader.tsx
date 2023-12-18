@@ -7,7 +7,7 @@ import { Avatar, AvatarProps, Box, IconButton } from '@chakra-ui/react';
 import { useDropzone } from 'react-dropzone';
 import FormControlWrapper from '../Form/FormControllerWrapper';
 import { forwardRef } from 'react';
-import { Nullish } from '@/core/shared/types/utils';
+import { Nullish } from '@/core/types/utils';
 
 const defaultFileAccepted = {
   'image/*': ['.png', '.jpeg', '.jpg', '.webp'],

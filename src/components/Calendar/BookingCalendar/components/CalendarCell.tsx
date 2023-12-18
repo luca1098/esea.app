@@ -1,4 +1,4 @@
-import { Event } from '@/core/shared/types/event';
+import { EventProps } from '@/core/types/event';
 import { Box, Popover, PopoverTrigger, Stack, Text } from '@chakra-ui/react';
 import CalendarEvent from '../../components/CalendarEvent';
 import CellPopperContent from './CellPopperContent';
@@ -6,7 +6,7 @@ import CellPopperContent from './CellPopperContent';
 export type CalendarCellProps = {
   day: number;
   isCurrent: boolean;
-  events: Event[];
+  events: EventProps[];
   currentMontLabel: string;
   onNuovoClick: () => void;
 };

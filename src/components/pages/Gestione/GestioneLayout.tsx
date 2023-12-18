@@ -1,5 +1,5 @@
 import PrivateLayout from '@/components/Layout/PrivateLayout';
-import { PropsWithUser } from '@/core/shared/types/user';
+import { PropsWithUser } from '@/core/types/user';
 import React, { PropsWithChildren } from 'react';
 import UserPanel from './UserPanel';
 import { Box } from '@chakra-ui/react';

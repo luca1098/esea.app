@@ -1,8 +1,8 @@
-import { Event as EventProps } from '@/core/shared/types/event';
-import { formatTime } from '@/core/shared/utils/date';
+import { EventProps } from '@/core/types/event';
+import { formatTime } from '@/core/utils/date';
 import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
-import { ellipsText } from '@/core/shared/utils/normalize';
+import { ellipsText } from '@/core/utils/normalize';
 
 const bgColors = [
   'red.100',

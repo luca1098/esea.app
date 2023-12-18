@@ -2,12 +2,12 @@ import { Box, Grid, GridItem } from '@chakra-ui/react';
 import React, { Dispatch, SetStateAction } from 'react';
 import { CalendarView, getDayEvents } from './utils';
 import CalendarCell from './components/CalendarCell';
-import { BoatProps, CalendarBoat } from '@/core/shared/types/barca';
+import { BoatProps, CalendarBoat } from '@/core/types/barca';
 import BoatCalendarCell from './components/BoatCalendarCell';
 import { HeaderCell } from './components/HeaderCell';
 import { useBoatEvents } from '@/components/pages/shared/queries';
 import { DayOfMontProps } from './types';
-import { Nullish } from '@/core/shared/types/utils';
+import { Nullish } from '@/core/types/utils';
 import { setHours } from 'date-fns';
 
 export type BookingCalendarBodyProps = {

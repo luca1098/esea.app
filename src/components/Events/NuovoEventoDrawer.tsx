@@ -1,8 +1,8 @@
-import { BoatProps } from '@/core/shared/types/barca';
-import { PersonaleBaseProps } from '@/core/shared/types/personale';
-import { EseaResponse, ServiceProps } from '@/core/shared/types/services';
-import { Nullish } from '@/core/shared/types/utils';
-import { dateToTimestamp, filterTimeByHours } from '@/core/shared/utils/date';
+import { BoatProps } from '@/core/types/barca';
+import { PersonaleBaseProps } from '@/core/types/personale';
+import { ServiceProps } from '@/core/types/services';
+import { Nullish } from '@/core/types/utils';
+import { filterTimeByHours } from '@/core/utils/date';
 import Button from '@/kit/Button/Button';
 import DataPickerField from '@/kit/Input/DataPickerField';
 import InputField from '@/kit/Input/InputField';
@@ -26,8 +26,7 @@ import {
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { FormProvider, UseFormReturn, useWatch } from 'react-hook-form';
-import { NuovoEventoFormProps } from './schemas';
-import { serviziMok } from 'mok';
+import { NuovoEventoFormProps } from '@/core/types/event';
 
 type NuovoEventoDrawerProps = {
   selectedDate: Nullish<Date>;

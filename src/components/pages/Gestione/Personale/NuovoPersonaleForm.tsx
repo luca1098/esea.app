@@ -5,7 +5,7 @@ import SelectField from '@/kit/Input/SelectField';
 import {
   PersonaleRoleProps,
   PersonaleSalaryProps,
-} from '@/core/shared/types/personale';
+} from '@/core/types/personale';
 import { personaleRoleConfig, salaryConfig } from '../config';
 import { Box, Flex, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
 import Button from '@/kit/Button/Button';

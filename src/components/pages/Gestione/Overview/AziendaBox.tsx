@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import DefoultLogo from '@/assets/company-placeholder.svg';
-import { CompanyProps } from '@/core/shared/types/company';
+import { CompanyProps } from '@/core/types/company';
 import EmptyBox from '@/components/Empty/EmptyBox';
 import ValueWithLabel from '../components/ValueWithLabel';
 

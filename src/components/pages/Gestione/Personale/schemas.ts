@@ -3,7 +3,7 @@ import {
   PersonaleBaseSchema,
   PersonaleRoleSchema,
   PersonaleSalaryLiteralSchema,
-} from '@/core/shared/types/personale';
+} from '@/core/types/personale';
 
 export const PersonaleSchema = PersonaleBaseSchema.extend({
   image: z.string().nullish(),

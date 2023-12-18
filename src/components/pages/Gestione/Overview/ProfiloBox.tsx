@@ -1,8 +1,8 @@
-import { UserExtended } from '@/core/shared/types/user';
+import { UserExtended } from '@/core/types/user';
 import ContentBox from '@/kit/Box/ContentBox';
 import { Divider, Heading, Text } from '@chakra-ui/react';
 import ValueWithLabel from '../components/ValueWithLabel';
-import { formatDate } from '@/core/shared/utils/date';
+import { formatDate } from '@/core/utils/date';
 
 type ProfiloBoxProps = {
   user?: UserExtended;

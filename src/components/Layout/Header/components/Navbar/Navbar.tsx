@@ -1,5 +1,5 @@
 import { MenuItemProps } from '@/core/config/menu';
-import { PropsWithUser } from '@/core/shared/types/user';
+import { PropsWithUser } from '@/core/types/user';
 import Button from '@/kit/Button/Button';
 import { Box, Flex, ListItem, UnorderedList } from '@chakra-ui/react';
 import React from 'react';

@@ -1,7 +1,7 @@
 import { Box, Container, Flex, IconButton } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import SigninButton from './components/SigninButton';
-import { PropsWithUser } from '@/core/shared/types/user';
+import { PropsWithUser } from '@/core/types/user';
 import SettingsMenu from '../Sidebar/components/SettingsMenu';
 import { SidebarContext } from '../PrivateLayout';
 import { BurgerIcon } from '@/kit/Icons/icons';

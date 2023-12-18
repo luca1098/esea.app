@@ -12,7 +12,7 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { signOut } from 'next-auth/react';
-import { PropsWithUser } from '@/core/shared/types/user';
+import { PropsWithUser } from '@/core/types/user';
 import { NotificationIcon } from '@/kit/Icons/icons';
 
 type SettingsMenuProps = {} & PropsWithUser;

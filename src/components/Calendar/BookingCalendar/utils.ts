@@ -1,4 +1,4 @@
-import { Event } from '@/core/shared/types/event';
+import { EventProps } from '@/core/types/event';
 import { ActionButtonProps } from '@/kit/Button/ActionButton';
 
 export type CalendarView = 'giorno' | 'settimana' | 'mese' | 'anno';
@@ -14,7 +14,7 @@ export const viewButtons: ViewButtonProps[] = [
 ];
 
 export const getDayEvents =
-  (day: number, month: number, years: number) => (events: Event[]) => {
+  (day: number, month: number, years: number) => (events: EventProps[]) => {
     const firteredEvents = events?.filter((e) => {
       const fromDate = new Date(e.from);
       const toDate = new Date(e.to);

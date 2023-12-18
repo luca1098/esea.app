@@ -14,7 +14,7 @@ import {
 import ImageCrop, { ImageCropProps } from './ImageCrop';
 import Button from '@/kit/Button/Button';
 import { useState } from 'react';
-import { Nullish } from '@/core/shared/types/utils';
+import { Nullish } from '@/core/types/utils';
 import Slider from '@/kit/Input/Slider';
 import { CropperProps } from 'react-easy-crop';
 

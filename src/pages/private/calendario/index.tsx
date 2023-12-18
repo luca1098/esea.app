@@ -1,16 +1,16 @@
 import BookingCalendar from '@/components/Calendar/BookingCalendar/BookingCalendar';
 import NuovoEventoDrawer from '@/components/Events/NuovoEventoDrawer';
-import { useAddEvent } from '@/components/Events/queries';
 import {
   AddEventsArgs,
   NuovoEventoFormProps,
   NuovoEventoFormSchema,
-} from '@/components/Events/schemas';
+} from '@/core/types/event';
 import PrivateLayout from '@/components/Layout/PrivateLayout';
 import { useCalendarioParametri } from '@/components/pages/Calendario/queries';
-import { BoatProps } from '@/core/shared/types/barca';
-import { PropsWithUser } from '@/core/shared/types/user';
-import { dateToTimestamp } from '@/core/shared/utils/date';
+import { useAddEvent } from '@/components/pages/shared/queries';
+import { BoatProps } from '@/core/types/barca';
+import { PropsWithUser } from '@/core/types/user';
+import { dateToTimestamp } from '@/core/utils/date';
 import ContentBox from '@/kit/Box/ContentBox';
 import PageTitle from '@/kit/Text/PageTitle';
 import { useDisclosure, useToast } from '@chakra-ui/react';
