@@ -1,6 +1,6 @@
 import CardBarche from '@/components/Card/CardBarche';
 import GestioneLayout from '@/components/pages/Gestione/GestioneLayout';
-import { Flex, useToast } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { GetSessionParams, getSession, useSession } from 'next-auth/react';
 import React from 'react';
 import PageTitle from '@/kit/Text/PageTitle';
@@ -13,10 +13,11 @@ import {
   useGestioneParametri,
   useRemoveBoat,
 } from '@/components/pages/Gestione/queries';
+import useResponseToast from '@/core/hooks/useResponseToast';
 
 const Barche = () => {
   const { data: session } = useSession();
-  const toast = useToast();
+  const { errorToast, successToast } = useResponseToast();
   const { data } = useGestioneParametri({
     email: session?.user?.email || '',
   });
@@ -31,19 +32,9 @@ const Barche = () => {
     const { data, errors } = await removeBoat({ variables: { boatId: id } });
 
     if (errors || !data?.deleteBoat?.valido) {
-      toast({
-        title: 'Errore',
-        description: data?.deleteBoat?.message,
-        status: 'error',
-        isClosable: true,
-      });
+      errorToast(errors, data?.deleteBoat);
     } else {
-      toast({
-        title: 'Successo',
-        description: data?.deleteBoat?.message,
-        status: 'success',
-        isClosable: true,
-      });
+      successToast(data?.deleteBoat);
     }
   };
 

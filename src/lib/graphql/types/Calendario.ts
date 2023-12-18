@@ -1,5 +1,6 @@
 import { extendType, nonNull, stringArg } from 'nexus';
 import { User } from './User';
+import { getErrorReturn } from '@/lib/utils';
 
 export const CalendarioParametri = extendType({
   type: 'Query',
@@ -10,10 +11,16 @@ export const CalendarioParametri = extendType({
         email: nonNull(stringArg()),
       },
       resolve(_parents, args, ctx) {
-        return ctx.prisma.user.findUnique({
-          where: { email: args.email },
-          include: { boats: { include: { services: true } } },
-        });
+        try {
+          const data = ctx.prisma.user.findUnique({
+            where: { email: args.email },
+            include: { boats: { include: { services: true } } },
+          });
+          // use schema
+          return data;
+        } catch (e: unknown) {
+          return getErrorReturn(e);
+        }
       },
     });
   },

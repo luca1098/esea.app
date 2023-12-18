@@ -1,5 +1,6 @@
 import { extendType, nonNull, objectType, stringArg } from 'nexus';
 import { Boat } from './Barche';
+import { getErrorReturn } from '@/lib/utils';
 
 export const Service = objectType({
   name: 'Service',
@@ -31,7 +32,15 @@ export const GetBoatServices = extendType({
         boatId: nonNull(stringArg()),
       },
       resolve(_parents, args, ctx) {
-        return ctx.prisma.service.findMany({ where: { boatId: args.boatId } });
+        try {
+          const data = ctx.prisma.service.findMany({
+            where: { boatId: args.boatId },
+          });
+          //useResolver
+          return data;
+        } catch (e: unknown) {
+          return getErrorReturn(e);
+        }
       },
     });
   },

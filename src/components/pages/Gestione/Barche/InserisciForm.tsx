@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { FormInserisciBarca, FormInserisciBarcaSchema } from './schemas';
 import InputField from '@/kit/Input/InputField';
 import Button from '@/kit/Button/Button';
-import { Box, Grid, GridItem, useToast } from '@chakra-ui/react';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { PropsWithUser } from '@/core/types/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { navigation } from '@/core/config/navigation';
@@ -11,10 +11,11 @@ import { useAddBoat } from '../queries';
 import { uploadImage } from '@/core/services/uploadImage';
 import { useState } from 'react';
 import FileUploaderField from '@/kit/Input/FileUploaderField';
+import useResponseToast from '@/core/hooks/useResponseToast';
 
 const InserisciForm = ({ user }: PropsWithUser) => {
   const [fileUploadLoading, setFileUploadLoading] = useState<boolean>(false);
-  const toast = useToast();
+  const { errorToast, successToast } = useResponseToast();
   const router = useRouter();
   const methods = useForm<FormInserisciBarca>({
     resolver: zodResolver(FormInserisciBarcaSchema),
@@ -38,19 +39,9 @@ const InserisciForm = ({ user }: PropsWithUser) => {
     });
 
     if (errors || !data?.boat?.valido) {
-      toast({
-        title: 'Errore',
-        description: data?.boat?.message,
-        status: 'error',
-        isClosable: true,
-      });
+      errorToast(errors, data?.boat);
     } else {
-      toast({
-        title: 'Successo',
-        description: data?.boat?.message,
-        status: 'success',
-        isClosable: true,
-      });
+      successToast(data?.boat);
       methods.reset({});
       router.push(navigation.private.gestione.barche.index);
     }

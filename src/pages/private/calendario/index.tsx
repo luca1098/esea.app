@@ -13,12 +13,13 @@ import { PropsWithUser } from '@/core/types/user';
 import { dateToTimestamp } from '@/core/utils/date';
 import ContentBox from '@/kit/Box/ContentBox';
 import PageTitle from '@/kit/Text/PageTitle';
-import { useDisclosure, useToast } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personaleMok } from 'mok';
 import { GetSessionParams, getSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import useResponseToast from '@/core/hooks/useResponseToast';
 
 type CalendarioProps = PropsWithUser;
 
@@ -27,7 +28,7 @@ const Calendario = ({ user }: CalendarioProps) => {
     resolver: zodResolver(NuovoEventoFormSchema),
   });
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
+  const { errorToast, successToast } = useResponseToast();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, loading } = useCalendarioParametri({
     email: user?.email || '',
@@ -67,19 +68,9 @@ const Calendario = ({ user }: CalendarioProps) => {
       };
       const { data, errors } = await addEvent({ variables: { args } });
       if (errors || !data.createEvents.valido) {
-        toast({
-          title: 'Errore',
-          description: data?.createEvents?.message,
-          status: 'error',
-          isClosable: true,
-        });
+        errorToast(errors, data.createEvents);
       } else {
-        toast({
-          title: 'Successo',
-          description: data?.createEvents?.message,
-          status: 'success',
-          isClosable: true,
-        });
+        successToast(data.createEvents);
         methods.reset({});
         onClose();
       }
