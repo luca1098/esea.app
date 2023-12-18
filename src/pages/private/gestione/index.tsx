@@ -9,7 +9,6 @@ import ProfiloBox from '@/components/pages/Gestione/Overview/ProfiloBox';
 import { CompanyProps } from '@/core/types/company';
 import { personaleMok } from 'mok';
 import { UserExtended } from '@/core/types/user';
-import Button from '@/kit/Button/Button';
 
 const user: UserExtended = {
   name: 'Test',
@@ -39,7 +38,6 @@ const Gestione = () => {
   return (
     <GestioneLayout user={user}>
       <PageTitle title='Gestione' />
-      <Button label='Add toast' onClick={() => null} />
       <Grid
         templateColumns={{
           base: 'repeat(1, 1fr)',
