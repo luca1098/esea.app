@@ -1,10 +1,4 @@
-import {
-  CloseButton,
-  Heading,
-  Stack,
-  useDisclosure,
-  useMediaQuery,
-} from '@chakra-ui/react';
+import { CloseButton, Heading, Stack, useMediaQuery } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import NavigationMenu from './components/NavigationMenu';
 import { MenuItemProps } from '@/core/config/menu';

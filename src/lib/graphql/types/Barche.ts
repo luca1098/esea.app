@@ -10,6 +10,7 @@ import {
 import { User } from './User';
 import { Event } from './Events';
 import { Service } from './Services';
+import { getErrorReturn } from '@/lib/utils';
 
 export const Boat = objectType({
   name: 'Boat',
@@ -47,7 +48,7 @@ const AddBoatArgs = inputObjectType({
 const AddBoatResponse = objectType({
   name: 'addBoatResponse',
   definition(t) {
-    t.string('message'), t.boolean('error');
+    t.string('message'), t.boolean('valido');
   },
 });
 
@@ -63,12 +64,10 @@ const addBoatResolver: FieldResolver<'Mutation', 'AddBoat'> = async (
       },
     });
 
-    return { error: false, message: 'Barca inserita con con successo' };
-  } catch (e: any) {
-    return {
-      error: true,
-      message: e.message,
-    };
+    return { valido: false, message: 'Barca inserita con con successo' };
+  } catch (e: unknown) {
+    const error = getErrorReturn(e);
+    return error;
   }
 };
 
@@ -103,10 +102,8 @@ const removeBoatResolver: FieldResolver<'Mutation', 'AddBoat'> = async (
     });
 
     return { valido: true, message: 'Barca eliminata con successo' };
-  } catch (e: any) {
-    return {
-      valido: false,
-      message: e.message,
-    };
+  } catch (e: unknown) {
+    const error = getErrorReturn(e);
+    return error;
   }
 };

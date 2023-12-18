@@ -1,9 +1,9 @@
 import React from 'react';
 import GestioneLayout from '@/components/pages/Gestione/GestioneLayout';
-import { GetSessionParams, getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import ContentBox from '@/kit/Box/ContentBox';
 import PageTitle from '@/kit/Text/PageTitle';
-import { Grid, GridItem, Heading, Stack } from '@chakra-ui/react';
+import { Grid, GridItem, Heading } from '@chakra-ui/react';
 import AziendaBox from '@/components/pages/Gestione/Overview/AziendaBox';
 import ProfiloBox from '@/components/pages/Gestione/Overview/ProfiloBox';
 import { CompanyProps } from '@/core/types/company';
@@ -33,6 +33,7 @@ const companyMok: CompanyProps = {
   },
 };
 const Gestione = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = useSession();
   return (
     <GestioneLayout user={user}>

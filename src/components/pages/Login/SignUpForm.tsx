@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Button, Stack, Text, useToast } from '@chakra-ui/react';
 import InputField from '@/kit/Input/InputField';
 import Link from 'next/link';
-import { SignInFormSchema, SignUpFormProps, SignUpFormSchema } from './schemas';
+import { SignUpFormProps, SignUpFormSchema } from './schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@apollo/client';
 import { createUserMutation } from '@/graphql/queries/user';
@@ -30,7 +30,7 @@ const SignUpForm = () => {
       const { data, errors } = await createUser({
         variables: { credentials: { name, email, password: cryptedPw } },
       });
-      if (errors || data?.user?.error) {
+      if (errors || !data?.user?.valido) {
         toast({
           title: 'Errore',
           description: data?.user?.message,

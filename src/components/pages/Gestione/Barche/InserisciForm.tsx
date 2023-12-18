@@ -37,7 +37,7 @@ const InserisciForm = ({ user }: PropsWithUser) => {
       },
     });
 
-    if (errors || data?.boat?.error) {
+    if (errors || !data?.boat?.valido) {
       toast({
         title: 'Errore',
         description: data?.boat?.message,

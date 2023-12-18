@@ -7,6 +7,7 @@ import {
   stringArg,
 } from 'nexus';
 import { Boat } from './Barche';
+import { getErrorReturn } from '@/lib/utils';
 
 export const Event = objectType({
   name: 'Event',
@@ -97,10 +98,8 @@ const createEventResolver: FieldResolver<'Mutation', 'CreateEvents'> = async (
     });
 
     return { valido: true, message: 'Evento aggiunto con con successo' };
-  } catch (e: any) {
-    return {
-      valido: false,
-      message: e.message,
-    };
+  } catch (e: unknown) {
+    const error = getErrorReturn(e);
+    return error;
   }
 };

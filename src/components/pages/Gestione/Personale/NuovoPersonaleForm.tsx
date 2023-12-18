@@ -7,7 +7,7 @@ import {
   PersonaleSalaryProps,
 } from '@/core/types/personale';
 import { personaleRoleConfig, salaryConfig } from '../config';
-import { Box, Flex, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import Button from '@/kit/Button/Button';
 import CurrencyInputFormField from '@/kit/Input/CurrencyInputField';
 import DataPickerField from '@/kit/Input/DataPickerField';
@@ -61,6 +61,7 @@ const NuovoPersonaleForm = () => {
   };
 
   const onSubmit = (values: NuovoPersonaleFormValues) => {
+    // eslint-disable-next-line no-console
     console.log({ values });
   };
 

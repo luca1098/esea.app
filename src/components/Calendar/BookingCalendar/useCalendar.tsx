@@ -1,5 +1,5 @@
-import { chunk, times, unionBy } from 'lodash';
-import { useEffect, useState } from 'react';
+import { unionBy } from 'lodash';
+import { useState } from 'react';
 
 const useCalendar = () => {
   const month = [
@@ -36,14 +36,14 @@ const useCalendar = () => {
   const daysOfCurrentMonth = getDaysInMonth(currentMont, currentYear);
 
   const onPrev = () => {
-    let newDate = new Date(currentYear, currentMont, currentDay);
+    const newDate = new Date(currentYear, currentMont, currentDay);
     newDate.setDate(newDate.getDate() - 7);
     setCurrentDay(newDate.getDate());
     setCurrentMont(newDate.getMonth());
     setCurrentYeas(newDate.getFullYear());
   };
   const onNext = () => {
-    let newDate = new Date(currentYear, currentMont, currentDay);
+    const newDate = new Date(currentYear, currentMont, currentDay);
     newDate.setDate(newDate.getDate() + 7);
     setCurrentDay(newDate.getDate());
     setCurrentMont(newDate.getMonth());
@@ -51,8 +51,8 @@ const useCalendar = () => {
   };
 
   function getDaysInMonth(month: number, year: number) {
-    var date = new Date(year, currentMont);
-    var days = [];
+    const date = new Date(year, currentMont);
+    const days = [];
 
     while (date.getMonth() === month) {
       const day = {
@@ -77,7 +77,7 @@ const useCalendar = () => {
   };
 
   const getPrevToMonday = (date: Date) => {
-    let days = [];
+    const days = [];
     const currDate = new Date(date.getTime());
     const dayIndex = currDate.getDay();
     for (let i = dayIndex; i >= 0; i--) {
@@ -92,7 +92,7 @@ const useCalendar = () => {
     return days;
   };
   const getNextToSunday = (date: Date) => {
-    let days = [];
+    const days = [];
     const currDate = new Date(date.getTime());
     const dayIndex = currDate.getDay();
     for (let i = dayIndex; i <= 6; i++) {

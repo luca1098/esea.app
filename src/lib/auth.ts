@@ -11,7 +11,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import apolloClient from './apollo';
 import { userQuery } from './graphql/queries/user';
 import { authPage } from '@/core/config/authpage';
-import { redirect } from 'next/navigation';
 import bcrypt from 'bcryptjs';
 
 export const config = {

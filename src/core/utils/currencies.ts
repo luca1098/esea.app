@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { Nullish } from '../types/utils';
 import { defaultLocale } from './localeConfig';
 
 const formatNumber = (

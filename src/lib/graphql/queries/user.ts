@@ -29,7 +29,7 @@ export const userQuery = gql`
 export const createUserMutation = gql`
   mutation Mutation($credentials: createUserArgs!) {
     user(credentials: $credentials) {
-      error
+      valido
       message
     }
   }

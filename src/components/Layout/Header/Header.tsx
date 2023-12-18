@@ -6,7 +6,7 @@ import SettingsMenu from '../Sidebar/components/SettingsMenu';
 import { SidebarContext } from '../PrivateLayout';
 import { BurgerIcon } from '@/kit/Icons/icons';
 
-type HeaderProps = {} & PropsWithUser;
+type HeaderProps = PropsWithUser;
 
 const Header = ({ user }: HeaderProps) => {
   const { onMobileOpen, onExpandedOpen } = useContext(SidebarContext);

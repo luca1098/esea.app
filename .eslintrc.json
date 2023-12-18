@@ -1,4 +1,27 @@
 {
-  "extends": ["plugin:react/recommended", "prettier", "next/core-web-vitals"],
-  "ignorePatterns": ["**/graphql/*.graphql"]
+  "extends": [
+    "plugin:react/recommended",
+    "prettier",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "ignorePatterns": ["**/graphql/*.graphql", "*.d.ts", "*.d.js"],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-debugger": ["error"],
+    "import/no-named-as-default-member": "off",
+    "import/no-unresolved": "off",
+    "import/default": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn", // or "error"
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ]
+  }
 }

@@ -1,10 +1,10 @@
 import { Box, Heading, Stack } from '@chakra-ui/react';
 import PrivateLayout from '@/components/Layout/PrivateLayout';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
-type AdminDashboardProps = {};
+// type AdminDashboardProps = {};
 
-const AdminDashboard = (props: AdminDashboardProps) => {
+const AdminDashboard = () => {
   const { data: session } = useSession();
   return (
     <PrivateLayout user={session?.user}>

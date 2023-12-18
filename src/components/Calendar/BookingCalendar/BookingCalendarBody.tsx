@@ -1,8 +1,8 @@
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import React, { Dispatch, SetStateAction } from 'react';
 import { CalendarView, getDayEvents } from './utils';
 import CalendarCell from './components/CalendarCell';
-import { BoatProps, CalendarBoat } from '@/core/types/barca';
+import { BoatProps } from '@/core/types/barca';
 import BoatCalendarCell from './components/BoatCalendarCell';
 import { HeaderCell } from './components/HeaderCell';
 import { useBoatEvents } from '@/components/pages/shared/queries';
@@ -42,8 +42,6 @@ const BookingCalendarBody = ({
     setSelectedBoat(boat);
     setSelectedDataFrom(selectedDate);
   };
-
-  console.log('###', { b: boatEvents });
 
   return (
     <Grid templateColumns='repeat(8, 1fr)'>

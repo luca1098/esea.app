@@ -9,7 +9,6 @@ import {
   ModalOverlay,
   ModalProps,
   Stack,
-  Text,
 } from '@chakra-ui/react';
 import ImageCrop, { ImageCropProps } from './ImageCrop';
 import Button from '@/kit/Button/Button';

@@ -8,6 +8,7 @@ import {
   stringArg,
 } from 'nexus';
 import { Boat } from './Barche';
+import { getErrorReturn } from '@/lib/utils';
 
 export const User = objectType({
   name: 'User',
@@ -83,7 +84,7 @@ const CreateUserArgs = inputObjectType({
 const CreateUserResponse = objectType({
   name: 'createUserResponse',
   definition(t) {
-    t.string('message'), t.boolean('error');
+    t.string('message'), t.boolean('valido');
   },
 });
 
@@ -98,14 +99,19 @@ const createUserResolver: FieldResolver<'Mutation', 'CreateUsers'> = async (
         ...args.credentials,
       },
     });
-    return { error: false, message: 'Utente registrato con successo' };
+    return { valido: true, message: 'Utente registrato con successo' };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     const userAlreadyExist = e?.code === 'P2002';
-    return {
-      error: true,
-      message: userAlreadyExist
-        ? 'Utente già registrato'
-        : 'Qualcosa è andato storto',
-    };
+    if (userAlreadyExist) {
+      return {
+        valido: false,
+        message: userAlreadyExist
+          ? 'Utente già registrato'
+          : 'Qualcosa è andato storto',
+      };
+    }
+    const error = getErrorReturn(e);
+    return error;
   }
 };

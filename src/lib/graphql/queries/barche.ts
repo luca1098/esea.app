@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 export const addBoatMutation = gql`
   mutation AddBoat($args: addBoatArgs!) {
     addBoat(args: $args) {
-      error
+      valido
       message
     }
   }

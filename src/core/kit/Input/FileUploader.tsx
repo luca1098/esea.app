@@ -30,13 +30,7 @@ type BaseFileUploader = {
   value: File | File[] | null | undefined;
 } & Pick<
   ChakraInputProps,
-  | 'placeholder'
-  | 'autoComplete'
-  | 'name'
-  | 'variant'
-  | 'bgColor'
-  | 'onBlur'
-  | 'onChange'
+  'placeholder' | 'autoComplete' | 'name' | 'bgColor' | 'onBlur' | 'onChange'
 >;
 
 export type FileUploaderProps = FormControlWrapperProps &
@@ -54,7 +48,6 @@ const FileUploader = forwardRef<HTMLInputElement, FileUploaderProps>(
       name,
       accept = defaultFileAccepted,
       bgColor,
-      variant = 'outline',
       maxFiles,
       maxSize = DEFAULT_MAX_FILE_SIZE,
       isInvalid,

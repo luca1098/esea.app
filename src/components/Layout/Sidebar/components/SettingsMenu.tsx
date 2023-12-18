@@ -15,7 +15,7 @@ import { signOut } from 'next-auth/react';
 import { PropsWithUser } from '@/core/types/user';
 import { NotificationIcon } from '@/kit/Icons/icons';
 
-type SettingsMenuProps = {} & PropsWithUser;
+type SettingsMenuProps = PropsWithUser;
 
 const SettingsMenu = ({ user }: SettingsMenuProps) => {
   return (

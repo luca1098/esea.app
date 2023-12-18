@@ -10,7 +10,6 @@ import { LocalesProps } from '@/core/types/locale';
 import { CalendarIcon } from '../Icons/icons';
 import Input, { InputProps } from './Input';
 import {
-  LocaleConfig,
   getLocaleConfig,
   registerDataPickerConfig,
 } from '@/core/utils/localeConfig';

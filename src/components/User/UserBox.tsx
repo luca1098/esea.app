@@ -1,6 +1,5 @@
 import BlurBox from '@/kit/Box/BlurBox';
 import { Avatar, Badge, Box, Flex, Text } from '@chakra-ui/react';
-import PROFILE_PLACEHOLDER from '@/assets/profile-placeholder.jpg';
 import { PropsWithUser } from '@/core/types/user';
 import { ReactNode } from 'react';
 

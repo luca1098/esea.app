@@ -28,11 +28,10 @@ const Calendario = ({ user }: CalendarioProps) => {
   });
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, loading } = useCalendarioParametri({
     email: user?.email || '',
   });
-
-  console.log(data);
 
   const [selectedBoat, setSelectedBoat] = useState<BoatProps | null>();
   const [selectedDataFrom, setSelectedDataFrom] = useState<Date | null>();
