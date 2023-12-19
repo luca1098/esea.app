@@ -21,6 +21,7 @@ export const Event = objectType({
     t.string('clientId');
     t.string('note');
     t.string('skipperId');
+    t.string('canaleSlug');
     t.field('boat', { type: Boat });
   },
 });
@@ -82,6 +83,7 @@ const CreateEventsArgs = inputObjectType({
     t.string('clientId');
     t.string('skipperId');
     t.string('note');
+    t.string('canaleSlug');
   },
 });
 

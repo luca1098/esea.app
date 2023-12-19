@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { ServiceSchema } from './services';
+import { EventSchema } from './event';
 
 export type CalendarBoat = {
   id: string;
@@ -12,7 +13,8 @@ export const BoatSchema = z.object({
   image: z.string(),
   id: z.string(),
   maxPeople: z.number(),
-  services: z.array(ServiceSchema),
+  services: z.array(ServiceSchema).nullish(),
+  events: z.array(EventSchema).nullish(),
 });
 
 export type BoatProps = z.infer<typeof BoatSchema>;

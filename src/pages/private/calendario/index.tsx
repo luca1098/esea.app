@@ -59,6 +59,7 @@ const Calendario = ({ user }: CalendarioProps) => {
     if (timestampFrom && timestampTo && selectedBoat?.id) {
       const args: AddEventsArgs = {
         serviceSlug: values.service,
+        canaleSlug: values?.canale,
         from: timestampFrom,
         to: timestampTo,
         skipperId: values.skipper,
@@ -92,7 +93,7 @@ const Calendario = ({ user }: CalendarioProps) => {
       <NuovoEventoDrawer
         isOpen={isDrawerOpen}
         onClose={handleClose}
-        selectedDate={selectedDataFrom}
+        selectedDateFrom={selectedDataFrom}
         selectedBoat={selectedBoat}
         personale={personaleMok}
         onCreate={handleCreateEvent}

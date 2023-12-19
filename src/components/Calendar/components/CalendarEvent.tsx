@@ -16,7 +16,7 @@ const bgColors = [
   'pink.100',
 ];
 
-type CalendarEventProps = {
+export type CalendarEventProps = {
   index: number;
   restricted?: boolean;
 } & EventProps;
@@ -24,9 +24,10 @@ type CalendarEventProps = {
 const CalendarEvent = ({
   id,
   from,
-  to,
   serviceSlug,
+  to,
   index,
+  titolo,
   restricted,
 }: CalendarEventProps) => {
   return (
@@ -39,9 +40,9 @@ const CalendarEvent = ({
     >
       <Text fontSize={'xs'} fontWeight={'bold'}>
         {restricted ? (
-          <RestrictedEvent titolo={serviceSlug} from={from} to={to} />
+          <RestrictedEvent titolo={titolo ?? serviceSlug} from={from} to={to} />
         ) : (
-          <Event titolo={serviceSlug} from={from} to={to} />
+          <Event titolo={titolo ?? serviceSlug} from={from} to={to} />
         )}
       </Text>
     </Box>
@@ -65,7 +66,7 @@ const Event = ({ titolo, from, to }: EventComponentProps) => (
       {titolo}
     </Text>
     <Text>
-      {formatTime(from)} - {formatTime(to)}`
+      {formatTime(from)} - {formatTime(to)}
     </Text>
   </>
 );

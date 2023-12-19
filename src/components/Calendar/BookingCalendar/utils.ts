@@ -1,3 +1,4 @@
+import { BoatProps } from '@/core/types/barca';
 import { EventProps } from '@/core/types/event';
 import { ActionButtonProps } from '@/kit/Button/ActionButton';
 
@@ -14,7 +15,8 @@ export const viewButtons: ViewButtonProps[] = [
 ];
 
 export const getDayEvents =
-  (day: number, month: number, years: number) => (events: EventProps[]) => {
+  (day: number, month: number, years: number) =>
+  (events: EventProps[], services: BoatProps['services']) => {
     const firteredEvents = events?.filter((e) => {
       const fromDate = new Date(e.from);
       const toDate = new Date(e.to);
@@ -25,5 +27,10 @@ export const getDayEvents =
         (fromDate.getDate() === day || toDate.getDate() === day)
       );
     });
-    return firteredEvents;
+
+    const mappedEvents = firteredEvents?.map((b) => {
+      const service = services?.find((s) => s.slug === b.serviceSlug);
+      return { ...b, titolo: service?.label || b.serviceSlug };
+    });
+    return mappedEvents?.sort((a, b) => (a.from > b.from ? 1 : 0));
   };

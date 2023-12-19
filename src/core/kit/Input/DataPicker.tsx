@@ -7,7 +7,7 @@ import { ChangeEvent, forwardRef, useEffect } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Icon, IconProps } from '@chakra-ui/react';
 import { LocalesProps } from '@/core/types/locale';
-import { CalendarIcon } from '../Icons/icons';
+import { CalendarIcon, TimeIcon } from '../Icons/icons';
 import Input, { InputProps } from './Input';
 import {
   getLocaleConfig,
@@ -31,6 +31,7 @@ type BaseDataPicker = {
   | 'wrapperClassName'
   | 'withPortal'
   | 'showTimeSelect'
+  | 'showTimeSelectOnly'
   | 'popperClassName'
   | 'calendarClassName'
   | 'excludeTimes'
@@ -60,6 +61,7 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
       calendarClassName,
       excludeTimes,
       excludeDateIntervals,
+      showTimeSelectOnly,
       minTime,
       filterTime,
       ...inputProps
@@ -79,6 +81,15 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
     const dataTimeFormat = getLocaleConfig(
       locale as LocalesProps,
     ).dateTimeFormat;
+    const timeFormat = getLocaleConfig(locale as LocalesProps).timeFormat;
+
+    const getFormat = () => {
+      return showTimeSelectOnly
+        ? timeFormat
+        : showTimeSelect
+        ? dataTimeFormat
+        : dataFormat;
+    };
     return (
       <ReactDataPicker
         locale={locale}
@@ -88,7 +99,7 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
         wrapperClassName={`${wrapperClassName} esea-dp-base`}
         showYearDropdown={showYearDropdown}
         dropdownMode='select'
-        dateFormat={showTimeSelect ? dataTimeFormat : dataFormat}
+        dateFormat={getFormat()}
         minDate={minDate}
         maxDate={maxDate}
         onChange={onDataChange}
@@ -96,6 +107,7 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
         withPortal={withPortal}
         excludeDateIntervals={excludeDateIntervals}
         calendarClassName={calendarClassName}
+        showTimeSelectOnly={showTimeSelectOnly}
         timeCaption='Ora'
         excludeTimes={excludeTimes}
         popperPlacement='bottom'
@@ -111,7 +123,7 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
             position={'relative'}
             rightElement={
               <Icon
-                as={CalendarIcon}
+                as={showTimeSelectOnly ? TimeIcon : CalendarIcon}
                 color={iconColor ? iconColor : 'esea.primary'}
               />
             }

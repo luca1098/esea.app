@@ -9,6 +9,7 @@ import { useBoatEvents } from '@/components/pages/shared/queries';
 import { DayOfMontProps } from './types';
 import { Nullish } from '@/core/types/utils';
 import { setHours } from 'date-fns';
+import { EventProps } from '@/core/types/event';
 
 export type BookingCalendarBodyProps = {
   days: DayOfMontProps[];
@@ -34,12 +35,13 @@ const BookingCalendarBody = ({
 
   const isCurrentDay = (day: DayOfMontProps) =>
     day.monthIndex === today.getMonth() && day.numbDay === today.getDate();
-  const handleNuovoEventoClick = (d: DayOfMontProps) => {
+
+  const handleNuovoEventoClick = (d: DayOfMontProps, events: EventProps[]) => {
     const selectedDate = setHours(
       new Date(currentYear, d.monthIndex, d.numbDay),
       8,
     );
-    setSelectedBoat(boat);
+    setSelectedBoat({ ...boat, events });
     setSelectedDataFrom(selectedDate);
   };
 
@@ -50,7 +52,11 @@ const BookingCalendarBody = ({
       </HeaderCell>
       {days?.map((d, i) => {
         const currEvents =
-          getDayEvents(d.numbDay, d.monthIndex, currentYear)(boatEvents) || [];
+          getDayEvents(
+            d.numbDay,
+            d.monthIndex,
+            currentYear,
+          )(boatEvents, boat.services) || [];
         return (
           <GridItem key={i}>
             <CalendarCell
@@ -58,7 +64,7 @@ const BookingCalendarBody = ({
               isCurrent={isCurrentDay(d)}
               events={currEvents}
               currentMontLabel={currentMontLabel}
-              onNuovoClick={() => handleNuovoEventoClick(d)}
+              onNuovoClick={() => handleNuovoEventoClick(d, currEvents)}
             />
           </GridItem>
         );

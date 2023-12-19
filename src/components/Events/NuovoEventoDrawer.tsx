@@ -2,7 +2,7 @@ import { BoatProps } from '@/core/types/barca';
 import { PersonaleBaseProps } from '@/core/types/personale';
 import { ServiceProps } from '@/core/types/services';
 import { Nullish } from '@/core/types/utils';
-import { filterTimeByHours } from '@/core/utils/date';
+import { filterTimeByHoursAndEvent } from '@/core/utils/date';
 import Button from '@/kit/Button/Button';
 import DataPickerField from '@/kit/Input/DataPickerField';
 import InputField from '@/kit/Input/InputField';
@@ -24,12 +24,13 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { FormProvider, UseFormReturn, useWatch } from 'react-hook-form';
 import { NuovoEventoFormProps } from '@/core/types/event';
+import { setHours } from 'date-fns';
 
 type NuovoEventoDrawerProps = {
-  selectedDate: Nullish<Date>;
+  selectedDateFrom: Nullish<Date>;
   selectedBoat: Nullish<BoatProps>;
   personale: PersonaleBaseProps[];
   isLoading: boolean;
@@ -38,7 +39,7 @@ type NuovoEventoDrawerProps = {
 } & Pick<DrawerProps, 'isOpen' | 'onClose'>;
 
 const NuovoEventoDrawer = ({
-  selectedDate,
+  selectedDateFrom,
   selectedBoat,
   personale,
   isOpen,
@@ -51,12 +52,32 @@ const NuovoEventoDrawer = ({
 
   const dataFrom = useWatch({ control: methods.control, name: 'from' });
 
-  useEffect(() => {
-    if (isOpen && selectedDate) {
-      methods.setValue('from', selectedDate);
-      methods.setValue('to', selectedDate); // da cambiare
+  const initForm = useCallback(() => {
+    if (selectedDateFrom) {
+      if (!selectedBoat?.events || !selectedBoat?.events.length) {
+        const dataTo = setHours(
+          selectedDateFrom,
+          selectedDateFrom.getHours() + 2,
+        );
+        methods.setValue('from', selectedDateFrom);
+        methods.setValue('to', dataTo);
+      } else {
+        const lastEvent =
+          selectedBoat?.events[selectedBoat?.events?.length - 1];
+        const lastEventDate = new Date(lastEvent?.to);
+        const dataTo = setHours(lastEventDate, lastEventDate.getHours() + 2);
+
+        methods.setValue('from', lastEventDate);
+        methods.setValue('to', dataTo);
+      }
     }
-  }, [isOpen, selectedDate, methods]);
+  }, [selectedBoat, selectedDateFrom, methods]);
+
+  useEffect(() => {
+    if (isOpen && selectedDateFrom) {
+      initForm();
+    }
+  }, [isOpen, selectedDateFrom, initForm]);
 
   return (
     <>
@@ -108,23 +129,33 @@ const NuovoEventoDrawer = ({
                   />
                   <DataPickerField
                     name='from'
-                    label='Data inizio'
-                    placeholder='Data inizio'
+                    label='Ora inizio'
+                    placeholder='Ora inizio'
+                    showTimeSelectOnly
                     withPortal={false}
-                    showTimeSelect
+                    // showTimeSelect
                     calendarClassName='esea-event-calendar'
-                    filterTime={(date) => filterTimeByHours(date, 6)}
+                    filterTime={(date) =>
+                      filterTimeByHoursAndEvent(date)(
+                        selectedBoat?.events || [],
+                      )
+                    }
                     isRequired
                   />
                   <DataPickerField
                     name='to'
-                    label='Data fine'
-                    placeholder='Data fine'
+                    label='Ora fine'
+                    placeholder='Ora fine'
                     withPortal={false}
+                    showTimeSelectOnly
                     minDate={dataFrom}
-                    showTimeSelect
+                    // showTimeSelect
                     calendarClassName='esea-event-calendar'
-                    filterTime={(date) => filterTimeByHours(date, 6)}
+                    filterTime={(date) =>
+                      filterTimeByHoursAndEvent(date)(
+                        selectedBoat?.events || [],
+                      )
+                    }
                     isRequired
                   />
 
@@ -158,9 +189,17 @@ const NuovoEventoDrawer = ({
                     getValue={({ id }) => id}
                     getOptionLabel={({ name }) => name}
                     options={personale || []}
-                    isRequired
                   />
-                  <Text fontWeight={700}>Note</Text>
+                  <Text fontWeight={700}>Dettagli</Text>
+                  <SelectField<PersonaleBaseProps>
+                    name='canale'
+                    label='Canale TODO'
+                    placeholder='Seleziona un canale'
+                    getKey={({ id }) => id}
+                    getValue={({ id }) => id}
+                    getOptionLabel={({ name }) => name}
+                    options={personale || []}
+                  />
                   <InputField name='note' label='Note' placeholder='Note' />
                 </Stack>
               </form>

@@ -14,7 +14,7 @@ export const CalendarioParametri = extendType({
         try {
           const data = ctx.prisma.user.findUnique({
             where: { email: args.email },
-            include: { boats: { include: { services: true } } },
+            include: { boats: { include: { services: true, events: true } } },
           });
           // use schema
           return data;

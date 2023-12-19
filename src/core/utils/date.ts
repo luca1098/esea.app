@@ -1,6 +1,15 @@
-import { format } from 'date-fns';
+import {
+  differenceInHours,
+  format,
+  isAfter,
+  isBefore,
+  isWithinInterval,
+  setHours,
+} from 'date-fns';
 import { getLocaleConfig } from './localeConfig';
 import { Nullish } from '../types/utils';
+import { EventProps } from '../types/event';
+import { times } from 'lodash';
 
 export const formatTime = (timestamp: Nullish<number>) => {
   if (typeof timestamp !== 'number') return '';
@@ -10,6 +19,7 @@ export const formatDate = (timestamp: Nullish<number>) => {
   if (typeof timestamp !== 'number') return '';
   return format(new Date(timestamp), getLocaleConfig().dateFormat);
 };
+
 export const dateToTimestamp = (date: Nullish<Date>) => {
   if (!date || typeof date !== 'object') return null;
   return Math.floor(date.getTime());
@@ -26,3 +36,10 @@ export const filterTimeByHours = (
     (rangeTo ? selectedDate.getHours() <= rangeTo : true)
   );
 };
+export const filterTimeByHoursAndEvent =
+  (time: Date) => (events: EventProps[]) => {
+    const intervalValid = !events.some((e) =>
+      isWithinInterval(time, { start: e.from, end: e.to }),
+    );
+    return intervalValid;
+  };

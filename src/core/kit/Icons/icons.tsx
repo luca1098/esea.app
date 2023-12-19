@@ -11,6 +11,7 @@ import { FaRegTrashCan as TrashIcon } from 'react-icons/fa6';
 import {
   IoStatsChartSharp as StatsIcon,
   IoArrowBack as BackIcon,
+  IoTimeOutline as TimeIcon,
 } from 'react-icons/io5';
 import { SiGoogledocs as DocsIcon } from 'react-icons/si';
 import { RxDoubleArrowRight as DoubleArrowDxIcon } from 'react-icons/rx';
@@ -35,4 +36,5 @@ export {
   BurgerIcon,
   NotificationIcon,
   SettingsIcon,
+  TimeIcon,
 };
