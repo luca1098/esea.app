@@ -17,9 +17,21 @@ import { SiGoogledocs as DocsIcon } from 'react-icons/si';
 import { RxDoubleArrowRight as DoubleArrowDxIcon } from 'react-icons/rx';
 import { GiHamburgerMenu as BurgerIcon } from 'react-icons/gi';
 import {
+  TiArrowSortedDown as SortDownIcon,
+  TiArrowSortedUp as SortUpIcon,
+  TiArrowUnsorted as UnsortedIcon,
+} from 'react-icons/ti';
+import {
   IoMdNotifications as NotificationIcon,
   IoMdSettings as SettingsIcon,
 } from 'react-icons/io';
+
+import {
+  MdOutlineKeyboardDoubleArrowLeft as PaginationArrowLeftDoubleIcon,
+  MdOutlineKeyboardDoubleArrowRight as PaginationArrowRightDoubleIcon,
+  MdOutlineKeyboardArrowLeft as PaginationArrowLeftIcon,
+  MdOutlineKeyboardArrowRight as PaginationArrowRightIcon,
+} from 'react-icons/md';
 export {
   CalendarIcon,
   HomeIcon,
@@ -37,4 +49,11 @@ export {
   NotificationIcon,
   SettingsIcon,
   TimeIcon,
+  SortUpIcon,
+  SortDownIcon,
+  UnsortedIcon,
+  PaginationArrowLeftDoubleIcon,
+  PaginationArrowRightDoubleIcon,
+  PaginationArrowLeftIcon,
+  PaginationArrowRightIcon,
 };

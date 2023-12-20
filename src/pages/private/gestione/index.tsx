@@ -11,6 +11,7 @@ import { personaleMok } from 'mok';
 import { UserExtended } from '@/core/types/user';
 import { PaymentProps } from '@/core/types/payments';
 import { PlanProps } from '@/core/types/plan';
+import UltimiAccreditiBox from '@/components/pages/Gestione/Overview/UltimiAccreditiBox';
 
 const paymentMok: PaymentProps = {
   id: 'paymento',
@@ -70,11 +71,7 @@ const Gestione = () => {
           <AziendaBox company={companyMok} />
         </GridItem>
         <GridItem colSpan={{ base: 1, md: 2, lg: 3 }}>
-          <ContentBox>
-            <Heading as={'h3'} variant={'h3'}>
-              Ultimi accrediti
-            </Heading>
-          </ContentBox>
+          <UltimiAccreditiBox />
         </GridItem>
       </Grid>
     </GestioneLayout>
