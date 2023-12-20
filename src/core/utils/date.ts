@@ -1,15 +1,7 @@
-import {
-  differenceInHours,
-  format,
-  isAfter,
-  isBefore,
-  isWithinInterval,
-  setHours,
-} from 'date-fns';
+import { format, isWithinInterval } from 'date-fns';
 import { getLocaleConfig } from './localeConfig';
 import { Nullish } from '../types/utils';
 import { EventProps } from '../types/event';
-import { times } from 'lodash';
 
 export const formatTime = (timestamp: Nullish<number>) => {
   if (typeof timestamp !== 'number') return '';

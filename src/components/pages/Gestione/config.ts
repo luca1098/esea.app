@@ -4,7 +4,6 @@ import {
   PersonaleSalaryProps,
 } from '@/core/types/personale';
 import { ActionButtonProps } from '@/kit/Button/ActionButton';
-import { createStandaloneToast } from '@chakra-ui/react';
 import { keyBy } from 'lodash';
 
 export const userPannelActions: ActionButtonProps[] = [

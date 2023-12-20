@@ -92,6 +92,6 @@ const SatispayPaymentComponent = ({ payment }: PaymentBoxProps) => {
   );
 };
 
-const NonePaymentComponent = ({ payment }: PaymentBoxProps) => {
+const NonePaymentComponent = () => {
   return <EmptyBox msg='Gratuito' />;
 };
