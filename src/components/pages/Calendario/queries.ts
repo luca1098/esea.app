@@ -12,9 +12,10 @@ export const useCalendarioParametri = ({ email }: CalendarioParametriProps) => {
       email,
     },
   });
-
   return {
-    data: CalendarioParamentriResponseSchema.parse(data).calendarioParametri,
+    data: data
+      ? CalendarioParamentriResponseSchema?.parse(data)?.calendarioParametri
+      : data,
     ...rest,
   };
 };

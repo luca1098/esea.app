@@ -1,4 +1,4 @@
-import { Box, Popover, PopoverTrigger, Stack, Text } from '@chakra-ui/react';
+import { Popover, PopoverTrigger, Stack, Text } from '@chakra-ui/react';
 import CalendarEvent, {
   CalendarEventProps,
 } from '../../components/CalendarEvent';

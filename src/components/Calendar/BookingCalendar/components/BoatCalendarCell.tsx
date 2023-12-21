@@ -18,7 +18,7 @@ const BoatCalendarCell = ({ boat }: BoatCalendarCellProps) => {
         rounded={'2xl'}
       >
         <Image
-          src={boat?.image}
+          src={boat?.image || ''}
           alt={boat?.name}
           fill
           style={{ objectFit: 'cover' }}

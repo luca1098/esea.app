@@ -30,9 +30,11 @@ const Calendario = ({ user }: CalendarioProps) => {
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
   const { errorToast, successToast } = useResponseToast();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: parametri, loading } = useCalendarioParametri({
-    email: user?.email || '',
-  });
+  const { data: parametri, loading: parametriLoading } = useCalendarioParametri(
+    {
+      email: user?.email || '',
+    },
+  );
   const { data: canali } = useCanali();
 
   const [selectedBoat, setSelectedBoat] = useState<BoatProps | null>();
@@ -87,6 +89,7 @@ const Calendario = ({ user }: CalendarioProps) => {
             boats={parametri?.boats || []}
             setSelectedBoat={setSelectedBoat}
             setSelectedDataFrom={setSelectedDataFrom}
+            isLoading={parametriLoading}
           />
         </ContentBox>
       </PrivateLayout>

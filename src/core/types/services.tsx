@@ -4,7 +4,7 @@ export const ServiceSchema = z.object({
   id: z.string(),
   label: z.string(),
   slug: z.string(),
-  boatId: z.string(),
+  boatId: z.string().nullish(),
 });
 
 export type ServiceProps = z.infer<typeof ServiceSchema>;

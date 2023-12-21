@@ -52,7 +52,7 @@ const AziendaBox = ({ company }: AziendaBox) => {
           <AvatarGroup size='md' max={3}>
             {company?.boats.length > 0 ? (
               company.boats.map((b) => (
-                <Avatar key={b.id} src={b.image} name={b.name} />
+                <Avatar key={b.id} src={b?.image || ''} name={b.name} />
               ))
             ) : (
               <EmptyBox msg='Ancora nessuna barca presente' />

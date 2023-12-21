@@ -31,5 +31,9 @@ export const useAddEvent = (boatId: string) => {
 };
 export const useCanali = () => {
   const { data, ...rest } = useQuery(CANALI_QUERY);
-  return { data: CanaliResponseSchema.parse(data).canali, ...rest };
+
+  return {
+    data: data ? CanaliResponseSchema.parse(data).canali : data,
+    ...rest,
+  };
 };

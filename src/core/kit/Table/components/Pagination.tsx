@@ -1,4 +1,3 @@
-import Button from '@/kit/Button/Button';
 import {
   PaginationArrowLeftDoubleIcon,
   PaginationArrowLeftIcon,
