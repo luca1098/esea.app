@@ -4,3 +4,4 @@ export * from './Gestione';
 export * from './Events';
 export * from './Calendario';
 export * from './Services';
+export * from './Canale';

@@ -28,12 +28,14 @@ import { useCallback, useEffect, useRef } from 'react';
 import { FormProvider, UseFormReturn, useWatch } from 'react-hook-form';
 import { NuovoEventoFormProps } from '@/core/types/event';
 import { setHours } from 'date-fns';
+import { CanaleProps } from '@/core/types/canale';
 
 type NuovoEventoDrawerProps = {
   selectedDateFrom: Nullish<Date>;
   selectedBoat: Nullish<BoatProps>;
   personale: PersonaleBaseProps[];
   isLoading: boolean;
+  canali: CanaleProps[];
   methods: UseFormReturn<NuovoEventoFormProps>;
   onCreate: (values: NuovoEventoFormProps) => void;
 } & Pick<DrawerProps, 'isOpen' | 'onClose'>;
@@ -45,6 +47,7 @@ const NuovoEventoDrawer = ({
   isOpen,
   isLoading,
   methods,
+  canali,
   onClose,
   onCreate,
 }: NuovoEventoDrawerProps) => {
@@ -133,7 +136,7 @@ const NuovoEventoDrawer = ({
                     placeholder='Ora inizio'
                     showTimeSelectOnly
                     withPortal={false}
-                    // showTimeSelect
+                    showTimeSelect
                     calendarClassName='esea-event-calendar'
                     filterTime={(date) =>
                       filterTimeByHoursAndEvent(date)(
@@ -149,7 +152,7 @@ const NuovoEventoDrawer = ({
                     withPortal={false}
                     showTimeSelectOnly
                     minDate={dataFrom}
-                    // showTimeSelect
+                    showTimeSelect
                     calendarClassName='esea-event-calendar'
                     filterTime={(date) =>
                       filterTimeByHoursAndEvent(date)(
@@ -191,14 +194,14 @@ const NuovoEventoDrawer = ({
                     options={personale || []}
                   />
                   <Text fontWeight={700}>Dettagli</Text>
-                  <SelectField<PersonaleBaseProps>
+                  <SelectField<CanaleProps>
                     name='canale'
-                    label='Canale TODO'
+                    label='Canale'
                     placeholder='Seleziona un canale'
                     getKey={({ id }) => id}
                     getValue={({ id }) => id}
-                    getOptionLabel={({ name }) => name}
-                    options={personale || []}
+                    getOptionLabel={({ label }) => label}
+                    options={canali || []}
                   />
                   <InputField name='note' label='Note' placeholder='Note' />
                 </Stack>

@@ -10,6 +10,9 @@ export const boatEventsQuery = gql`
       skipperId
       serviceSlug
       to
+      canaleId
+      note
+      people
     }
   }
 `;

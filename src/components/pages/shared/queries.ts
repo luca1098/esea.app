@@ -1,3 +1,5 @@
+import { CanaliResponseSchema } from '@/core/types/canale';
+import { CANALI_QUERY } from '@/graphql/queries/canale';
 import { addEventMutation, boatEventsQuery } from '@/graphql/queries/events';
 import { useQuery } from '@apollo/client';
 
@@ -26,4 +28,8 @@ export const useAddEvent = (boatId: string) => {
       },
     ],
   });
+};
+export const useCanali = () => {
+  const { data, ...rest } = useQuery(CANALI_QUERY);
+  return { data: CanaliResponseSchema.parse(data).canali, ...rest };
 };

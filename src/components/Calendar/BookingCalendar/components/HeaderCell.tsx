@@ -5,5 +5,6 @@ export const HeaderCell = chakra(GridItem, {
     fontWeight: '700',
     bg: 'esea.gray',
     p: 2,
+    minW: '120px',
   },
 });

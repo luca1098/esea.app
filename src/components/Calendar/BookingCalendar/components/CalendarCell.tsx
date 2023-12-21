@@ -28,10 +28,11 @@ const CalendarCell = ({
       {({ onClose }) => (
         <>
           <PopoverTrigger>
-            <Box
+            <Stack
               height={'100px'}
               borderWidth={1}
               bg={getBgColor()}
+              minW={'120px'}
               p={1}
               cursor={'pointer'}
               overflowY={'scroll'}
@@ -72,7 +73,7 @@ const CalendarCell = ({
                   <CalendarEvent key={e.id} {...e} index={i} restricted />
                 ))}
               </Stack>
-            </Box>
+            </Stack>
           </PopoverTrigger>
           <CellPopperContent
             day={day}

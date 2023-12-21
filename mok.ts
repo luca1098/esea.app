@@ -91,3 +91,26 @@ export const personaleMok: PersonaleProps[] = [
     salaryType: 'DAY',
   },
 ];
+
+export const canaliMok = [
+  {
+    id: 'canale1',
+    slug: 'sito-personale',
+    label: 'Sito personale',
+  },
+  {
+    id: 'canale2',
+    slug: 'una-vita-vista-mare',
+    label: 'Una vita vista mare',
+  },
+  {
+    id: 'canale3',
+    slug: 'sameboat',
+    label: 'Sameboat',
+  },
+  {
+    id: 'canale6',
+    slug: 'guide-turistiche',
+    label: 'Guide turistiche',
+  },
+];

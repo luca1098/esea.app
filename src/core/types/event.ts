@@ -11,7 +11,7 @@ export const EventSchema = z.object({
   skipperId: z.string().nullish(),
   note: z.string().nullish(),
   titolo: z.string().nullish(),
-  canaleSlug: z.string().nullish(),
+  canaleId: z.string().nullish(),
 });
 
 export const NuovoEventoFormSchema = z.object({

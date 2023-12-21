@@ -7,7 +7,7 @@ import {
 } from '@/core/types/event';
 import PrivateLayout from '@/components/Layout/PrivateLayout';
 import { useCalendarioParametri } from '@/components/pages/Calendario/queries';
-import { useAddEvent } from '@/components/pages/shared/queries';
+import { useAddEvent, useCanali } from '@/components/pages/shared/queries';
 import { BoatProps } from '@/core/types/barca';
 import { PropsWithUser } from '@/core/types/user';
 import { dateToTimestamp } from '@/core/utils/date';
@@ -30,9 +30,10 @@ const Calendario = ({ user }: CalendarioProps) => {
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
   const { errorToast, successToast } = useResponseToast();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data, loading } = useCalendarioParametri({
+  const { data: parametri, loading } = useCalendarioParametri({
     email: user?.email || '',
   });
+  const { data: canali } = useCanali();
 
   const [selectedBoat, setSelectedBoat] = useState<BoatProps | null>();
   const [selectedDataFrom, setSelectedDataFrom] = useState<Date | null>();
@@ -44,8 +45,6 @@ const Calendario = ({ user }: CalendarioProps) => {
   useEffect(() => {
     if (selectedBoat && selectedDataFrom) onOpen();
   }, [selectedBoat, selectedDataFrom, onOpen]);
-
-  const { calendarioParametri } = data || {};
 
   const handleClose = () => {
     setSelectedBoat(null);
@@ -59,13 +58,14 @@ const Calendario = ({ user }: CalendarioProps) => {
     if (timestampFrom && timestampTo && selectedBoat?.id) {
       const args: AddEventsArgs = {
         serviceSlug: values.service,
-        canaleSlug: values?.canale,
+        canaleId: values?.canale,
         from: timestampFrom,
         to: timestampTo,
         skipperId: values.skipper,
         boatId: selectedBoat?.id,
         clientId: null,
         people: values.clientPeople ? Number(values.clientPeople) : null,
+        note: values.note,
       };
       const { data, errors } = await addEvent({ variables: { args } });
       if (errors || !data.createEvents.valido) {
@@ -84,7 +84,7 @@ const Calendario = ({ user }: CalendarioProps) => {
         <PageTitle title='Calendario' />
         <ContentBox>
           <BookingCalendar
-            boats={calendarioParametri?.boats}
+            boats={parametri?.boats || []}
             setSelectedBoat={setSelectedBoat}
             setSelectedDataFrom={setSelectedDataFrom}
           />
@@ -99,6 +99,7 @@ const Calendario = ({ user }: CalendarioProps) => {
         onCreate={handleCreateEvent}
         isLoading={addEventLoading}
         methods={methods}
+        canali={canali || []}
       />
     </>
   );

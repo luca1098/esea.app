@@ -77,6 +77,12 @@ boat   Boat?   @relation(fields: [boatId], references: [id])
 boatId String?
 }
 
+model Canale {
+  id        String @id @unique @default(cuid())
+  label     String
+  events  Event[]
+}
+
 model Event {
   id        String @id @unique @default(cuid())
   serviceSlug String
@@ -87,22 +93,16 @@ model Event {
   boatId    String
   clientId  String?
   skipperId String?
-  canaleSlug String?
+  canaleId String?
+  canale Canale? @relation(fields: [canaleId], references: [id])
   boat   Boat?   @relation(fields: [boatId], references: [id])
 }
 
 model Service {
   id        String @id @unique @default(cuid())
-  label     String
-  slug     String
+  label     String   
+  slug     String 
   boat   Boat[] 
-}
-
-
-model Canale {
-  id        String @id @unique @default(cuid())
-  label     String
-  slug     String
 }
 
 enum Role {

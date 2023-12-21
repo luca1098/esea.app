@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Stack } from '@chakra-ui/react';
 import BookingCalendarBody from './BookingCalendarBody';
 import BookingCalendarHeader from './BookingCalendarHeader';
 import useCalendar from './useCalendar';
@@ -29,7 +29,7 @@ const BookingCalendar = ({
   const [view, setView] = useState<CalendarView>('settimana');
 
   return (
-    <Box>
+    <Stack overflowX={'scroll'} gap={0}>
       <BookingCalendarHeader
         currentMontLabel={currentMontLabel}
         currentYear={currentYear}
@@ -39,19 +39,21 @@ const BookingCalendar = ({
         onNext={onNext}
         onPrev={onPrev}
       />
-      {boats?.map((b) => (
-        <BookingCalendarBody
-          key={b.id}
-          days={daysInWeek}
-          view={view}
-          boat={b}
-          currentYear={currentYear}
-          currentMontLabel={currentMontLabel}
-          setSelectedBoat={setSelectedBoat}
-          setSelectedDataFrom={setSelectedDataFrom}
-        />
-      ))}
-    </Box>
+      <Stack gap={0}>
+        {boats?.map((b) => (
+          <BookingCalendarBody
+            key={b.id}
+            days={daysInWeek}
+            view={view}
+            boat={b}
+            currentYear={currentYear}
+            currentMontLabel={currentMontLabel}
+            setSelectedBoat={setSelectedBoat}
+            setSelectedDataFrom={setSelectedDataFrom}
+          />
+        ))}
+      </Stack>
+    </Stack>
   );
 };
 
