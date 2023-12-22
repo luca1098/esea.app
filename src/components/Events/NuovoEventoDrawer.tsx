@@ -29,6 +29,8 @@ import { FormProvider, UseFormReturn, useWatch } from 'react-hook-form';
 import { NuovoEventoFormProps } from '@/core/types/event';
 import { setHours } from 'date-fns';
 import { CanaleProps } from '@/core/types/canale';
+import CurrencyInputFormField from '@/kit/Input/CurrencyInputField';
+import { PaymentStatus, paymentStatus } from '@/core/config/payment';
 
 type NuovoEventoDrawerProps = {
   selectedDateFrom: Nullish<Date>;
@@ -192,6 +194,26 @@ const NuovoEventoDrawer = ({
                     getValue={({ id }) => id}
                     getOptionLabel={({ name }) => name}
                     options={personale || []}
+                  />
+                  <Text fontWeight={700}>Pagamento</Text>
+                  <SelectField<PaymentStatus>
+                    name='status'
+                    label='Stato'
+                    placeholder='Seleziona uno stato'
+                    getKey={({ value }) => value}
+                    getValue={({ value }) => value}
+                    getOptionLabel={({ label }) => label}
+                    options={paymentStatus || []}
+                  />
+                  <CurrencyInputFormField
+                    name='amount'
+                    label='Importo'
+                    placeholder='Importo'
+                  />
+                  <InputField
+                    name='statusDetails'
+                    label='Dettaglio'
+                    placeholder='Es. Acconto di ecc...'
                   />
                   <Text fontWeight={700}>Dettagli</Text>
                   <SelectField<CanaleProps>

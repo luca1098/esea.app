@@ -37,7 +37,8 @@ export const Event = objectType({
     t.field('service', { type: Service });
     t.field('status', { type: EventStatusType });
     t.float('amount');
-    t.string('details');
+    t.string('statusDetails');
+    t.string('createdAt');
   },
 });
 
@@ -81,6 +82,7 @@ export const GetCompanyEvents = extendType({
               client: true,
               service: true,
             },
+            orderBy: [{ createdAt: 'desc' }],
           });
         } catch (e: unknown) {
           const error = getErrorReturn(e);
@@ -145,6 +147,9 @@ const CreateEventsArgs = inputObjectType({
     t.string('note');
     t.string('canaleId');
     t.string('companyId');
+    t.field('status', { type: EventStatusType });
+    t.float('amount');
+    t.string('statusDetails');
   },
 });
 

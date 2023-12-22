@@ -45,7 +45,7 @@ export const columns: ColumnDef<EventProps, never>[] = [
     cell: (info) => <StatusEventCell type={info.getValue()} />,
     header: 'Stato',
   }),
-  columnHelper.accessor('details', {
+  columnHelper.accessor('statusDetails', {
     cell: (info) => info.getValue(),
     header: 'Dettaglio',
   }),

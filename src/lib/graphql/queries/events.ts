@@ -60,7 +60,7 @@ export const COMPANY_EVENT_QUERY = gql`
         email
       }
       amount
-      details
+      statusDetails
       status
     }
   }

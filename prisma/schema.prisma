@@ -106,6 +106,7 @@ model Event {
   status     EventStatusType @default(NONE)
   amount     Float? @default(0)
   statusDetails     String?
+  createdAt        DateTime           @default(now())
 }
 
 model Personale {

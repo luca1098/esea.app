@@ -49,7 +49,7 @@ export const EventSchema = z.object({
   service: ServiceBoatSchema.nullish(),
   status: StatusTypeSchema.nullish(),
   amount: z.number().nullish(),
-  details: z.string().nullish(),
+  statusDetails: z.string().nullish(),
 });
 
 export const NuovoEventoFormSchema = z.object({
@@ -63,6 +63,9 @@ export const NuovoEventoFormSchema = z.object({
   clientPhone: z.string().nullish(),
   skipper: z.string().nullish(),
   note: z.string().nullish(),
+  status: StatusTypeSchema,
+  amount: z.number().nullish(),
+  statusDetails: z.string().nullish(),
 });
 
 export const AddEventsArgsSchema = z.object({
@@ -76,6 +79,9 @@ export const AddEventsArgsSchema = z.object({
   note: z.string().nullish(),
   canaleId: z.string().nullish(),
   companyId: z.string().nullish(),
+  status: StatusTypeSchema,
+  amount: z.number().nullish(),
+  statusDetails: z.string().nullish(),
 });
 
 export type AddEventsArgs = z.infer<typeof AddEventsArgsSchema>;

@@ -75,6 +75,9 @@ const Calendario = ({ user }: CalendarioProps) => {
         people: values.clientPeople ? Number(values.clientPeople) : null,
         note: values.note,
         companyId: user?.companyId,
+        status: values.status,
+        amount: values.amount,
+        statusDetails: values.statusDetails,
       };
       const { data, errors } = await addEvent({ variables: { args } });
       if (errors || !data.createEvents.valido) {
