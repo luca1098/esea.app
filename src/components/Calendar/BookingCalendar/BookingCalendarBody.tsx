@@ -30,8 +30,8 @@ const BookingCalendarBody = ({
   setSelectedDataFrom,
 }: BookingCalendarBodyProps) => {
   const today = new Date();
-  const { data } = useBoatEvents({ boatId: boat.id });
-  const { boatEvents } = data || {};
+
+  const { data: boatEvents } = useBoatEvents({ boatId: boat.id });
 
   const isCurrentDay = (day: DayOfMontProps) =>
     day.monthIndex === today.getMonth() && day.numbDay === today.getDate();
@@ -52,11 +52,8 @@ const BookingCalendarBody = ({
       </HeaderCell>
       {days?.map((d, i) => {
         const currEvents =
-          getDayEvents(
-            d.numbDay,
-            d.monthIndex,
-            currentYear,
-          )(boatEvents, boat.services) || [];
+          getDayEvents(d.numbDay, d.monthIndex, currentYear)(boatEvents) || [];
+
         return (
           <GridItem key={i}>
             <CalendarCell

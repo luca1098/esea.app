@@ -5,3 +5,5 @@ export * from './Events';
 export * from './Calendario';
 export * from './Services';
 export * from './Canale';
+export * from './Company';
+export * from './Personale';

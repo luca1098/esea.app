@@ -3,6 +3,7 @@ import { formatTime } from '@/core/utils/date';
 import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 import { ellipsText } from '@/core/utils/normalize';
+import { Nullish } from '@/core/types/utils';
 
 const bgColors = [
   'red.100',
@@ -24,10 +25,9 @@ export type CalendarEventProps = {
 const CalendarEvent = ({
   id,
   from,
-  serviceSlug,
+  service,
   to,
   index,
-  titolo,
   restricted,
 }: CalendarEventProps) => {
   return (
@@ -40,9 +40,9 @@ const CalendarEvent = ({
     >
       <Text fontSize={'xs'} fontWeight={'bold'}>
         {restricted ? (
-          <RestrictedEvent titolo={titolo ?? serviceSlug} from={from} to={to} />
+          <RestrictedEvent titolo={service?.label} from={from} to={to} />
         ) : (
-          <Event titolo={titolo ?? serviceSlug} from={from} to={to} />
+          <Event titolo={service?.label} from={from} to={to} />
         )}
       </Text>
     </Box>
@@ -52,12 +52,12 @@ const CalendarEvent = ({
 export default CalendarEvent;
 
 type EventComponentProps = {
-  titolo: string;
+  titolo: Nullish<string>;
 } & Pick<EventProps, 'from' | 'to'>;
 
-const RestrictedEvent = ({ titolo, from, to }: EventComponentProps) => (
+const RestrictedEvent = ({ titolo = '-', from, to }: EventComponentProps) => (
   <Text fontSize={'xs'} fontWeight={'bold'}>
-    {`${ellipsText(titolo, 5)} ${formatTime(from)} - ${formatTime(to)}`}
+    {`${ellipsText(titolo ?? '-', 5)} ${formatTime(from)} - ${formatTime(to)}`}
   </Text>
 );
 const Event = ({ titolo, from, to }: EventComponentProps) => (

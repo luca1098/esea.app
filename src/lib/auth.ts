@@ -9,7 +9,7 @@ import { getServerSession } from 'next-auth';
 import { prisma } from 'prisma/db';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import apolloClient from './apollo';
-import { userQuery } from './graphql/queries/user';
+import { USER_QUERY } from './graphql/queries/user';
 import { authPage } from '@/core/config/authpage';
 import bcrypt from 'bcryptjs';
 
@@ -27,6 +27,7 @@ export const config = {
           ...token,
           role: user.role,
           id: user.id,
+          companyId: user.companyId,
         };
       return token;
     },
@@ -38,6 +39,7 @@ export const config = {
             ...session.user,
             id: token.id,
             role: token.role,
+            companyId: token.companyId,
           },
         };
       }
@@ -54,7 +56,7 @@ export const config = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) return null;
         const { data, error } = await apolloClient.query({
-          query: userQuery,
+          query: USER_QUERY,
           variables: {
             email: credentials?.email,
           },
@@ -77,6 +79,7 @@ export const config = {
               email: data.user.email,
               image: data.user.image,
               role: data.user.role,
+              companyId: data.user.companyId,
             };
           }
         }

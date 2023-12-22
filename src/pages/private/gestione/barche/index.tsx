@@ -30,8 +30,7 @@ const Barche = () => {
 
   const handleDelete = async (id: string) => {
     const { data, errors } = await removeBoat({ variables: { boatId: id } });
-
-    if (errors || !data?.deleteBoat?.valido) {
+    if (errors || !data?.deleteBoat) {
       errorToast(errors, data?.deleteBoat);
     } else {
       successToast(data?.deleteBoat);

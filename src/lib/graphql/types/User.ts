@@ -9,17 +9,21 @@ import {
 } from 'nexus';
 import { Boat } from './Barche';
 import { getErrorReturn } from '@/lib/utils';
+import { Company } from './Company';
 
 export const User = objectType({
   name: 'User',
   definition(t) {
     t.string('id');
+    t.string('email', { description: 'Email of the user' });
     t.string('name');
+    t.field('role', { type: Role });
+    t.float('emailVerified', { description: 'In timestamp' });
     t.string('image');
     t.string('password');
-    t.string('email', { description: 'Email of the user' });
-    t.field('role', { type: Role });
     t.list.field('boats', { type: Boat });
+    t.field('company', { type: Company });
+    t.string('companyId');
   },
 });
 

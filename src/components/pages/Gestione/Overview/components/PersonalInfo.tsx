@@ -29,7 +29,7 @@ const PersonalInfo = ({ user }: PersonalInfoProps) => {
       </Heading>
       <ValueWithLabel
         label='Piano attuale'
-        value={planConfig[user?.plan.plan]?.label}
+        value={user?.plan?.plan ? planConfig[user?.plan?.plan]?.label : '-'}
       />
       <ValueWithLabel
         label='Data utilmo accredito'
@@ -40,7 +40,10 @@ const PersonalInfo = ({ user }: PersonalInfoProps) => {
         value={formatDate(user?.plan?.renewalDate)}
       />
 
-      <ValueWithLabel label='Rata' value={formatCurrency(user?.plan?.amount)} />
+      <ValueWithLabel
+        label='Rata'
+        value={formatCurrency(user?.plan?.amount) || '-'}
+      />
     </Box>
   );
 };

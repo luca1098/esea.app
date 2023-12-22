@@ -2,7 +2,7 @@ import { formatCurrency } from '@/core/utils/currencies';
 import { formatDate } from '@/core/utils/date';
 import { Avatar, Badge, Divider, Stack, Text } from '@chakra-ui/react';
 import { personaleRoleMapper, salaryMapper } from '../config';
-import { PersonaleProps } from './schemas';
+import { PersonaleProps } from '@/core/types/personale';
 
 type CardPersonaleProps = {
   person: PersonaleProps;

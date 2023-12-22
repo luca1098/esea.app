@@ -1,5 +1,6 @@
 import {
   FieldResolver,
+  enumType,
   extendType,
   inputObjectType,
   nonNull,
@@ -8,24 +9,47 @@ import {
 } from 'nexus';
 import { Boat } from './Barche';
 import { getErrorReturn } from '@/lib/utils';
+import { Personale } from './Personale';
+import { Canale } from './Canale';
+import { Client } from './Client';
+import { Service } from './Services';
+import { Company } from './Company';
 
 export const Event = objectType({
   name: 'Event',
   definition(t) {
     t.string('id');
-    t.string('serviceSlug');
     t.float('from');
     t.float('to');
     t.int('people');
+    t.string('note');
+    t.string('serviceId');
     t.string('boatId');
     t.string('clientId');
-    t.string('note');
     t.string('skipperId');
     t.string('canaleId');
+    t.string('companyId');
+    t.field('canale', { type: Canale });
+    t.field('company', { type: Company });
+    t.field('skipper', { type: Personale });
     t.field('boat', { type: Boat });
+    t.field('client', { type: Client });
+    t.field('service', { type: Service });
+    t.field('status', { type: EventStatusType });
+    t.float('amount');
+    t.string('details');
   },
 });
 
+export const EventStatusType = enumType({
+  name: 'EventStatusType',
+  members: {
+    PAYED: 'PAYED',
+    ADVANCE_PAYMENT: 'ADVANCE_PAYMENT',
+    TO_PAY: 'TO_PAY',
+    NONE: 'NONE',
+  },
+});
 export const GetEvents = extendType({
   type: 'Query',
   definition(t) {
@@ -37,6 +61,36 @@ export const GetEvents = extendType({
     });
   },
 });
+
+export const GetCompanyEvents = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.list.field('companyEvents', {
+      type: Event,
+      args: {
+        companyId: nonNull(stringArg()),
+      },
+      resolve(_parents, args, ctx) {
+        try {
+          return ctx.prisma.event.findMany({
+            where: { companyId: args.companyId },
+            include: {
+              boat: true,
+              canale: true,
+              skipper: true,
+              client: true,
+              service: true,
+            },
+          });
+        } catch (e: unknown) {
+          const error = getErrorReturn(e);
+          return error;
+        }
+      },
+    });
+  },
+});
+
 export const GetBoatEvents = extendType({
   type: 'Query',
   definition(t) {
@@ -46,9 +100,15 @@ export const GetBoatEvents = extendType({
         boatId: nonNull(stringArg()),
       },
       resolve(_parents, args, ctx) {
-        return ctx.prisma.event.findMany({
-          where: { boatId: args.boatId },
-        });
+        try {
+          return ctx.prisma.event.findMany({
+            where: { boatId: args.boatId },
+            include: { service: true, skipper: true, client: true },
+          });
+        } catch (e: unknown) {
+          const error = getErrorReturn(e);
+          return error;
+        }
       },
     });
   },
@@ -75,7 +135,7 @@ const CreateEventsResponse = objectType({
 const CreateEventsArgs = inputObjectType({
   name: 'createEventsArgs',
   definition(t) {
-    t.nonNull.string('serviceSlug'),
+    t.nonNull.string('serviceId'),
       t.nonNull.float('from'),
       t.float('to'),
       t.int('people');
@@ -84,6 +144,7 @@ const CreateEventsArgs = inputObjectType({
     t.string('skipperId');
     t.string('note');
     t.string('canaleId');
+    t.string('companyId');
   },
 });
 

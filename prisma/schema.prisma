@@ -20,6 +20,7 @@ model User {
   sessions      Session[]
   company       Company?  @relation(fields: [companyId], references: [id])
   companyId     String?
+  services      Service[]
 
 }
 
@@ -85,24 +86,55 @@ model Canale {
 
 model Event {
   id        String @id @unique @default(cuid())
-  serviceSlug String
+  serviceId String?
   from      Float?
   to        Float?
   people    Int?
   note      String?
   boatId    String
   clientId  String?
-  skipperId String?
   canaleId String?
-  canale Canale? @relation(fields: [canaleId], references: [id])
-  boat   Boat?   @relation(fields: [boatId], references: [id])
+  companyId String?
+  skipperId String?
+  statusId String?
+  skipper   Personale? @relation(fields: [skipperId], references: [id])
+  canale    Canale? @relation(fields: [canaleId], references: [id])
+  boat      Boat?   @relation(fields: [boatId], references: [id])
+  company   Company?   @relation(fields: [companyId], references: [id])
+  client    Client?   @relation(fields: [clientId], references: [id])
+  service    Service?   @relation(fields: [serviceId], references: [id])
+  status     EventStatusType @default(NONE)
+  amount     Float? @default(0)
+  statusDetails     String?
+}
+
+model Personale {
+  id          String @id @unique @default(cuid())
+  role        PersonaleRole? @default(COLLABORATOR)
+  name        String?
+  image       String?
+  salary      Float?
+  birthday    Float?
+  salaryType  SalaryType?  @default(DAY)
+  events      Event[]
+}
+
+model Client {
+  id          String @id @unique @default(cuid())
+  name        String?
+  email        String?  @unique
+  phone        String?
+  events      Event[]
 }
 
 model Service {
   id        String @id @unique @default(cuid())
   label     String   
   slug     String 
-  boat   Boat[] 
+  userId     String 
+  boats   Boat[] 
+  events Event[] 
+  user User @relation(fields: [userId], references: [id]) 
 }
 
 enum Role {
@@ -111,9 +143,32 @@ enum Role {
   OWNER
 }
 
+enum PersonaleRole {
+  SKIPPER
+  ASSISTENT
+  COLLABORATOR
+  COFOUNDER
+  FORNITORE
+  ALTRO
+}
+
+enum SalaryType {
+  HOUR
+  DAY
+  MONTH
+}
+
+enum EventStatusType {
+  PAYED
+  ADVANCE_PAYMENT
+  TO_PAY
+  NONE
+}
+
 
 model Company {
 id        String @id @unique @default(cuid())
 name      String
 employees User[]
+events Event[]
 }

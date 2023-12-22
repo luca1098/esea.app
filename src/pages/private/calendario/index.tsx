@@ -7,21 +7,26 @@ import {
 } from '@/core/types/event';
 import PrivateLayout from '@/components/Layout/PrivateLayout';
 import { useCalendarioParametri } from '@/components/pages/Calendario/queries';
-import { useAddEvent, useCanali } from '@/components/pages/shared/queries';
+import {
+  useAddEvent,
+  useCanali,
+  useCompanyEvent,
+} from '@/components/pages/shared/queries';
 import { BoatProps } from '@/core/types/barca';
-import { PropsWithUser } from '@/core/types/user';
+import { PropsWithUserExtended } from '@/core/types/user';
 import { dateToTimestamp } from '@/core/utils/date';
 import ContentBox from '@/kit/Box/ContentBox';
 import PageTitle from '@/kit/Text/PageTitle';
-import { useDisclosure } from '@chakra-ui/react';
+import { Stack, useDisclosure } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personaleMok } from 'mok';
 import { GetSessionParams, getSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useResponseToast from '@/core/hooks/useResponseToast';
+import EventiTable from '@/components/pages/Calendario/EventiTable';
 
-type CalendarioProps = PropsWithUser;
+type CalendarioProps = PropsWithUserExtended;
 
 const Calendario = ({ user }: CalendarioProps) => {
   const methods = useForm<NuovoEventoFormProps>({
@@ -35,13 +40,14 @@ const Calendario = ({ user }: CalendarioProps) => {
       email: user?.email || '',
     },
   );
+  const { data: allEvents } = useCompanyEvent(user?.companyId || '');
   const { data: canali } = useCanali();
-
   const [selectedBoat, setSelectedBoat] = useState<BoatProps | null>();
   const [selectedDataFrom, setSelectedDataFrom] = useState<Date | null>();
 
   const [addEvent, { loading: addEventLoading }] = useAddEvent(
     selectedBoat?.id || '',
+    user?.companyId || '',
   );
 
   useEffect(() => {
@@ -59,7 +65,7 @@ const Calendario = ({ user }: CalendarioProps) => {
     const timestampTo = dateToTimestamp(values.to);
     if (timestampFrom && timestampTo && selectedBoat?.id) {
       const args: AddEventsArgs = {
-        serviceSlug: values.service,
+        serviceId: values.service,
         canaleId: values?.canale,
         from: timestampFrom,
         to: timestampTo,
@@ -68,6 +74,7 @@ const Calendario = ({ user }: CalendarioProps) => {
         clientId: null,
         people: values.clientPeople ? Number(values.clientPeople) : null,
         note: values.note,
+        companyId: user?.companyId,
       };
       const { data, errors } = await addEvent({ variables: { args } });
       if (errors || !data.createEvents.valido) {
@@ -84,14 +91,18 @@ const Calendario = ({ user }: CalendarioProps) => {
     <>
       <PrivateLayout user={user}>
         <PageTitle title='Calendario' />
-        <ContentBox>
-          <BookingCalendar
-            boats={parametri?.boats || []}
-            setSelectedBoat={setSelectedBoat}
-            setSelectedDataFrom={setSelectedDataFrom}
-            isLoading={parametriLoading}
-          />
-        </ContentBox>
+        <Stack gap={3}>
+          <ContentBox>
+            <BookingCalendar
+              boats={parametri?.boats || []}
+              setSelectedBoat={setSelectedBoat}
+              setSelectedDataFrom={setSelectedDataFrom}
+              isLoading={parametriLoading}
+            />
+          </ContentBox>
+
+          <EventiTable events={allEvents || []} />
+        </Stack>
       </PrivateLayout>
       <NuovoEventoDrawer
         isOpen={isDrawerOpen}

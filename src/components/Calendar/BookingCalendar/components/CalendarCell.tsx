@@ -23,6 +23,7 @@ const CalendarCell = ({
     if (isCurrent) return 'gray.50';
     return 'white';
   };
+
   return (
     <Popover>
       {({ onClose }) => (

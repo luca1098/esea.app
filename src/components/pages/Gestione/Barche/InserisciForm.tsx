@@ -37,11 +37,10 @@ const InserisciForm = ({ user }: PropsWithUser) => {
         },
       },
     });
-
-    if (errors || !data?.boat?.valido) {
-      errorToast(errors, data?.boat);
+    if (errors || !data?.addBoat?.valido) {
+      errorToast(errors, data?.addBoat);
     } else {
-      successToast(data?.boat);
+      successToast(data?.addBoat);
       methods.reset({});
       router.push(navigation.private.gestione.barche.index);
     }

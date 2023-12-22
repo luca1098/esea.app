@@ -1,5 +1,5 @@
 import { BoatProps } from '@/core/types/barca';
-import { PersonaleBaseProps } from '@/core/types/personale';
+import { PersonaleProps } from '@/core/types/personale';
 import { ServiceProps } from '@/core/types/services';
 import { Nullish } from '@/core/types/utils';
 import { filterTimeByHoursAndEvent } from '@/core/utils/date';
@@ -33,7 +33,7 @@ import { CanaleProps } from '@/core/types/canale';
 type NuovoEventoDrawerProps = {
   selectedDateFrom: Nullish<Date>;
   selectedBoat: Nullish<BoatProps>;
-  personale: PersonaleBaseProps[];
+  personale: PersonaleProps[];
   isLoading: boolean;
   canali: CanaleProps[];
   methods: UseFormReturn<NuovoEventoFormProps>;
@@ -125,7 +125,7 @@ const NuovoEventoDrawer = ({
                     label='Servizio'
                     placeholder='Seleziona un servizio'
                     getKey={({ id }) => id}
-                    getValue={({ slug }) => slug}
+                    getValue={({ id }) => id}
                     getOptionLabel={({ label }) => label}
                     options={selectedBoat?.services || []}
                     isRequired
@@ -184,7 +184,7 @@ const NuovoEventoDrawer = ({
                     placeholder='Cellulare'
                   />
                   <Text fontWeight={700}>Associa skipper</Text>
-                  <SelectField<PersonaleBaseProps>
+                  <SelectField<PersonaleProps>
                     name='skipper'
                     label='Skipper'
                     placeholder='Seleziona uno skipper'

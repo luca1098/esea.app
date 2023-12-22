@@ -15,18 +15,48 @@ type Canale {
   label: String
 }
 
+type Client {
+  email: String
+  events: Event
+  id: String!
+  name: String
+  phone: String
+}
+
+type Company {
+  events: [Event]
+  id: String
+  name: String
+}
+
 type Event {
+  amount: Float
   boat: Boat
   boatId: String
+  canale: Canale
   canaleId: String
+  client: Client
   clientId: String
+  company: Company
+  companyId: String
+  details: String
   from: Float
   id: String
   note: String
   people: Int
-  serviceSlug: String
+  service: Service
+  serviceId: String
+  skipper: Personale
   skipperId: String
+  status: EventStatusType
   to: Float
+}
+
+enum EventStatusType {
+  ADVANCE_PAYMENT
+  NONE
+  PAYED
+  TO_PAY
 }
 
 type Mutation {
@@ -36,11 +66,32 @@ type Mutation {
   user(credentials: createUserArgs!): createUserResponse
 }
 
+enum PeronaleRole {
+  ALTRO
+  ASSISTENT
+  COFOUNDER
+  COLLABORATOR
+  FORNITORE
+  SKIPPER
+}
+
+type Personale {
+  birtday: Float
+  events: Event
+  id: String!
+  image: String
+  name: String
+  role: PeronaleRole
+  salary: Float
+  salaryType: SalaryType
+}
+
 type Query {
   boatEvents(boatId: String!): [Event]!
   boatServices(boatId: String!): [Service]!
   calendarioParametri(email: String!): User
   canali: [Canale]!
+  companyEvents(companyId: String!): [Event]!
   events: [Event]!
   gestioneParametri(email: String!): User
   services: [Service]!
@@ -54,6 +105,12 @@ enum Role {
   OWNER
 }
 
+enum SalaryType {
+  DAY
+  HOUR
+  MONTH
+}
+
 type Service {
   boat: Boat
   id: String
@@ -63,11 +120,18 @@ type Service {
 
 type User {
   boats: [Boat]
+  company: Company
+  companyId: String
 
   """
   Email of the user
   """
   email: String
+
+  """
+  In timestamp
+  """
+  emailVerified: Float
   id: String
   image: String
   name: String
@@ -91,10 +155,11 @@ input createEventsArgs {
   boatId: String!
   canaleId: String
   clientId: String
+  companyId: String
   from: Float!
   note: String
   people: Int
-  serviceSlug: String!
+  serviceId: String!
   skipperId: String
   to: Float
 }

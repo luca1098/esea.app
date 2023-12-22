@@ -10,7 +10,11 @@ export type PropsWithUser = {
 
 export type UserExtended = {
   cellulare?: string;
-  payment: PaymentProps;
-  plan: PlanProps;
-  birthday: number;
+  payment?: PaymentProps;
+  plan?: PlanProps;
+  birthday?: number;
 } & Session['user'];
+
+export type PropsWithUserExtended = {
+  user?: UserExtended;
+};

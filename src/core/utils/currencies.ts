@@ -1,5 +1,6 @@
-import _ from 'lodash';
+import _, { isNil } from 'lodash';
 import { defaultLocale } from './localeConfig';
+import { Nullish } from '../types/utils';
 
 const formatNumber = (
   value: string | number,
@@ -15,10 +16,11 @@ const formatNumber = (
 };
 
 export const formatCurrency = (
-  value: string | number,
+  value: Nullish<string | number>,
   currency: string | undefined = 'EUR',
   options?: Intl.NumberFormatOptions,
 ) => {
+  if (isNil(value)) return null;
   const config = {
     ...(currency && { style: 'currency', currency }),
     minimumFractionDigits: 2,

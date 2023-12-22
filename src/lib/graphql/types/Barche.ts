@@ -64,7 +64,7 @@ const addBoatResolver: FieldResolver<'Mutation', 'AddBoat'> = async (
       },
     });
 
-    return { valido: false, message: 'Barca inserita con con successo' };
+    return { valido: true, message: 'Barca inserita con con successo' };
   } catch (e: unknown) {
     const error = getErrorReturn(e);
     return error;

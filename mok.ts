@@ -1,4 +1,4 @@
-import { PersonaleProps } from '@/components/pages/Gestione/Personale/schemas';
+import { PersonaleProps } from '@/core/types/personale';
 
 export const fakeUser = {
   name: 'User Mok',
