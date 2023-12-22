@@ -83,3 +83,11 @@ export const GET_COMPANY_EVENTS = gql`
     }
   }
 `;
+export const DELETE_EVENT = gql`
+  mutation Mutation($id: String!) {
+    deleteEvents(id: $id) {
+      message
+      valido
+    }
+  }
+`;

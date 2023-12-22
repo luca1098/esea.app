@@ -4,6 +4,7 @@ import {
   COMPANY_EVENT_QUERY,
   addEventMutation,
   BOAT_EVENT_QUERY,
+  DELETE_EVENT,
 } from '@/graphql/queries/events';
 import { useQuery } from '@apollo/client';
 import {
@@ -67,4 +68,8 @@ export const useCompanyEvent = (companyId: string) => {
     data: data ? CompanyEventsResponseSchema.parse(data).companyEvents : data,
     ...rest,
   };
+};
+
+export const useDeleteEvent = () => {
+  return useMutation(DELETE_EVENT);
 };

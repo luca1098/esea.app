@@ -2,6 +2,7 @@ import BookingCalendar from '@/components/Calendar/BookingCalendar/BookingCalend
 import NuovoEventoDrawer from '@/components/Events/NuovoEventoDrawer';
 import {
   AddEventsArgs,
+  EventProps,
   NuovoEventoFormProps,
   NuovoEventoFormSchema,
 } from '@/core/types/event';
@@ -11,6 +12,7 @@ import {
   useAddEvent,
   useCanali,
   useCompanyEvent,
+  useDeleteEvent,
 } from '@/components/pages/shared/queries';
 import { BoatProps } from '@/core/types/barca';
 import { PropsWithUserExtended } from '@/core/types/user';
@@ -25,6 +27,11 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useResponseToast from '@/core/hooks/useResponseToast';
 import EventiTable from '@/components/pages/Calendario/EventiTable';
+import { CellContext } from '@tanstack/react-table';
+import {
+  BOAT_EVENT_QUERY,
+  COMPANY_EVENT_QUERY,
+} from '@/graphql/queries/events';
 
 type CalendarioProps = PropsWithUserExtended;
 
@@ -49,6 +56,7 @@ const Calendario = ({ user }: CalendarioProps) => {
     selectedBoat?.id || '',
     user?.companyId || '',
   );
+  const [deleteEvent, { loading: deleteEventLoading }] = useDeleteEvent();
 
   useEffect(() => {
     if (selectedBoat && selectedDataFrom) onOpen();
@@ -90,6 +98,35 @@ const Calendario = ({ user }: CalendarioProps) => {
     }
   };
 
+  const handleDeleteEvent = async (
+    row: CellContext<EventProps, never>['row'],
+  ) => {
+    const { data, errors } = await deleteEvent({
+      variables: { id: row.original.id },
+      refetchQueries: [
+        {
+          query: BOAT_EVENT_QUERY,
+          variables: {
+            boatId: row.original.boat?.id,
+          },
+        },
+        {
+          query: COMPANY_EVENT_QUERY,
+          variables: {
+            companyId: row.original.companyId,
+          },
+        },
+      ],
+    });
+    if (errors || !data.deleteEvents.valido) {
+      errorToast(errors, data.deleteEvents);
+    } else {
+      successToast(data.deleteEvents);
+      methods.reset({});
+      onClose();
+    }
+  };
+
   return (
     <>
       <PrivateLayout user={user}>
@@ -104,7 +141,11 @@ const Calendario = ({ user }: CalendarioProps) => {
             />
           </ContentBox>
 
-          <EventiTable events={allEvents || []} />
+          <EventiTable
+            events={allEvents || []}
+            onDelete={handleDeleteEvent}
+            isLoading={deleteEventLoading}
+          />
         </Stack>
       </PrivateLayout>
       <NuovoEventoDrawer

@@ -76,6 +76,7 @@ const NuovoEventoDrawer = ({
         methods.setValue('to', dataTo);
       }
     }
+    methods.setValue('status', 'NONE');
   }, [selectedBoat, selectedDateFrom, methods]);
 
   useEffect(() => {

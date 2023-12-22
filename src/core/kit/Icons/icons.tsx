@@ -6,6 +6,7 @@ import {
   FaArrowRight as RightArrowIcon,
   FaArrowLeft as LeftArrowIcon,
   FaCamera as CameraIcon,
+  FaEdit as EditIcon,
 } from 'react-icons/fa';
 import { FaRegTrashCan as TrashIcon } from 'react-icons/fa6';
 import {
@@ -56,4 +57,5 @@ export {
   PaginationArrowRightDoubleIcon,
   PaginationArrowLeftIcon,
   PaginationArrowRightIcon,
+  EditIcon,
 };

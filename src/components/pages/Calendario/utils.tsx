@@ -1,4 +1,5 @@
 import BoatCell from '@/components/Table/BoatCell';
+import RowActions, { RowActionsProps } from '@/components/Table/RowActions';
 import StatusEventCell from '@/components/Table/StatusEventCell';
 import { EventProps } from '@/core/types/event';
 import { formatCurrency } from '@/core/utils/currencies';
@@ -7,7 +8,15 @@ import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 
 const columnHelper = createColumnHelper<EventProps>();
 
-export const columns: ColumnDef<EventProps, never>[] = [
+type ColumnsProps = {
+  isLoading: boolean;
+} & Pick<RowActionsProps<EventProps>, 'onDelete' | 'onEdit'>;
+
+export const getColumns = ({
+  isLoading,
+  onDelete,
+  onEdit,
+}: ColumnsProps): ColumnDef<EventProps, never>[] => [
   columnHelper.accessor('boat.name', {
     cell: (info) => (
       <BoatCell
@@ -52,5 +61,16 @@ export const columns: ColumnDef<EventProps, never>[] = [
   columnHelper.accessor('note', {
     cell: (info) => info.getValue() || '-',
     header: 'Note',
+  }),
+  columnHelper.display({
+    id: 'actions',
+    cell: (props) => (
+      <RowActions
+        row={props.row}
+        onDelete={onDelete}
+        onEdit={onEdit}
+        isLoading={isLoading}
+      />
+    ),
   }),
 ];

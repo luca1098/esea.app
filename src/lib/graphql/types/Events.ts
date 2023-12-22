@@ -14,6 +14,7 @@ import { Canale } from './Canale';
 import { Client } from './Client';
 import { Service } from './Services';
 import { Company } from './Company';
+import { getEseaCommonResponse } from './utils';
 
 export const Event = objectType({
   name: 'Event',
@@ -166,6 +167,36 @@ const createEventResolver: FieldResolver<'Mutation', 'CreateEvents'> = async (
     });
 
     return { valido: true, message: 'Evento aggiunto con con successo' };
+  } catch (e: unknown) {
+    const error = getErrorReturn(e);
+    return error;
+  }
+};
+
+export const DeleteEvents = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.field('deleteEvents', {
+      type: getEseaCommonResponse('deleteEvent'),
+      args: { id: nonNull(stringArg()) },
+      resolve: deleteEventResolver,
+    });
+  },
+});
+
+const deleteEventResolver: FieldResolver<'Mutation', 'DeleteEvents'> = async (
+  _parents,
+  args,
+  ctx,
+) => {
+  try {
+    await ctx.prisma.event.delete({
+      where: {
+        id: args.id,
+      },
+    });
+
+    return { valido: true, message: 'Evento eliminato con successo' };
   } catch (e: unknown) {
     const error = getErrorReturn(e);
     return error;
