@@ -6,7 +6,6 @@ import {
   objectType,
 } from 'nexus';
 import { Event } from './Events';
-import { getEseaCommonResponse } from './utils';
 import { getErrorReturn } from '@/lib/utils';
 
 export const Client = objectType({
