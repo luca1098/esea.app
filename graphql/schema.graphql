@@ -17,6 +17,7 @@ type Canale {
 }
 
 type Client {
+  companyId: String
   email: String
   events: Event
   id: String!
@@ -63,6 +64,7 @@ enum EventStatusType {
 
 type Mutation {
   addBoat(args: addBoatArgs!): addBoatResponse
+  addClient(args: addClientArgs!): addClienResponse
   createEvents(args: createEventsArgs!): createEventsResponse
   deleteBoat(id: String!): removeBoatResponse
   deleteEvents(id: String!): deleteEvent
@@ -148,6 +150,19 @@ input addBoatArgs {
 type addBoatResponse {
   message: String
   valido: Boolean
+}
+
+type addClienResponse {
+  id: String
+  message: String
+  valido: Boolean
+}
+
+input addClientArgs {
+  companyId: String!
+  email: String
+  name: String!
+  phone: String
 }
 
 input createEventsArgs {

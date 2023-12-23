@@ -126,6 +126,9 @@ model Client {
   email        String?  @unique
   phone        String?
   events      Event[]
+  companyId  String?
+  company    Company? @relation(fields: [companyId], references: [id])
+  
 }
 
 model Service {
@@ -172,4 +175,5 @@ id        String @id @unique @default(cuid())
 name      String
 employees User[]
 events Event[]
+clients Client[]
 }

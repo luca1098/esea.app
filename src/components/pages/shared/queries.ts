@@ -29,6 +29,7 @@ export const useBoatEvents = ({ boatId }: BoatEventsParams) => {
 };
 
 import { useMutation } from '@apollo/client';
+import { ADD_CLIENT_MUTATION } from '@/graphql/queries/clients';
 
 export const useAddEvent = (boatId: string, companyId: string) => {
   return useMutation(addEventMutation, {
@@ -72,4 +73,8 @@ export const useCompanyEvent = (companyId: string) => {
 
 export const useDeleteEvent = () => {
   return useMutation(DELETE_EVENT);
+};
+
+export const useAddClient = () => {
+  return useMutation(ADD_CLIENT_MUTATION);
 };

@@ -164,7 +164,11 @@ const NuovoEventoDrawer = ({
                     }
                     isRequired
                   />
-
+                  <NumberInputField
+                    name='people'
+                    label='Numero persone'
+                    placeholder='Numero persone'
+                  />
                   <Text fontWeight={700}>Informazioni sul cliente</Text>
                   <InputField
                     name='clientName'
@@ -175,11 +179,6 @@ const NuovoEventoDrawer = ({
                     name='clientEmail'
                     label='Email'
                     placeholder='Email'
-                  />
-                  <NumberInputField
-                    name='clientPeople'
-                    label='Numero persone'
-                    placeholder='Numero persone'
                   />
                   <PhoneInputField
                     name='clientPhone'

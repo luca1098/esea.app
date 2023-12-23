@@ -9,6 +9,7 @@ import {
 import PrivateLayout from '@/components/Layout/PrivateLayout';
 import { useCalendarioParametri } from '@/components/pages/Calendario/queries';
 import {
+  useAddClient,
   useAddEvent,
   useCanali,
   useCompanyEvent,
@@ -57,6 +58,7 @@ const Calendario = ({ user }: CalendarioProps) => {
     user?.companyId || '',
   );
   const [deleteEvent, { loading: deleteEventLoading }] = useDeleteEvent();
+  const [addClient] = useAddClient();
 
   useEffect(() => {
     if (selectedBoat && selectedDataFrom) onOpen();
@@ -71,7 +73,24 @@ const Calendario = ({ user }: CalendarioProps) => {
   const handleCreateEvent = async (values: NuovoEventoFormProps) => {
     const timestampFrom = dateToTimestamp(values.from);
     const timestampTo = dateToTimestamp(values.to);
+
     if (timestampFrom && timestampTo && selectedBoat?.id) {
+      //Creo il cliente
+      const newClientPayload = {
+        name: values.clientName,
+        companyId: user?.companyId,
+        email: values.clientEmail,
+        phone: values.clientPhone,
+      };
+
+      const { data: clientData, errors: clientErrors } = await addClient({
+        variables: { args: newClientPayload },
+      });
+
+      if (clientErrors || !clientData.addClient.valido) {
+        errorToast(clientErrors, clientData.addClient);
+      }
+      //Creo l'evento
       const args: AddEventsArgs = {
         serviceId: values.service,
         canaleId: values?.canale,
@@ -79,15 +98,17 @@ const Calendario = ({ user }: CalendarioProps) => {
         to: timestampTo,
         skipperId: values.skipper,
         boatId: selectedBoat?.id,
-        clientId: null,
-        people: values.clientPeople ? Number(values.clientPeople) : null,
+        clientId: clientData?.addClient?.id,
+        people: values.people ? Number(values.people) : null,
         note: values.note,
         companyId: user?.companyId,
         status: values.status,
         amount: values.amount,
         statusDetails: values.statusDetails,
       };
+
       const { data, errors } = await addEvent({ variables: { args } });
+
       if (errors || !data.createEvents.valido) {
         errorToast(errors, data.createEvents);
       } else {
