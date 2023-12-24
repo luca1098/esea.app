@@ -1,32 +1,33 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { FormInserisciBarca, FormInserisciBarcaSchema } from '../schemas';
+import { FormInserisciBarca, FormInserisciBarcaSchema } from './schemas';
 import InputField from '@/kit/Input/InputField';
 import Button from '@/kit/Button/Button';
-import { Box, Grid, GridItem, useToast } from '@chakra-ui/react';
-import { PropsWithUser } from '@/core/shared/types/user';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { PropsWithUser } from '@/core/types/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { navigation } from '@/core/config/navigation';
 import { useAddBoat } from '../queries';
 import { uploadImage } from '@/core/services/uploadImage';
 import { useState } from 'react';
 import FileUploaderField from '@/kit/Input/FileUploaderField';
+import useResponseToast from '@/core/hooks/useResponseToast';
 
 const InserisciForm = ({ user }: PropsWithUser) => {
   const [fileUploadLoading, setFileUploadLoading] = useState<boolean>(false);
-  const toast = useToast();
+  const { errorToast, successToast } = useResponseToast();
   const router = useRouter();
   const methods = useForm<FormInserisciBarca>({
     resolver: zodResolver(FormInserisciBarcaSchema),
   });
 
-  const [addbBoat, { loading }] = useAddBoat({ email: user?.email || '' });
+  const [addBoat, { loading }] = useAddBoat({ email: user?.email || '' });
 
   const onSubmit = async (values: FormInserisciBarca) => {
     setFileUploadLoading(true);
     const { path } = await uploadImage(values.image, `${user?.id}/boats`);
     setFileUploadLoading(false);
-    const { data, errors } = await addbBoat({
+    const { data, errors } = await addBoat({
       variables: {
         args: {
           name: values.name,
@@ -36,21 +37,10 @@ const InserisciForm = ({ user }: PropsWithUser) => {
         },
       },
     });
-
-    if (errors || data?.boat?.error) {
-      toast({
-        title: 'Errore',
-        description: data?.boat?.message,
-        status: 'error',
-        isClosable: true,
-      });
+    if (errors || !data?.addBoat?.valido) {
+      errorToast(errors, data?.addBoat);
     } else {
-      toast({
-        title: 'Successo',
-        description: data?.boat?.message,
-        status: 'success',
-        isClosable: true,
-      });
+      successToast(data?.addBoat);
       methods.reset({});
       router.push(navigation.private.gestione.barche.index);
     }

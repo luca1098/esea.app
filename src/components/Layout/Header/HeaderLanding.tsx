@@ -1,18 +1,11 @@
-import { PropsWithUser } from '@/core/shared/types/user';
-import Button from '@/kit/Button/Button';
-import {
-  Box,
-  Container,
-  Flex,
-  ListItem,
-  UnorderedList,
-} from '@chakra-ui/react';
+import { PropsWithUser } from '@/core/types/user';
+import { Box, Container, Flex } from '@chakra-ui/react';
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
 import { publicMenu } from '@/core/config/menu';
 import Logo from '../components/Logo';
 
-type HeaderLandingProps = {} & PropsWithUser;
+type HeaderLandingProps = PropsWithUser;
 
 const HeaderLanding = ({ user }: HeaderLandingProps) => {
   return (

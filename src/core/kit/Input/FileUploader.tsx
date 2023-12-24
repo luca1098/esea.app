@@ -9,6 +9,7 @@ import FormControlWrapper, {
 } from '../Form/FormControllerWrapper';
 
 import { DropzoneOptions, useDropzone } from 'react-dropzone';
+import { forwardRef } from 'react';
 
 export const DEFAULT_MAX_FILE_SIZE = 3000000; //3MB
 
@@ -29,76 +30,75 @@ type BaseFileUploader = {
   value: File | File[] | null | undefined;
 } & Pick<
   ChakraInputProps,
-  | 'placeholder'
-  | 'autoComplete'
-  | 'name'
-  | 'variant'
-  | 'bgColor'
-  | 'onBlur'
-  | 'onChange'
+  'placeholder' | 'autoComplete' | 'name' | 'bgColor' | 'onBlur' | 'onChange'
 >;
 
 export type FileUploaderProps = FormControlWrapperProps &
   BaseFileUploader &
   Pick<DropzoneOptions, 'accept' | 'maxFiles' | 'maxSize'>;
 
-const FileUploader = ({
-  placeholder,
-  onBlur,
-  onChange,
-  value,
-  autoComplete,
-  name,
-  accept = defaultFileAccepted,
-  bgColor,
-  variant = 'outline',
-  maxFiles,
-  maxSize = DEFAULT_MAX_FILE_SIZE,
-  isInvalid,
-  ...formControlProps
-}: FileUploaderProps) => {
-  const { getRootProps, getInputProps } = useDropzone({
-    accept,
-    maxFiles,
-    maxSize,
-  });
+const FileUploader = forwardRef<HTMLInputElement, FileUploaderProps>(
+  (
+    {
+      placeholder,
+      onBlur,
+      onChange,
+      value,
+      autoComplete,
+      name,
+      accept = defaultFileAccepted,
+      bgColor,
+      maxFiles,
+      maxSize = DEFAULT_MAX_FILE_SIZE,
+      isInvalid,
+      ...formControlProps
+    },
+    ref,
+  ) => {
+    const { getRootProps, getInputProps } = useDropzone({
+      accept,
+      maxFiles,
+      maxSize,
+    });
 
-  // console.log('val', { value });
+    const renderChildred = () => {
+      let msg = 'Clicca o trascina la tua immagine qui';
+      if (value) {
+        if (Array.isArray(value)) {
+          const fileArrayName = value.reduce(
+            (acc: string[], curr) => [...acc, curr?.name],
+            [],
+          );
+          msg = fileArrayName.join(', ');
+        } else msg = value?.name;
+      }
+      return <Text>{msg}</Text>;
+    };
 
-  const renderChildred = () => {
-    let msg = 'Clicca o trascina la tua immagine qui';
-    if (value) {
-      if (Array.isArray(value)) {
-        const fileArrayName = value.reduce(
-          (acc: string[], curr) => [...acc, curr?.name],
-          [],
-        );
-        msg = fileArrayName.join(', ');
-      } else msg = value?.name;
-    }
-    return <Text>{msg}</Text>;
-  };
+    return (
+      <FormControlWrapper {...formControlProps} isInvalid={isInvalid}>
+        <Flex
+          {...getRootProps()}
+          borderWidth={1}
+          borderStyle={'dashed'}
+          borderColor={isInvalid ? 'red.300' : 'esea.primary'}
+          bg={isInvalid ? 'red.50' : 'esea.gray'}
+          rounded={'2xl'}
+          padding={6}
+          alignItems={'center'}
+          justifyContent={'center'}
+          w={'full'}
+          minH={'130px'}
+          ref={ref}
+        >
+          <Box as={'input'} {...getInputProps({ onChange })} onBlur={onBlur} />
+          {renderChildred()}
+        </Flex>
+      </FormControlWrapper>
+    );
+  },
+);
 
-  return (
-    <FormControlWrapper {...formControlProps} isInvalid={isInvalid}>
-      <Flex
-        {...getRootProps()}
-        borderWidth={1}
-        borderStyle={'dashed'}
-        borderColor={isInvalid ? 'red.300' : 'esea.primary'}
-        bg={isInvalid ? 'red.50' : 'esea.gray'}
-        rounded={'2xl'}
-        padding={6}
-        alignItems={'center'}
-        justifyContent={'center'}
-        w={'full'}
-        minH={'130px'}
-      >
-        <Box as={'input'} {...getInputProps({ onChange })} onBlur={onBlur} />
-        {renderChildred()}
-      </Flex>
-    </FormControlWrapper>
-  );
-};
+FileUploader.displayName = 'FileUploader';
 
 export default FileUploader;

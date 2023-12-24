@@ -36,10 +36,12 @@ export const inputBaseStyle: ComponentMultiStyleConfig['baseStyle'] =
     field: {
       borderRadius: '2xl',
     },
+    addon: {
+      borderRadius: '2xl',
+      padding: 0,
+    },
   });
 export const input = helpers.defineMultiStyleConfig({
-  // sizes: inputSizes,
-  // defaultProps: inputDefaultProps,
   baseStyle: inputBaseStyle,
   variants: inputVariants,
 });

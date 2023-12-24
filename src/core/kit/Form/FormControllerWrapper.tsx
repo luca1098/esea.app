@@ -19,6 +19,7 @@ export type FormControlProps = Pick<
   | 'isInvalid'
   | 'isRequired'
   | 'isReadOnly'
+  | 'position'
 >;
 
 type BaseFormControlWrapperProps = {
@@ -48,6 +49,7 @@ const FormControlWrapper = forwardRef<
       mb,
       mr,
       width,
+      position,
     },
     ref,
   ) => {
@@ -63,6 +65,7 @@ const FormControlWrapper = forwardRef<
         isDisabled={isDisabled}
         isReadOnly={isReadOnly}
         ref={ref}
+        position={position}
       >
         {!!label && (
           <FormLabel fontWeight={'bold'} color={'text.gray'}>

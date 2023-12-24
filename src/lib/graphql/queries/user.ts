@@ -13,7 +13,7 @@ export const allUsersQuery = gql`
   }
 `;
 
-export const userQuery = gql`
+export const USER_QUERY = gql`
   query User($email: String!) {
     user(email: $email) {
       id
@@ -22,6 +22,7 @@ export const userQuery = gql`
       image
       password
       role
+      companyId
     }
   }
 `;
@@ -29,7 +30,7 @@ export const userQuery = gql`
 export const createUserMutation = gql`
   mutation Mutation($credentials: createUserArgs!) {
     user(credentials: $credentials) {
-      error
+      valido
       message
     }
   }

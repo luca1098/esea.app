@@ -17,7 +17,7 @@ const SignInForm = () => {
   const router = useRouter();
   const toast = useToast();
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: SignInFormProps) => {
     setIsLoading(true);
     const res = await signIn('credentials', {
       email: values.email,

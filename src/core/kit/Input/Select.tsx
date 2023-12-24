@@ -39,6 +39,7 @@ const Select = <T,>(
   {
     placeholder,
     options,
+    label,
     getOptionLabel,
     getValue,
     getKey,
@@ -77,6 +78,7 @@ const Select = <T,>(
       isRequired={isRequired}
       errorMsg={errorMsg}
       width={width}
+      label={label}
     >
       {!!leftElement && (
         <InputLeftElement h={'full'}>{leftElement}</InputLeftElement>

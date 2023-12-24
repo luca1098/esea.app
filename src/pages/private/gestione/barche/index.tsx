@@ -9,16 +9,33 @@ import { navigation } from '@/core/config/navigation';
 import apolloClient from '@/lib/apollo';
 import { gestioneParametriQuery } from '@/graphql/queries/gestione';
 import { CardBarcheProps } from '@/components/Card/types';
-import { useQuery } from '@apollo/client';
-import { useGestioneParametri } from '@/components/pages/Gestione/queries';
+import {
+  useGestioneParametri,
+  useRemoveBoat,
+} from '@/components/pages/Gestione/queries';
+import useResponseToast from '@/core/hooks/useResponseToast';
 
 const Barche = () => {
   const { data: session } = useSession();
+  const { errorToast, successToast } = useResponseToast();
   const { data } = useGestioneParametri({
     email: session?.user?.email || '',
   });
 
+  const [removeBoat, { loading }] = useRemoveBoat({
+    email: session?.user?.email || '',
+  });
+
   const { gestioneParametri } = data || {};
+
+  const handleDelete = async (id: string) => {
+    const { data, errors } = await removeBoat({ variables: { boatId: id } });
+    if (errors || !data?.deleteBoat) {
+      errorToast(errors, data?.deleteBoat);
+    } else {
+      successToast(data?.deleteBoat);
+    }
+  };
 
   return (
     <GestioneLayout user={session?.user}>
@@ -35,7 +52,14 @@ const Barche = () => {
       <Flex gap={2} flexWrap={'wrap'}>
         {gestioneParametri?.boats
           ? gestioneParametri?.boats?.map((boat: CardBarcheProps) => (
-              <CardBarche key={boat.id} name={boat.name} image={boat.image} />
+              <CardBarche
+                key={boat.id}
+                id={boat.id}
+                name={boat.name}
+                image={boat.image}
+                onDelete={handleDelete}
+                isDeleteLoading={loading}
+              />
             ))
           : 'inserisci la tua prima barca '}
       </Flex>

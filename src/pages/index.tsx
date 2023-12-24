@@ -2,9 +2,7 @@ import Layout from '@/components/Layout/Layout';
 import { Heading, Stack } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 
-type HomeProps = {};
-
-const Home = (props: HomeProps) => {
+const Home = () => {
   const { data: session } = useSession();
   return (
     <Layout user={session?.user}>

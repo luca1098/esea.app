@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Avatar,
   Button,
   Flex,
   Menu,
@@ -8,31 +9,31 @@ import {
   MenuItem,
   MenuList,
   Text,
+  IconButton,
 } from '@chakra-ui/react';
-import Image from '@/kit/Image/Image';
 import { signOut } from 'next-auth/react';
-import PROFILE_PLACEHOLDER from '@/assets/profile-placeholder.jpg';
-import { PropsWithUser } from '@/core/shared/types/user';
+import { PropsWithUser } from '@/core/types/user';
+import { NotificationIcon } from '@/kit/Icons/icons';
 
-type SettingsMenuProps = {} & PropsWithUser;
+type SettingsMenuProps = PropsWithUser;
 
 const SettingsMenu = ({ user }: SettingsMenuProps) => {
   return (
     <Menu>
-      <MenuButton as={Button}>
+      <IconButton
+        icon={<NotificationIcon size={20} />}
+        aria-label={'Apri il drower delle notifiche'}
+        variant={'unstyled'}
+        color={'black'}
+      />
+      <MenuButton as={Button} variant={'unstyled'}>
         <Flex alignItems={'center'} gap={2}>
-          <Image
-            src={user?.image ?? PROFILE_PLACEHOLDER}
-            alt='Profilo'
-            w={8}
-            h={8}
-            rounded={'full'}
-          />
-          <Text>{user?.name ?? 'Profilo'}</Text>
+          <Avatar src={user?.image ?? ''} name={user?.name ?? ''} size={'sm'} />
+          <Text fontSize={'sm'}>{user?.name ?? 'Profilo'}</Text>
         </Flex>
       </MenuButton>
       <MenuList>
-        <MenuItem>Gestione</MenuItem>
+        <MenuItem>Settings</MenuItem>
         <MenuDivider />
         <MenuItem onClick={() => signOut()}>Esci</MenuItem>
       </MenuList>

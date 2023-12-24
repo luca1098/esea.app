@@ -20,7 +20,10 @@ export const navigation = {
         index: `${privatePrefix}/gestione/barche`,
         inserisci: `${privatePrefix}/gestione/barche/inserisci`,
       },
-      personale: `${privatePrefix}/gestione/personale`,
+      personale: {
+        index: `${privatePrefix}/gestione/personale`,
+        nuovo: `${privatePrefix}/gestione/personale/nuovo`,
+      },
     },
   },
   public: {

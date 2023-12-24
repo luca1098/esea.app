@@ -1,8 +1,6 @@
 import BlurBox from '@/kit/Box/BlurBox';
-import { Badge, Box, Flex, Text } from '@chakra-ui/react';
-import PROFILE_PLACEHOLDER from '@/assets/profile-placeholder.jpg';
-import ESImage from '@/kit/Image/Image';
-import { PropsWithUser } from '@/core/shared/types/user';
+import { Avatar, Badge, Box, Flex, Text } from '@chakra-ui/react';
+import { PropsWithUser } from '@/core/types/user';
 import { ReactNode } from 'react';
 
 type UserBoxProps = {
@@ -17,18 +15,21 @@ const UserBox = ({ user, endComponent }: UserBoxProps) => {
       zIndex={2}
       position={'relative'}
       display='flex'
+      flexDir={{ base: 'column', md: 'row' }}
       alignItems={'center'}
-      justifyContent={'space-between'}
+      justifyContent={{ base: 'center', md: 'space-between' }}
     >
-      <Flex gap={4} alignItems={'center'}>
-        <ESImage
-          src={user?.image || PROFILE_PLACEHOLDER}
-          alt='profilo'
-          w={'80px'}
-          h={'80px'}
-          rounded={'2xl'}
+      <Flex
+        gap={4}
+        alignItems={'center'}
+        direction={{ base: 'column', md: 'row' }}
+      >
+        <Avatar
+          src={user?.image ?? undefined}
+          name={user?.name ?? ''}
+          size={'xl'}
         />
-        <Box>
+        <Box textAlign={{ base: 'center', md: 'left' }}>
           <Badge colorScheme='cyan'>{user?.role}</Badge>
           <Text fontSize={'xl'} fontWeight={'bold'} color={'black'}>
             {user?.name}

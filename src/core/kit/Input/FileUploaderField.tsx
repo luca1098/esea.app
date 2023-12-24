@@ -1,13 +1,13 @@
 import FormField, { FormFieldProps } from '../Form/FormField';
 import FileUploader, { FileUploaderProps } from './FileUploader';
 
-type InputFieldProps = {
+export type FileUploaderFieldProps = {
   name: string;
   value?: FileUploaderProps['value'];
 } & Omit<FileUploaderProps, 'name' | 'onDrop' | 'value'> &
   Omit<FormFieldProps, 'renderField'>;
 
-const FileUploaderField = (props: InputFieldProps) => {
+const FileUploaderField = (props: FileUploaderFieldProps) => {
   return (
     <FormField
       name={props.name}

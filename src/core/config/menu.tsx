@@ -6,7 +6,7 @@ import {
   StatsIcon,
   UserIcon,
 } from '@/kit/Icons/icons';
-import { Role } from '../shared/types/user';
+import { Role } from '../types/user';
 import { IconType } from 'react-icons';
 import { navigation } from './navigation';
 
