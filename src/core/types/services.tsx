@@ -9,7 +9,9 @@ export const ServiceSchema = z.object({
 
 export type ServiceProps = z.infer<typeof ServiceSchema>;
 
-export type EseaResponse = {
-  valido: boolean;
-  message?: string;
-};
+export const EseaResponseSchema = z.object({
+  valido: z.boolean(),
+  message: z.string().nullable(),
+});
+
+export type EseaResponse = z.infer<typeof EseaResponseSchema>;

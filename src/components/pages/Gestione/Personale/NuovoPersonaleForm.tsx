@@ -1,5 +1,5 @@
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
-import { NuovoPersonaleFormValues } from './schemas';
+import { AddPersonaleArgsProps, NuovoPersonaleFormValues } from './schemas';
 import InputField from '@/kit/Input/InputField';
 import SelectField from '@/kit/Input/SelectField';
 import {
@@ -15,6 +15,13 @@ import { useEffect, useState } from 'react';
 import ImageCropModal from '@/components/Crop/ImageCropModal';
 import AvatarUploaderField from '@/kit/Input/AvatarUploaderField';
 import { nuovoPersonaleFormCustomResolver } from './resolvers';
+import { uploadImage } from '@/core/services/uploadImage';
+import { PropsWithUser } from '@/core/types/user';
+import { dateToTimestamp } from '@/core/utils/date';
+import { useAddPersonale } from './queries';
+import { useRouter } from 'next/router';
+import useResponseToast from '@/core/hooks/useResponseToast';
+import { navigation } from '@/core/config/navigation';
 
 const defaultValues: NuovoPersonaleFormValues = {
   name: '',
@@ -24,15 +31,24 @@ const defaultValues: NuovoPersonaleFormValues = {
   role: 'COLLABORATOR',
 };
 
-const NuovoPersonaleForm = () => {
+type NuovoPersonaleFormProps = PropsWithUser;
+
+const NuovoPersonaleForm = ({ user }: NuovoPersonaleFormProps) => {
+  const { errorToast, successToast } = useResponseToast();
+  const router = useRouter();
+
   const [showCropModal, setShowCropModal] = useState<boolean>(false);
   const [anteprima, setAnteprima] = useState<string | null>();
+  const [uploadLoading, setUploadLoading] = useState<boolean>(false);
   const [croppedImg, setCroppedImg] = useState<string | null>();
 
   const methods = useForm<NuovoPersonaleFormValues>({
     resolver: nuovoPersonaleFormCustomResolver,
     defaultValues,
   });
+
+  const [addPersonale, { loading }] = useAddPersonale(user?.companyId ?? '');
+
   const fileValues = useWatch({ control: methods.control, name: 'image' });
 
   useEffect(() => {
@@ -54,15 +70,41 @@ const NuovoPersonaleForm = () => {
     setCroppedImg(null);
   };
 
-  const handleCropComplete = (file: File, url: string | null) => {
+  const handleCropComplete = (_file: File, url: string | null) => {
     setShowCropModal(false);
     setAnteprima(null);
     setCroppedImg(url);
   };
 
-  const onSubmit = (values: NuovoPersonaleFormValues) => {
-    // eslint-disable-next-line no-console
-    console.log({ values });
+  const onSubmit = async (values: NuovoPersonaleFormValues) => {
+    setUploadLoading(true);
+    const { path } = await uploadImage(
+      values.image,
+      `${user?.companyId}/personale`,
+    );
+    setUploadLoading(false);
+    const args: AddPersonaleArgsProps = {
+      companyId: user?.companyId ?? '',
+      name: values.name,
+      image: path,
+      salaryType: values.salaryType ?? 'DAY',
+      salary: values.salary,
+      birthday: dateToTimestamp(values.birthday),
+      role: values.role,
+    };
+
+    const { data, errors } = await addPersonale({
+      variables: {
+        args,
+      },
+    });
+    if (errors || !data?.addPersonale?.valido) {
+      errorToast(errors, data?.addPersonale);
+    } else {
+      successToast(data?.addBoat);
+      methods.reset(defaultValues);
+      router.push(navigation.private.gestione.personale.index);
+    }
   };
 
   return (
@@ -134,7 +176,11 @@ const NuovoPersonaleForm = () => {
               </GridItem>
               <GridItem colSpan={{ base: 1, lg: 2 }}>
                 <Flex justifyContent={'end'} mt={2}>
-                  <Button label='Crea nuovo personale' type='submit' />
+                  <Button
+                    label='Crea nuovo personale'
+                    type='submit'
+                    isLoading={uploadLoading || loading}
+                  />
                 </Flex>
               </GridItem>
             </Grid>

@@ -1,6 +1,6 @@
 import React from 'react';
 import GestioneLayout from '@/components/pages/Gestione/GestioneLayout';
-import { useSession } from 'next-auth/react';
+import { GetSessionParams, getSession, useSession } from 'next-auth/react';
 import PageTitle from '@/kit/Text/PageTitle';
 import { Grid, GridItem } from '@chakra-ui/react';
 import AziendaBox from '@/components/pages/Gestione/Overview/AziendaBox';
@@ -27,17 +27,17 @@ const planMok: PlanProps = {
   lastPaymentDate: 1703061928000,
   amount: 30,
 };
-const user: UserExtended = {
-  name: 'Test',
-  email: 'test@email.it',
-  image: '',
-  role: 'OWNER',
-  id: '#id',
-  cellulare: '3881849774',
-  birthday: 787104000000,
-  payment: paymentMok,
-  plan: planMok,
-};
+// const user: UserExtended = {
+//   name: 'Test',
+//   email: 'test@email.it',
+//   image: '',
+//   role: 'OWNER',
+//   id: '#id',
+//   cellulare: '3881849774',
+//   birthday: 787104000000,
+//   payment: paymentMok,
+//   plan: planMok,
+// };
 
 const companyMok: CompanyProps = {
   name: 'Unavitavistamare',
@@ -49,7 +49,12 @@ const companyMok: CompanyProps = {
     name: 'Luca La Marca',
   },
 };
-const Gestione = () => {
+
+type GestioneProps = {
+  user: UserExtended;
+};
+
+const Gestione = ({ user }: GestioneProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = useSession();
   return (
@@ -78,3 +83,20 @@ const Gestione = () => {
 };
 
 export default Gestione;
+
+export const getServerSideProps = async (ctx: GetSessionParams) => {
+  const session = await getSession(ctx);
+  if (session) {
+    return {
+      props: {
+        user: session.user,
+      },
+    };
+  }
+  return {
+    redirect: {
+      permanent: false,
+      destination: '/sign-in',
+    },
+  };
+};

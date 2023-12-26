@@ -25,7 +25,10 @@ const InserisciForm = ({ user }: PropsWithUser) => {
 
   const onSubmit = async (values: FormInserisciBarca) => {
     setFileUploadLoading(true);
-    const { path } = await uploadImage(values.image, `${user?.id}/boats`);
+    const { path } = await uploadImage(
+      values.image,
+      `${user?.companyId}/boats`,
+    );
     setFileUploadLoading(false);
     const { data, errors } = await addBoat({
       variables: {

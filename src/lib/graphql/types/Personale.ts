@@ -1,5 +1,15 @@
-import { enumType, objectType } from 'nexus';
+import {
+  FieldResolver,
+  enumType,
+  extendType,
+  inputObjectType,
+  nonNull,
+  objectType,
+  stringArg,
+} from 'nexus';
 import { Event } from './Events';
+import { getEseaCommonResponse } from './utils';
+import { getErrorReturn } from '@/lib/utils';
 
 export const Personale = objectType({
   name: 'Personale',
@@ -7,6 +17,7 @@ export const Personale = objectType({
     t.nonNull.string('id');
     t.field('role', { type: PeronaleRole });
     t.string('name');
+    t.string('companyId');
     t.string('image');
     t.float('salary');
     t.float('birtday');
@@ -35,3 +46,69 @@ export const SalaryType = enumType({
     MONTH: 'MONTH',
   },
 });
+
+export const GetPersonaleByCompany = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.list.field('companyPersonale', {
+      type: Personale,
+      args: {
+        companyId: nonNull(stringArg()),
+      },
+      resolve(_parents, args, ctx) {
+        try {
+          const data = ctx.prisma.personale.findMany({
+            where: { companyId: args.companyId },
+          });
+          // use schema
+          return data;
+        } catch (e: unknown) {
+          return getErrorReturn(e);
+        }
+      },
+    });
+  },
+});
+
+export const AddPersonale = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.field('addPersonale', {
+      type: getEseaCommonResponse('addPersonaleResponse'),
+      args: { args: nonNull(addPersonaleArgs) },
+      resolve: addPersonakeResolver,
+    });
+  },
+});
+
+const addPersonaleArgs = inputObjectType({
+  name: 'addPersonaleArgs',
+  definition(t) {
+    t.nonNull.field('role', { type: PeronaleRole }),
+      t.nonNull.string('name'),
+      t.string('image'),
+      t.float('salary');
+    t.float('birthday');
+    t.field('salaryType', { type: SalaryType });
+    t.nonNull.string('companyId');
+  },
+});
+
+const addPersonakeResolver: FieldResolver<'Mutation', 'AddPersonale'> = async (
+  _parents,
+  args,
+  ctx,
+) => {
+  try {
+    await ctx.prisma.personale.create({
+      data: {
+        ...args.args,
+      },
+    });
+
+    return { valido: true, message: 'Personale inserito con con successo' };
+  } catch (e: unknown) {
+    const error = getErrorReturn(e);
+    return error;
+  }
+};

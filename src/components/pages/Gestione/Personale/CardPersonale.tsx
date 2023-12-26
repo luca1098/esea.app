@@ -25,7 +25,7 @@ const CardPersonale = ({ person }: CardPersonaleProps) => {
       <Text textAlign={'center'} fontWeight={'medium'}>
         {formatCurrency(person.salary)}
         <Text ml={1} as={'small'} fontWeight={'normal'}>
-          {`/ ${salaryMapper[person.salaryType].label}`}
+          {`/ ${salaryMapper[person.salaryType ?? 'DAY'].label}`}
         </Text>
       </Text>
     </Stack>
