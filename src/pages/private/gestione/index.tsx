@@ -8,25 +8,25 @@ import ProfiloBox from '@/components/pages/Gestione/Overview/ProfiloBox';
 import { CompanyProps } from '@/core/types/company';
 import { personaleMok } from 'mok';
 import { UserExtended } from '@/core/types/user';
-import { PaymentProps } from '@/core/types/payments';
-import { PlanProps } from '@/core/types/plan';
+// import { PaymentProps } from '@/core/types/payments';
+// import { PlanProps } from '@/core/types/plan';
 import UltimiAccreditiBox from '@/components/pages/Gestione/Overview/UltimiAccreditiBox';
 
-const paymentMok: PaymentProps = {
-  id: 'paymento',
-  method: 'CARD',
-  cardNumber: '374644185031005',
-  expireDate: '09/27',
-  secureCod: '123',
-  cardHolder: 'Luca La Marca',
-};
-const planMok: PlanProps = {
-  id: 'plan.12',
-  plan: 'SILVER',
-  renewalDate: 1734684328000,
-  lastPaymentDate: 1703061928000,
-  amount: 30,
-};
+// const paymentMok: PaymentProps = {
+//   id: 'paymento',
+//   method: 'CARD',
+//   cardNumber: '374644185031005',
+//   expireDate: '09/27',
+//   secureCod: '123',
+//   cardHolder: 'Luca La Marca',
+// };
+// const planMok: PlanProps = {
+//   id: 'plan.12',
+//   plan: 'SILVER',
+//   renewalDate: 1734684328000,
+//   lastPaymentDate: 1703061928000,
+//   amount: 30,
+// };
 // const user: UserExtended = {
 //   name: 'Test',
 //   email: 'test@email.it',
