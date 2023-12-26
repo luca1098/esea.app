@@ -16,10 +16,12 @@ export const nuovoPersonaleFormCustomResolver: Resolver<
   );
 
   const imageSizeErr =
+    values.image &&
     values.image?.size > DEFAULT_MAX_FILE_SIZE &&
     'La dimenzione massima del file è di 3MB.';
 
   const imagTypeError =
+    values.image &&
     !DEFAULT_ACCEPTED_IMAGE_TYPES.includes(values.image?.type) &&
     'Solamente i formati .jpg, .jpeg, .png and .webp sono supportati.';
 

@@ -68,6 +68,7 @@ unaviableSlots Slot[]
 userId         String?
 events        Event[]
 services       Service[]
+createdAt        DateTime           @default(now())
 }
 
 model Slot {
@@ -118,6 +119,8 @@ model Personale {
   birthday    Float?
   salaryType  SalaryType?  @default(DAY)
   events      Event[]
+  companyId  String?
+  company Company? @relation(fields: [companyId], references: [id])
 }
 
 model Client {
@@ -128,6 +131,7 @@ model Client {
   events      Event[]
   companyId  String?
   company    Company? @relation(fields: [companyId], references: [id])
+  createdAt        DateTime           @default(now())
   
 }
 
@@ -139,6 +143,7 @@ model Service {
   boats   Boat[] 
   events Event[] 
   user User @relation(fields: [userId], references: [id]) 
+  createdAt        DateTime           @default(now())
 }
 
 enum Role {
@@ -173,7 +178,9 @@ enum EventStatusType {
 model Company {
 id        String @id @unique @default(cuid())
 name      String
-employees User[]
+employees Personale[]
+users User[]
 events Event[]
 clients Client[]
+createdAt        DateTime           @default(now())
 }

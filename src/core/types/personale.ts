@@ -19,18 +19,17 @@ export const PersonaleSalaryLiteralSchema = z.union([
 export const PersonaleSchema = z.object({
   id: z.string(),
   name: z.string(),
+  companyId: z.string().nullish(),
   image: z.string().nullish(),
-  salary: z.number(),
-  birthday: z.number(),
+  salary: z.number().nullish(),
+  birthday: z.number().nullish(),
   role: PersonaleRoleSchema,
   salaryType: PersonaleSalaryLiteralSchema,
 });
 
 type PersonaleRoleLiteralProps = z.infer<typeof PersonaleRoleSchema>;
 
-export type PersonaleSalaryLiteralProps = z.infer<
-  typeof PersonaleSalaryLiteralSchema
->;
+export type PersonaleSalaryType = z.infer<typeof PersonaleSalaryLiteralSchema>;
 
 export type PersonaleRoleProps = {
   color: ThemingProps['colorScheme'];
@@ -41,7 +40,7 @@ export type PersonaleRoleProps = {
 
 export type PersonaleSalaryProps = {
   label: string;
-  key: PersonaleSalaryLiteralProps;
+  key: PersonaleSalaryType;
 };
 
 export type PersonaleRoleMapperProps = Record<
