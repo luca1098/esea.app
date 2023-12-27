@@ -76,7 +76,7 @@ export const AddPersonale = extendType({
     t.field('addPersonale', {
       type: getEseaCommonResponse('addPersonaleResponse'),
       args: { args: nonNull(addPersonaleArgs) },
-      resolve: addPersonakeResolver,
+      resolve: addPersonaleResolver,
     });
   },
 });
@@ -94,7 +94,7 @@ const addPersonaleArgs = inputObjectType({
   },
 });
 
-const addPersonakeResolver: FieldResolver<'Mutation', 'AddPersonale'> = async (
+const addPersonaleResolver: FieldResolver<'Mutation', 'AddPersonale'> = async (
   _parents,
   args,
   ctx,
@@ -107,6 +107,35 @@ const addPersonakeResolver: FieldResolver<'Mutation', 'AddPersonale'> = async (
     });
 
     return { valido: true, message: 'Personale inserito con con successo' };
+  } catch (e: unknown) {
+    const error = getErrorReturn(e);
+    return error;
+  }
+};
+
+export const deletePersonale = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.field('deletePersonale', {
+      type: getEseaCommonResponse('deletePersonaleResponse'),
+      args: { id: nonNull(stringArg()) },
+      resolve: deletePersonaleResolver,
+    });
+  },
+});
+
+const deletePersonaleResolver: FieldResolver<
+  'Mutation',
+  'AddPersonale'
+> = async (_parents, args, ctx) => {
+  try {
+    await ctx.prisma.personale.delete({
+      where: {
+        id: args.id,
+      },
+    });
+
+    return { valido: true, message: 'Personale eliminato con con successo' };
   } catch (e: unknown) {
     const error = getErrorReturn(e);
     return error;
