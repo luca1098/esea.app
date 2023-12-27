@@ -1,14 +1,23 @@
 import { formatCurrency } from '@/core/utils/currencies';
 import { formatDate } from '@/core/utils/date';
-import { Avatar, Badge, Divider, Stack, Text } from '@chakra-ui/react';
+import {
+  Avatar,
+  Badge,
+  Divider,
+  IconButton,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import { personaleRoleMapper, salaryMapper } from '../config';
 import { PersonaleProps } from '@/core/types/personale';
+import { TrashIcon } from '@/kit/Icons/icons';
 
 type CardPersonaleProps = {
   person: PersonaleProps;
+  onDelete: (id: string) => void;
 };
 
-const CardPersonale = ({ person }: CardPersonaleProps) => {
+const CardPersonale = ({ person, onDelete }: CardPersonaleProps) => {
   return (
     <Stack alignItems={'center'} borderWidth={1} rounded={'2xl'} p={6}>
       <Avatar src={person.image ?? ''} name={person.name} size={'lg'} mb={2} />
@@ -28,6 +37,14 @@ const CardPersonale = ({ person }: CardPersonaleProps) => {
           {`/ ${salaryMapper[person.salaryType ?? 'DAY'].label}`}
         </Text>
       </Text>
+      <Stack>
+        <IconButton
+          icon={<TrashIcon />}
+          onClick={() => onDelete(person.id)}
+          aria-label={`Rimuovi ${person.name} dal personale`}
+          variant={'action'}
+        />
+      </Stack>
     </Stack>
   );
 };
