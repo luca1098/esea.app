@@ -1,8 +1,8 @@
-import { EventStatusType } from '@prisma/client';
+import { StatusTypeProps } from '../types/event';
 
 export type PaymentStatus = {
   label: string;
-  value: EventStatusType;
+  value: StatusTypeProps;
 };
 
 export const paymentStatus: PaymentStatus[] = [
