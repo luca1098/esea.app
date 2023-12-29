@@ -69,6 +69,7 @@ type Mutation {
   createEvents(args: createEventsArgs!): createEventsResponse
   deleteBoat(id: String!): removeBoatResponse
   deleteEvents(id: String!): deleteEvent
+  deletePersonale(id: String!): deletePersonaleResponse
   user(credentials: createUserArgs!): createUserResponse
 }
 
@@ -216,6 +217,11 @@ type createUserResponse {
 }
 
 type deleteEvent {
+  message: String
+  valido: Boolean
+}
+
+type deletePersonaleResponse {
   message: String
   valido: Boolean
 }

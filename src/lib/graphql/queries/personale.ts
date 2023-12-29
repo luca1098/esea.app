@@ -23,3 +23,12 @@ export const ADD_PERSONALE_MUTATION = gql`
     }
   }
 `;
+
+export const REMOVE_PERSONALE_MUTATION = gql`
+  mutation DeletePersonale($id: String!) {
+    deletePersonale(id: $id) {
+      message
+      valido
+    }
+  }
+`;
