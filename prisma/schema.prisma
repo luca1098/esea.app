@@ -15,12 +15,16 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
+  phone      String?
+  codFisc      String?
+  dataNascita      DateTime?
   accounts      Account[]
   boats        Boat[]
   sessions      Session[]
   company       Company?  @relation(fields: [companyId], references: [id])
   companyId     String?
   services      Service[]
+  createdAt        DateTime           @default(now())
 
 }
 
@@ -63,9 +67,11 @@ id             String  @id @unique @default(cuid())
 name           String
 image          String?
 maxPeople      Int?
-user           User?   @relation(fields: [userId], references: [id])
+user           User?   @relation(fields: [userId], references: [id]) //to remove
+company           Company?   @relation(fields: [companyId], references: [id])
 unaviableSlots Slot[]  
 userId         String?
+companyId         String?
 events        Event[]
 services       Service[]
 createdAt        DateTime           @default(now())
@@ -178,8 +184,10 @@ enum EventStatusType {
 model Company {
 id        String @id @unique @default(cuid())
 name      String
+logo      String?
 employees Personale[]
 users User[]
+boats Boat[]
 events Event[]
 clients Client[]
 createdAt        DateTime           @default(now())

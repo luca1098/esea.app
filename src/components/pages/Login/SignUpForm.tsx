@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { SignUpFormProps, SignUpFormSchema } from './schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@apollo/client';
-import { createUserMutation } from '@/graphql/queries/user';
+import { CREATE_USER_MUTATION } from '@/graphql/queries/user';
 import { useRouter } from 'next/router';
 import bcryptjs from 'bcryptjs';
 import { SALT } from '@/lib/utils';
@@ -20,7 +20,7 @@ const SignUpForm = () => {
   });
 
   const { errorToast, successToast } = useResponseToast();
-  const [createUser, { loading }] = useMutation(createUserMutation);
+  const [createUser, { loading }] = useMutation(CREATE_USER_MUTATION);
 
   const onSubmit = async (val: SignUpFormProps) => {
     //AGGIUNGERE CRIPTOGRAFIA

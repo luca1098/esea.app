@@ -15,7 +15,7 @@ const defaultFileAccepted = {
 
 export type AvatarUploaderProps = { preview: Nullish<string> } & Pick<
   AvatarProps,
-  'size'
+  'size' | 'icon'
 > &
   Omit<FileUploaderProps, 'maxFiles'>;
 
@@ -23,6 +23,7 @@ const AvatarUploader = forwardRef<HTMLInputElement, AvatarUploaderProps>(
   (
     {
       size,
+      icon,
       name,
       preview,
       onBlur,
@@ -57,6 +58,7 @@ const AvatarUploader = forwardRef<HTMLInputElement, AvatarUploaderProps>(
             cursor={'pointer'}
             ignoreFallback
             bg='gray.400'
+            icon={icon}
           />
           <Box as={'input'} {...getInputProps({ onChange })} onBlur={onBlur} />
           <IconButton

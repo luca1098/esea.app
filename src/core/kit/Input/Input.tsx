@@ -16,6 +16,7 @@ type BaseInputProps = {
   leftElement?: ReactNode;
   leftAddon?: ReactNode;
   rightElement?: ReactNode;
+  normalize?: (value: ChakraInputProps['value']) => string;
   variant?: InputVariantProps;
 } & Pick<
   ChakraInputProps,
@@ -29,6 +30,7 @@ type BaseInputProps = {
   | 'variant'
   | 'bgColor'
   | 'type'
+  | 'maxLength'
 >;
 
 export type InputProps = FormControlWrapperProps & BaseInputProps;
@@ -40,9 +42,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       rightElement,
       leftAddon,
       placeholder,
+      maxLength,
       onFocus,
       onBlur,
       onChange,
+      normalize,
       value,
       autoComplete,
       name,
@@ -68,12 +72,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             onFocus={onFocus}
             onBlur={onBlur}
             onChange={onChange}
-            value={value ?? ''}
+            value={normalize ? normalize(value) : value ?? ''}
             bgColor={bgColor}
             autoComplete={autoComplete}
             name={name}
             variant={variant}
             type={type}
+            maxLength={maxLength}
           />
           {!!rightElement && (
             <InputRightElement>{rightElement}</InputRightElement>

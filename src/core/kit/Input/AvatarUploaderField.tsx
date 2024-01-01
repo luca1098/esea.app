@@ -1,13 +1,13 @@
 import FormField, { FormFieldProps } from '../Form/FormField';
 import AvatarUploader, { AvatarUploaderProps } from './AvatarUploader';
 
-export type FileUploaderFieldProps = {
+export type AvatarUploaderFieldProps = {
   name: string;
   value?: AvatarUploaderProps['value'];
 } & Omit<AvatarUploaderProps, 'name' | 'onDrop' | 'value'> &
   Omit<FormFieldProps, 'renderField'>;
 
-const FileUploaderField = (props: FileUploaderFieldProps) => {
+const AvatarUploaderField = (props: AvatarUploaderFieldProps) => {
   return (
     <FormField
       name={props.name}
@@ -43,4 +43,4 @@ const FileUploaderField = (props: FileUploaderFieldProps) => {
   );
 };
 
-export default FileUploaderField;
+export default AvatarUploaderField;

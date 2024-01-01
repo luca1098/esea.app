@@ -88,8 +88,8 @@ const ImageCropModal = ({
                 label='Rotazione'
                 onChange={setRotation}
                 value={rotation}
-                min={0}
-                max={360}
+                min={-180}
+                max={180}
               />
             </Stack>
           </Stack>

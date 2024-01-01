@@ -17,13 +17,17 @@ export const User = objectType({
     t.string('id');
     t.string('email', { description: 'Email of the user' });
     t.string('name');
+    t.string('phone');
+    t.string('codFisc');
+    t.string('dataNascita');
     t.field('role', { type: Role });
-    t.float('emailVerified', { description: 'In timestamp' });
+    t.string('emailVerified', { description: 'In timestamp' });
     t.string('image');
     t.string('password');
     t.list.field('boats', { type: Boat });
     t.field('company', { type: Company });
     t.string('companyId');
+    t.string('createdAt');
   },
 });
 
@@ -85,6 +89,7 @@ const CreateUserArgs = inputObjectType({
       t.nonNull.string('password');
   },
 });
+
 const CreateUserResponse = objectType({
   name: 'createUserResponse',
   definition(t) {
@@ -115,6 +120,58 @@ const createUserResolver: FieldResolver<'Mutation', 'CreateUsers'> = async (
           : 'Qualcosa è andato storto',
       };
     }
+    const error = getErrorReturn(e);
+    return error;
+  }
+};
+
+export const EditUser = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.field('editUser', {
+      type: EditUserResponse,
+      args: { args: nonNull(EditUserArgs) },
+      resolve: editUserResolver,
+    });
+  },
+});
+
+const EditUserArgs = inputObjectType({
+  name: 'editUserArgs',
+  definition(t) {
+    t.nonNull.string('email'),
+      t.string('codFisc'),
+      t.string('dataNascita'),
+      t.string('phone');
+    t.string('companyId');
+    t.string('image');
+  },
+});
+
+const EditUserResponse = objectType({
+  name: 'editUserResponse',
+  definition(t) {
+    t.string('message'), t.boolean('valido');
+  },
+});
+
+const editUserResolver: FieldResolver<'Mutation', 'EditUser'> = async (
+  _parents,
+  args,
+  ctx,
+) => {
+  const { email, ...rest } = args.args || {};
+  try {
+    await ctx.prisma.user.update({
+      where: {
+        email: email,
+      },
+      data: {
+        ...rest,
+      },
+    });
+    return { valido: true, message: 'Informazioni aggiunte con successo' };
+  } catch (e: unknown) {
     const error = getErrorReturn(e);
     return error;
   }

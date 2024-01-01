@@ -1,4 +1,4 @@
-import { FormProvider, useForm, useWatch } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { AddPersonaleArgsProps, NuovoPersonaleFormValues } from './schemas';
 import InputField from '@/kit/Input/InputField';
 import SelectField from '@/kit/Input/SelectField';
@@ -11,8 +11,7 @@ import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import Button from '@/kit/Button/Button';
 import CurrencyInputFormField from '@/kit/Input/CurrencyInputField';
 import DataPickerField from '@/kit/Input/DataPickerField';
-import { useEffect, useState } from 'react';
-import ImageCropModal from '@/components/Crop/ImageCropModal';
+import { useState } from 'react';
 import AvatarUploaderField from '@/kit/Input/AvatarUploaderField';
 import { nuovoPersonaleFormCustomResolver } from './resolvers';
 import { uploadImage } from '@/core/services/uploadImage';
@@ -22,6 +21,7 @@ import { useAddPersonale } from './queries';
 import { useRouter } from 'next/router';
 import useResponseToast from '@/core/hooks/useResponseToast';
 import { navigation } from '@/core/config/navigation';
+import { useCroppedImage } from '@/core/hooks/useCroppedImage';
 
 const defaultValues: NuovoPersonaleFormValues = {
   name: '',
@@ -37,44 +37,17 @@ const NuovoPersonaleForm = ({ user }: NuovoPersonaleFormProps) => {
   const { errorToast, successToast } = useResponseToast();
   const router = useRouter();
 
-  const [showCropModal, setShowCropModal] = useState<boolean>(false);
-  const [anteprima, setAnteprima] = useState<string | null>();
   const [uploadLoading, setUploadLoading] = useState<boolean>(false);
-  const [croppedImg, setCroppedImg] = useState<string | null>();
 
   const methods = useForm<NuovoPersonaleFormValues>({
     resolver: nuovoPersonaleFormCustomResolver,
     defaultValues,
   });
 
+  const { renderCropModal, croppedImg, clearImageField } =
+    useCroppedImage(methods);
+
   const [addPersonale, { loading }] = useAddPersonale(user?.companyId ?? '');
-
-  const fileValues = useWatch({ control: methods.control, name: 'image' });
-
-  useEffect(() => {
-    if (fileValues) {
-      const imgUrl = URL.createObjectURL(fileValues);
-      setAnteprima(imgUrl);
-      setShowCropModal(true);
-    }
-  }, [fileValues]);
-
-  const handleModalClose = () => {
-    clearImageField();
-    setShowCropModal(false);
-  };
-
-  const clearImageField = () => {
-    setAnteprima(null);
-    methods.reset({ image: defaultValues.image }, { keepValues: true });
-    setCroppedImg(null);
-  };
-
-  const handleCropComplete = (_file: File, url: string | null) => {
-    setShowCropModal(false);
-    setAnteprima(null);
-    setCroppedImg(url);
-  };
 
   const onSubmit = async (values: NuovoPersonaleFormValues) => {
     setUploadLoading(true);
@@ -187,12 +160,7 @@ const NuovoPersonaleForm = ({ user }: NuovoPersonaleFormProps) => {
           </form>
         </FormProvider>
       </Box>
-      <ImageCropModal
-        image={anteprima}
-        isOpen={showCropModal}
-        onClose={handleModalClose}
-        onComplete={handleCropComplete}
-      />
+      {renderCropModal()}
     </>
   );
 };

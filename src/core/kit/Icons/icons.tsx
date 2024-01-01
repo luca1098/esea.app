@@ -33,6 +33,8 @@ import {
   MdOutlineKeyboardArrowLeft as PaginationArrowLeftIcon,
   MdOutlineKeyboardArrowRight as PaginationArrowRightIcon,
 } from 'react-icons/md';
+import { AiFillPicture as PictureIcon } from 'react-icons/ai';
+
 export {
   CalendarIcon,
   HomeIcon,
@@ -58,4 +60,5 @@ export {
   PaginationArrowLeftIcon,
   PaginationArrowRightIcon,
   EditIcon,
+  PictureIcon,
 };
