@@ -9,7 +9,7 @@ import { getServerSession } from 'next-auth';
 import { prisma } from 'prisma/db';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import apolloClient from './apollo';
-import { USER_QUERY } from './graphql/queries/user';
+import { GET_USER_QUERY } from './graphql/queries/user';
 import { authPage } from '@/core/config/authpage';
 import bcrypt from 'bcryptjs';
 
@@ -56,7 +56,7 @@ export const config = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) return null;
         const { data, error } = await apolloClient.query({
-          query: USER_QUERY,
+          query: GET_USER_QUERY,
           variables: {
             email: credentials?.email,
           },

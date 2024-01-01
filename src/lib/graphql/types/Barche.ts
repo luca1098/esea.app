@@ -11,15 +11,18 @@ import { User } from './User';
 import { Event } from './Events';
 import { Service } from './Services';
 import { getErrorReturn } from '@/lib/utils';
+import { Company } from './Company';
 
 export const Boat = objectType({
   name: 'Boat',
   definition(t) {
-    t.string('id');
+    t.nonNull.string('id');
+    t.nonNull.string('companyId');
     t.string('name');
     t.string('image');
-    // t.int('maxPeople');
+    t.int('maxPeople');
     t.field('user', { type: User });
+    t.field('company', { type: Company });
     t.field('events', { type: list(Event) });
     t.field('services', { type: list(Service) });
   },
@@ -39,7 +42,7 @@ export const AddBoat = extendType({
 const AddBoatArgs = inputObjectType({
   name: 'addBoatArgs',
   definition(t) {
-    t.nonNull.string('userId'),
+    t.nonNull.string('companyId'),
       t.nonNull.string('name'),
       t.nonNull.string('image'),
       t.nonNull.int('maxPeople');
@@ -81,6 +84,7 @@ export const RemoveBoat = extendType({
     });
   },
 });
+//TODO URGENTE: quando cancelli una barca cancellare tutti gli eventi correlati
 
 const RemoveBoatResponse = objectType({
   name: 'removeBoatResponse',

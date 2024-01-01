@@ -12,6 +12,8 @@ export type UserExtended = {
   cellulare?: string;
   payment?: PaymentProps;
   plan?: PlanProps;
+  dataNascita?: number;
+  codFisc?: string;
   birthday?: number;
 } & Session['user'];
 

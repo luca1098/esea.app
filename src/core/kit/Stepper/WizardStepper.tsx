@@ -1,6 +1,6 @@
 import { Children, ReactElement, useMemo } from 'react';
 import Stepper, { StepperProps } from './Stepper';
-import { Box } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 
 type WizzardStepperProps = {
   activeStep: number;
@@ -31,7 +31,9 @@ const WizzardStepper = ({
   return (
     <>
       <Stepper activeStep={activeStep} width={stepperWidth} steps={steps} />
-      <Box mt={3}>{steps?.[activeStep].component}</Box>
+      <Stack w={'full'} mt={3}>
+        {steps?.[activeStep].component}
+      </Stack>
     </>
   );
 };
