@@ -81,6 +81,7 @@ const PersonaleStep = ({ loading, user, onNext }: PersonaleStepProps) => {
                 name='dataNascita'
                 placeholder='Data di nascita'
                 showYearDropdown
+                maxDate={new Date()}
               />
             </GridItem>
             <GridItem display={'flex'} justifyContent={'end'}>
