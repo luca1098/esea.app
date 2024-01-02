@@ -26,6 +26,7 @@ export const navigation = {
       },
     },
   },
+  onboard: '/onboard',
   public: {
     feature: '/feature',
     pricing: '/pricing',

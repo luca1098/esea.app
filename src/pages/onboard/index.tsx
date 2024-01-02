@@ -8,12 +8,15 @@ import {
   InfoPersonaliFormProps,
 } from '@/components/pages/OnBoard/schemas';
 import { useEditUser } from '@/components/pages/shared/queries';
+import { navigation } from '@/core/config/navigation';
 import useResponseToast from '@/core/hooks/useResponseToast';
 import { uploadImage } from '@/core/services/uploadImage';
-import { PropsWithUser } from '@/core/types/user';
+import { dateToTimestamp } from '@/core/utils/date';
+import { getIsAdmin } from '@/core/utils/user';
 import WizzardStepper from '@/kit/Stepper/WizardStepper';
 import { Heading, Stack, Text, useSteps } from '@chakra-ui/react';
-import { GetSessionParams, getSession } from 'next-auth/react';
+import { GetSessionParams, getSession, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 const steps = [
@@ -22,14 +25,16 @@ const steps = [
   { title: 'Tre', description: 'Ci siamo!' },
 ];
 
-type OnBoardingProps = PropsWithUser;
-
-const OnBoarding = ({ user }: OnBoardingProps) => {
+const OnBoarding = () => {
+  const { update: updateSession, data: session } = useSession();
+  const { user } = session || {};
+  const router = useRouter();
   const [uploadLoading, setUploadLoading] = useState<boolean>(false);
   const { activeStep, goToNext, goToPrevious } = useSteps({
     index: 0,
     count: steps.length,
   });
+
   const { successToast, errorToast } = useResponseToast();
 
   const [editUser, { loading: editUserLoading }] = useEditUser();
@@ -63,10 +68,11 @@ const OnBoarding = ({ user }: OnBoardingProps) => {
       });
       return null;
     }
+
     const args: AddInfoPersonaliArgsProps = {
       email: user?.email ?? '',
       phone: values.phone,
-      dataNascita: values.dataNascita,
+      dataNascita: dateToTimestamp(values.dataNascita),
       codFisc: values.codFisc,
       image: url,
     };
@@ -80,6 +86,14 @@ const OnBoarding = ({ user }: OnBoardingProps) => {
     if (errors || !data.editUser.valido) {
       errorToast(errors, data.editUser);
     } else {
+      updateSession({
+        phone: args.phone,
+        dataNascita: args.dataNascita,
+        codFisc: args.codFisc,
+        image: args.image,
+        personalInfoFlag: true,
+      });
+
       successToast(data.editUser);
       goToNext();
     }
@@ -111,6 +125,8 @@ const OnBoarding = ({ user }: OnBoardingProps) => {
         },
       });
 
+      updateSession({ companyId });
+
       if (editUserErrors || !editUserRes.editUser.valido) {
         errorToast(editUserErrors, editUserRes.editUser);
       } else {
@@ -124,7 +140,7 @@ const OnBoarding = ({ user }: OnBoardingProps) => {
   };
 
   const handleStart = () => {
-    // goToNext();
+    router.push(`${navigation.private.dashboard}`);
   };
 
   return (
@@ -140,6 +156,7 @@ const OnBoarding = ({ user }: OnBoardingProps) => {
         <PersonaleStep
           onNext={handleInfoPersonaliNext}
           loading={uploadLoading || editUserLoading}
+          user={user}
         />
         <AziendaStep
           onNext={handleInfoAziendaNext}
@@ -157,10 +174,19 @@ export default OnBoarding;
 export const getServerSideProps = async (ctx: GetSessionParams) => {
   const session = await getSession(ctx);
   if (session) {
+    if (session.user.companyId) {
+      const isAdmin = getIsAdmin(session.user);
+      return {
+        redirect: {
+          permanent: false,
+          destination: isAdmin
+            ? navigation.admin.dashboard
+            : navigation.private.dashboard,
+        },
+      };
+    }
     return {
-      props: {
-        user: session.user,
-      },
+      props: {},
     };
   }
   return {

@@ -19,9 +19,9 @@ export const User = objectType({
     t.string('name');
     t.string('phone');
     t.string('codFisc');
-    t.string('dataNascita');
+    t.float('dataNascita');
     t.field('role', { type: Role });
-    t.string('emailVerified', { description: 'In timestamp' });
+    t.string('emailVerified');
     t.string('image');
     t.string('password');
     t.list.field('boats', { type: Boat });
@@ -141,7 +141,7 @@ const EditUserArgs = inputObjectType({
   definition(t) {
     t.nonNull.string('email'),
       t.string('codFisc'),
-      t.string('dataNascita'),
+      t.float('dataNascita'),
       t.string('phone');
     t.string('companyId');
     t.string('image');
@@ -168,6 +168,9 @@ const editUserResolver: FieldResolver<'Mutation', 'EditUser'> = async (
       },
       data: {
         ...rest,
+        ...(args.args.dataNascita
+          ? { dataNascita: new Date(args.args.dataNascita) }
+          : {}),
       },
     });
     return { valido: true, message: 'Informazioni aggiunte con successo' };

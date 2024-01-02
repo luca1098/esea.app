@@ -1,12 +1,10 @@
-import { UserExtended } from '@/core/types/user';
+import { PropsWithUser } from '@/core/types/user';
 import ContentBox from '@/kit/Box/ContentBox';
 import { Divider, Heading, Stack } from '@chakra-ui/react';
-import PaymentInfo from './components/PaymentInfo';
+// import PaymentInfo from './components/PaymentInfo';
 import PersonalInfo from './components/PersonalInfo';
 
-type ProfiloBoxProps = {
-  user?: UserExtended;
-};
+type ProfiloBoxProps = PropsWithUser;
 
 const ProfiloBox = ({ user }: ProfiloBoxProps) => {
   return (
@@ -17,7 +15,7 @@ const ProfiloBox = ({ user }: ProfiloBoxProps) => {
       <Divider mb={4} />
       <Stack direction={{ lg: 'row' }}>
         <PersonalInfo user={user} />
-        <PaymentInfo payment={user?.payment} />
+        {/* <PaymentInfo payment={user?.payment} /> */}
       </Stack>
     </ContentBox>
   );

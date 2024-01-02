@@ -67,5 +67,6 @@ export const useCroppedImage = <T extends FieldValues>(
     croppedImg,
     renderCropModal,
     clearImageField,
+    setCroppedImg,
   };
 };

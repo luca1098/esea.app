@@ -9,19 +9,29 @@ import AvatarUploaderField from '@/kit/Input/AvatarUploaderField';
 import { useCroppedImage } from '@/core/hooks/useCroppedImage';
 import { InfoPersonaleFormCustomResolver } from './resolvers';
 import { inputToUppercase } from '@/core/utils/normalize';
+import { PropsWithUser } from '@/core/types/user';
+import { useEffect } from 'react';
 
 type PersonaleStepProps = {
   onNext: (values: InfoPersonaliFormProps) => void;
   loading?: boolean;
-};
+} & PropsWithUser;
 
-const PersonaleStep = ({ loading, onNext }: PersonaleStepProps) => {
+const PersonaleStep = ({ loading, user, onNext }: PersonaleStepProps) => {
   const methods = useForm<InfoPersonaliFormProps>({
     resolver: InfoPersonaleFormCustomResolver,
   });
 
-  const { renderCropModal, croppedImg, clearImageField } =
+  const { renderCropModal, croppedImg, clearImageField, setCroppedImg } =
     useCroppedImage(methods);
+
+  useEffect(() => {
+    if (user?.image) setCroppedImg(user.image);
+    if (user?.dataNascita)
+      methods.setValue('dataNascita', new Date(user.dataNascita));
+    if (user?.codFisc) methods.setValue('codFisc', user.codFisc);
+    if (user?.phone) methods.setValue('phone', user.phone);
+  }, [user, methods, setCroppedImg]);
 
   return (
     <Stack w={'container.lg'} mx={'auto'}>
