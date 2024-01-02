@@ -30,7 +30,7 @@ const Stepper = ({ steps, activeStep, width }: StepperProps) => {
             <StepIndicator>
               <StepStatus complete={<StepIcon />} />
             </StepIndicator>
-            <Box as={StepSeparator} _horizontal={{ ml: '0' }} />
+            <Box as={StepSeparator} _horizontal={{ m: '0' }} p={'3px'} />
           </Box>
         ))}
       </ChakraStepper>
