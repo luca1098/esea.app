@@ -8,6 +8,7 @@ export type PropsWithUser = {
   user?: Session['user'];
 };
 
+// TODO: premdere spunto per il pagamento e per il piano e poi rimuovere
 export type UserExtended = {
   cellulare?: string;
   payment?: PaymentProps;
@@ -16,7 +17,3 @@ export type UserExtended = {
   codFisc?: string;
   birthday?: number;
 } & Session['user'];
-
-export type PropsWithUserExtended = {
-  user?: UserExtended;
-};

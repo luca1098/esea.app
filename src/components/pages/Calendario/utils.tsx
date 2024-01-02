@@ -3,7 +3,7 @@ import RowActions, { RowActionsProps } from '@/components/Table/RowActions';
 import StatusEventCell from '@/components/Table/StatusEventCell';
 import { EventProps } from '@/core/types/event';
 import { formatCurrency } from '@/core/utils/currencies';
-import { formatDateTime } from '@/core/utils/date';
+import { formatDateTimeFromTimestamp } from '@/core/utils/date';
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 
 const columnHelper = createColumnHelper<EventProps>();
@@ -27,11 +27,11 @@ export const getColumns = ({
     header: 'Barca',
   }),
   columnHelper.accessor('from', {
-    cell: (info) => formatDateTime(info.getValue()),
+    cell: (info) => formatDateTimeFromTimestamp(info.getValue()),
     header: 'Da',
   }),
   columnHelper.accessor('to', {
-    cell: (info) => formatDateTime(info.getValue()),
+    cell: (info) => formatDateTimeFromTimestamp(info.getValue()),
     header: 'A',
   }),
   columnHelper.accessor('service.label', {

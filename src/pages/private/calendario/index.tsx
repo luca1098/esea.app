@@ -16,7 +16,7 @@ import {
   useDeleteEvent,
 } from '@/components/pages/shared/queries';
 import { BoatProps } from '@/core/types/barca';
-import { PropsWithUserExtended } from '@/core/types/user';
+import { PropsWithUser } from '@/core/types/user';
 import { dateToTimestamp } from '@/core/utils/date';
 import ContentBox from '@/kit/Box/ContentBox';
 import PageTitle from '@/kit/Text/PageTitle';
@@ -34,7 +34,7 @@ import {
   COMPANY_EVENT_QUERY,
 } from '@/graphql/queries/events';
 
-type CalendarioProps = PropsWithUserExtended;
+type CalendarioProps = PropsWithUser;
 
 const Calendario = ({ user }: CalendarioProps) => {
   const methods = useForm<NuovoEventoFormProps>({
@@ -42,7 +42,7 @@ const Calendario = ({ user }: CalendarioProps) => {
   });
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
   const { errorToast, successToast } = useResponseToast();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const { data: parametri, loading: parametriLoading } = useCalendarioParametri(
     {
       email: user?.email || '',

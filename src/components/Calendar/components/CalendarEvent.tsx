@@ -1,5 +1,5 @@
 import { EventProps } from '@/core/types/event';
-import { formatTime } from '@/core/utils/date';
+import { formatTimeFromTimestamp } from '@/core/utils/date';
 import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 import { ellipsText } from '@/core/utils/normalize';
@@ -57,7 +57,9 @@ type EventComponentProps = {
 
 const RestrictedEvent = ({ titolo = '-', from, to }: EventComponentProps) => (
   <Text fontSize={'xs'} fontWeight={'bold'}>
-    {`${ellipsText(titolo ?? '-', 5)} ${formatTime(from)} - ${formatTime(to)}`}
+    {`${ellipsText(titolo ?? '-', 5)} ${formatTimeFromTimestamp(
+      from,
+    )} - ${formatTimeFromTimestamp(to)}`}
   </Text>
 );
 const Event = ({ titolo, from, to }: EventComponentProps) => (
@@ -66,7 +68,7 @@ const Event = ({ titolo, from, to }: EventComponentProps) => (
       {titolo}
     </Text>
     <Text>
-      {formatTime(from)} - {formatTime(to)}
+      {formatTimeFromTimestamp(from)} - {formatTimeFromTimestamp(to)}
     </Text>
   </>
 );

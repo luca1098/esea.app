@@ -11,7 +11,7 @@ export const AddInfoPersonaliArgsSchema = z.object({
   image: z.string().nullish(),
   phone: z.string().nullish(),
   codFisc: z.string().max(16).nullish(),
-  dataNascita: z.date().nullish(),
+  dataNascita: z.number().nullish(),
   email: z.string(),
 });
 

@@ -7,11 +7,17 @@ declare module 'next-auth' {
       id?: number | string;
       role?: string;
       companyId?: string;
+      phone?: string;
+      dataNascita?: string;
+      codFisc?: string;
     } & DefaultSession['user'];
   }
   interface User {
     role?: string;
     companyId?: string;
+    phone?: string;
+    dataNascita?: string;
+    codFisc?: string;
   }
 }
 declare module 'next-auth/jwt' {
@@ -19,5 +25,8 @@ declare module 'next-auth/jwt' {
     id?: number | string;
     role?: string;
     companyId?: string;
+    phone?: string;
+    dataNascita?: string;
+    codFisc?: string;
   }
 }

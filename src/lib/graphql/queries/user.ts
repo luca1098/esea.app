@@ -23,6 +23,9 @@ export const GET_USER_QUERY = gql`
       password
       role
       companyId
+      phone
+      dataNascita
+      codFisc
     }
   }
 `;

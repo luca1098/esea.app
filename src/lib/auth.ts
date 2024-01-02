@@ -21,14 +21,24 @@ export const config = {
   },
   pages: authPage,
   callbacks: {
-    async jwt({ token, user }) {
-      if (user)
+    async jwt({ token, user, session, trigger }) {
+      if (user) {
         return {
           ...token,
-          role: user.role,
-          id: user.id,
-          companyId: user.companyId,
+          ...user,
         };
+      }
+
+      if (trigger === 'update' && session?.companyId) {
+        token.companyId = session.companyId;
+      }
+      if (trigger === 'update' && session?.personalInfoFlag) {
+        token.picture = session.image;
+        token.phone = session.phone;
+        token.dataNascita = session.dataNascita;
+        token.codFisc = session.codFisc;
+      }
+
       return token;
     },
     async session({ session, token }) {
@@ -40,6 +50,9 @@ export const config = {
             id: token.id,
             role: token.role,
             companyId: token.companyId,
+            dataNascita: token.dataNascita,
+            phone: token.phone,
+            codFisc: token.codFisc,
           },
         };
       }
@@ -72,6 +85,7 @@ export const config = {
             credentials.password,
             password,
           );
+
           if (isPwCorrect) {
             return {
               id: data.user.id,
@@ -80,6 +94,9 @@ export const config = {
               image: data.user.image,
               role: data.user.role,
               companyId: data.user.companyId,
+              dataNascita: data.user.dataNascita,
+              phone: data.user.phone,
+              codFisc: data.user.codFisc,
             };
           }
         }

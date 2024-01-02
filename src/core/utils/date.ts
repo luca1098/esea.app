@@ -1,19 +1,21 @@
-import { format, isWithinInterval } from 'date-fns';
+import { format, isValid, isWithinInterval } from 'date-fns';
 import { getLocaleConfig } from './localeConfig';
 import { Nullish } from '../types/utils';
 import { EventProps } from '../types/event';
 
-export const formatTime = (timestamp: Nullish<number>) => {
+export const formatTimeFromTimestamp = (timestamp: Nullish<number>) => {
   if (typeof timestamp !== 'number') return '';
   return format(new Date(timestamp), getLocaleConfig().timeFormat);
 };
 
-export const formatDate = (timestamp: Nullish<number>) => {
-  if (typeof timestamp !== 'number') return '';
-  return format(new Date(timestamp), getLocaleConfig().dateFormat);
+export const formatDate = (date: Nullish<number | string>) => {
+  if (date && isValid(new Date(date))) {
+    return format(new Date(date), getLocaleConfig().dateFormat);
+  }
+  return '';
 };
 
-export const formatDateTime = (timestamp: Nullish<number>) => {
+export const formatDateTimeFromTimestamp = (timestamp: Nullish<number>) => {
   if (typeof timestamp !== 'number') return '';
   return format(new Date(timestamp), getLocaleConfig().dateTimeFormat);
 };
