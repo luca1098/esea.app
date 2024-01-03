@@ -7,8 +7,12 @@ import {
   FaArrowLeft as LeftArrowIcon,
   FaCamera as CameraIcon,
   FaEdit as EditIcon,
+  FaCheck as CheckIcon,
 } from 'react-icons/fa';
-import { FaRegTrashCan as TrashIcon } from 'react-icons/fa6';
+import {
+  FaRegTrashCan as TrashIcon,
+  FaPlus as PlusIcon,
+} from 'react-icons/fa6';
 import {
   IoStatsChartSharp as StatsIcon,
   IoArrowBack as BackIcon,
@@ -61,4 +65,6 @@ export {
   PaginationArrowRightIcon,
   EditIcon,
   PictureIcon,
+  PlusIcon,
+  CheckIcon,
 };

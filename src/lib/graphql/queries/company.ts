@@ -19,6 +19,12 @@ export const GET_COMPANY_QUERY = gql`
         id
         image
         name
+        maxPeople
+        services {
+          label
+          id
+          price
+        }
       }
       employees {
         id

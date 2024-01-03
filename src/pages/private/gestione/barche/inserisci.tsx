@@ -22,7 +22,7 @@ const Inserisci = () => {
         <Divider orientation={'vertical'} h={400} hideBelow={'lg'} />
         <Divider orientation={'horizontal'} hideFrom={'lg'} />
         <Box flex={1}>
-          <Heading variant={'h4'}>Anteprima</Heading>
+          <Heading variant={'h4'}>Calendario</Heading>
         </Box>
       </Flex>
     </GestioneLayout>

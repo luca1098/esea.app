@@ -7,7 +7,7 @@ export const Service = objectType({
   definition(t) {
     t.string('id');
     t.string('label');
-    t.string('slug');
+    t.float('price');
     t.field('boat', { type: Boat });
   },
 });

@@ -1,10 +1,13 @@
-import { addBoatMutation, removeBoatMutation } from '@/graphql/queries/barche';
+import {
+  ADD_BOAT_MUTATION,
+  removeBoatMutation,
+} from '@/graphql/queries/barche';
 import { GET_COMPANY_QUERY } from '@/graphql/queries/company';
 
 import { useMutation } from '@apollo/client';
 
 export const useAddBoat = (companyId: string) => {
-  return useMutation(addBoatMutation, {
+  return useMutation(ADD_BOAT_MUTATION, {
     refetchQueries: [
       {
         query: GET_COMPANY_QUERY,

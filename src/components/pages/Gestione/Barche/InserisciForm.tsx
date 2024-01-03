@@ -1,24 +1,28 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { FormInserisciBarca, FormInserisciBarcaSchema } from './schemas';
-import InputField from '@/kit/Input/InputField';
+import { FormInserisciBarca } from './schemas';
 import Button from '@/kit/Button/Button';
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Stack } from '@chakra-ui/react';
 import { PropsWithUser } from '@/core/types/user';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { navigation } from '@/core/config/navigation';
 import { useAddBoat } from '../queries';
 import { uploadImage } from '@/core/services/uploadImage';
 import { useState } from 'react';
-import FileUploaderField from '@/kit/Input/FileUploaderField';
 import useResponseToast from '@/core/hooks/useResponseToast';
+import BaseInfoFields from './components/BaseInfoFields';
+import ServicesFields from './components/ServicesFields';
+import { FormInserisciBarcaCustomResolver } from './resolver';
+import { uniqueId } from 'lodash';
 
 const InserisciForm = ({ user }: PropsWithUser) => {
   const [fileUploadLoading, setFileUploadLoading] = useState<boolean>(false);
   const { errorToast, successToast } = useResponseToast();
   const router = useRouter();
   const methods = useForm<FormInserisciBarca>({
-    resolver: zodResolver(FormInserisciBarcaSchema),
+    resolver: FormInserisciBarcaCustomResolver,
+    defaultValues: {
+      services: [{ label: '', price: 0, id: uniqueId('service') }],
+    },
   });
 
   const [addBoat, { loading }] = useAddBoat(user?.companyId ?? '');
@@ -30,16 +34,21 @@ const InserisciForm = ({ user }: PropsWithUser) => {
       `${user?.companyId}/boats`,
     );
     setFileUploadLoading(false);
+
+    const args = {
+      name: values.name,
+      image: path,
+      companyId: user?.companyId || '',
+      maxPeople: Number(values.maxPeople),
+      services: values.services,
+    };
+
     const { data, errors } = await addBoat({
       variables: {
-        args: {
-          name: values.name,
-          image: path,
-          companyId: user?.companyId || '',
-          maxPeople: Number(values.maxPeople),
-        },
+        ...args,
       },
     });
+
     if (errors || !data?.addBoat?.valido) {
       errorToast(errors, data?.addBoat);
     } else {
@@ -53,24 +62,16 @@ const InserisciForm = ({ user }: PropsWithUser) => {
     <Box flex={2}>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <Grid templateColumns='repeat(2, 1fr)' gap={6} mb={6}>
-            <GridItem colSpan={2}>
-              <FileUploaderField name='image' maxFiles={1} maxSize={1} />
-            </GridItem>
-            <GridItem>
-              <InputField name='name' label='Nome della barca' />
-            </GridItem>
-            <GridItem>
-              <InputField name='maxPeople' label='Massimo persone' />
-            </GridItem>
-            <GridItem colSpan={2}>TODO:section calendar</GridItem>
-            <GridItem colSpan={2}>TODO:section services</GridItem>
-          </Grid>
-          <Button
-            label='Inserisci'
-            type='submit'
-            isLoading={loading || fileUploadLoading}
-          />
+          <BaseInfoFields methods={methods} />
+          <ServicesFields methods={methods} />
+          {/* <GridItem colSpan={2}>TODO:section calendar</GridItem>*/}
+          <Stack borderTopWidth={1} mt={6} p={4} alignItems={'end'}>
+            <Button
+              label='Inserisci'
+              type='submit'
+              isLoading={loading || fileUploadLoading}
+            />
+          </Stack>
         </form>
       </FormProvider>
     </Box>

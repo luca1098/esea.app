@@ -69,7 +69,7 @@ enum EventStatusType {
 }
 
 type Mutation {
-  addBoat(args: addBoatArgs!): addBoatResponse
+  addBoat(companyId: String!, image: String, maxPeople: Int, name: String, services: [ServiceArgs!]): addBoatResponse
   addClient(args: addClientArgs!): addClienResponse
   addPersonale(args: addPersonaleArgs!): addPersonaleResponse
   createCompany(logo: String, name: String!): createCompanyResponse
@@ -105,7 +105,6 @@ type Personale {
 type Query {
   boatEvents(boatId: String!): [Event]!
   boatServices(boatId: String!): [Service]!
-  calendarioParametri(email: String!): User
   canali: [Canale]!
   company(id: String!): Company
   companyEvents(companyId: String!): [Event]!
@@ -132,7 +131,13 @@ type Service {
   boat: Boat
   id: String
   label: String
-  slug: String
+  price: Float
+}
+
+input ServiceArgs {
+  id: String!
+  label: String
+  price: Float
 }
 
 type User {
@@ -151,13 +156,6 @@ type User {
   password: String
   phone: String
   role: Role
-}
-
-input addBoatArgs {
-  companyId: String!
-  image: String!
-  maxPeople: Int!
-  name: String!
 }
 
 type addBoatResponse {

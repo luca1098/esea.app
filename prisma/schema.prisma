@@ -22,7 +22,6 @@ model User {
   sessions      Session[]
   company       Company?  @relation(fields: [companyId], references: [id])
   companyId     String?
-  services      Service[]
   createdAt        DateTime           @default(now())
 
 }
@@ -142,11 +141,9 @@ model Client {
 model Service {
   id        String @id @unique @default(cuid())
   label     String   
-  slug     String 
-  userId     String 
-  boats   Boat[] 
+  price     Float    @default(0)
+  boats Boat[] 
   events Event[] 
-  user User @relation(fields: [userId], references: [id]) 
   createdAt        DateTime           @default(now())
 }
 

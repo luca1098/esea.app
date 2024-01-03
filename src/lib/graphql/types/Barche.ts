@@ -2,6 +2,7 @@ import {
   FieldResolver,
   extendType,
   inputObjectType,
+  intArg,
   list,
   nonNull,
   objectType,
@@ -22,7 +23,7 @@ export const Boat = objectType({
     t.int('maxPeople');
     t.field('company', { type: Company });
     t.field('events', { type: list(Event) });
-    t.field('services', { type: list(Service) });
+    t.list.field('services', { type: Service });
   },
 });
 
@@ -31,21 +32,27 @@ export const AddBoat = extendType({
   definition(t) {
     t.field('addBoat', {
       type: AddBoatResponse,
-      args: { args: nonNull(AddBoatArgs) },
+      args: {
+        companyId: nonNull(stringArg()),
+        name: stringArg(),
+        image: stringArg(),
+        maxPeople: intArg(),
+        services: list(nonNull(ServiceArgs)),
+      },
       resolve: addBoatResolver,
     });
   },
 });
 
-const AddBoatArgs = inputObjectType({
-  name: 'addBoatArgs',
+export const ServiceArgs = inputObjectType({
+  name: 'ServiceArgs',
   definition(t) {
-    t.nonNull.string('companyId'),
-      t.nonNull.string('name'),
-      t.nonNull.string('image'),
-      t.nonNull.int('maxPeople');
+    t.nonNull.string('id');
+    t.string('label');
+    t.float('price');
   },
 });
+
 const AddBoatResponse = objectType({
   name: 'addBoatResponse',
   definition(t) {
@@ -61,7 +68,10 @@ const addBoatResolver: FieldResolver<'Mutation', 'AddBoat'> = async (
   try {
     await ctx.prisma.boat.create({
       data: {
-        ...args.args,
+        ...args,
+        services: {
+          create: args.services,
+        },
       },
     });
 
