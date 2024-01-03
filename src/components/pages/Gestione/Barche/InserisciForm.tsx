@@ -21,7 +21,7 @@ const InserisciForm = ({ user }: PropsWithUser) => {
     resolver: zodResolver(FormInserisciBarcaSchema),
   });
 
-  const [addBoat, { loading }] = useAddBoat({ email: user?.email || '' });
+  const [addBoat, { loading }] = useAddBoat(user?.companyId ?? '');
 
   const onSubmit = async (values: FormInserisciBarca) => {
     setFileUploadLoading(true);
@@ -34,9 +34,9 @@ const InserisciForm = ({ user }: PropsWithUser) => {
       variables: {
         args: {
           name: values.name,
-          userId: user?.id || '',
-          maxPeople: Number(values.maxPeople),
           image: path,
+          companyId: user?.companyId || '',
+          maxPeople: Number(values.maxPeople),
         },
       },
     });

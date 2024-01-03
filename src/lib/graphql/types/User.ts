@@ -7,7 +7,6 @@ import {
   objectType,
   stringArg,
 } from 'nexus';
-import { Boat } from './Barche';
 import { getErrorReturn } from '@/lib/utils';
 import { Company } from './Company';
 
@@ -24,7 +23,6 @@ export const User = objectType({
     t.string('emailVerified');
     t.string('image');
     t.string('password');
-    t.list.field('boats', { type: Boat });
     t.field('company', { type: Company });
     t.string('companyId');
     t.string('createdAt');

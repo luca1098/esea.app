@@ -7,7 +7,6 @@ import {
   NuovoEventoFormSchema,
 } from '@/core/types/event';
 import PrivateLayout from '@/components/Layout/PrivateLayout';
-import { useCalendarioParametri } from '@/components/pages/Calendario/queries';
 import {
   useAddClient,
   useAddEvent,
@@ -44,14 +43,12 @@ const Calendario = ({ user }: CalendarioProps) => {
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
   const { errorToast, successToast } = useResponseToast();
 
-  const { data: parametri, loading: parametriLoading } = useCalendarioParametri(
-    {
-      email: user?.email || '',
-    },
+  const { data: company, loading: companyLoading } = useCompany(
+    user?.companyId ?? '',
   );
-  const { data: company } = useCompany(user?.companyId ?? '');
   const { data: allEvents } = useCompanyEvent(user?.companyId || '');
   const { data: canali } = useCanali();
+
   const [selectedBoat, setSelectedBoat] = useState<BoatProps | null>();
   const [selectedDataFrom, setSelectedDataFrom] = useState<Date | null>();
 
@@ -157,10 +154,10 @@ const Calendario = ({ user }: CalendarioProps) => {
         <Stack gap={3}>
           <ContentBox>
             <BookingCalendar
-              boats={parametri?.boats || []}
+              boats={company?.boats || []}
               setSelectedBoat={setSelectedBoat}
               setSelectedDataFrom={setSelectedDataFrom}
-              isLoading={parametriLoading}
+              isLoading={companyLoading}
             />
           </ContentBox>
 

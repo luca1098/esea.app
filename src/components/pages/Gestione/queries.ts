@@ -1,51 +1,27 @@
 import { addBoatMutation, removeBoatMutation } from '@/graphql/queries/barche';
-import { calendarioParametriQuery } from '@/graphql/queries/calendario';
-import { gestioneParametriQuery } from '@/graphql/queries/gestione';
-import { useMutation, useQuery } from '@apollo/client';
+import { GET_COMPANY_QUERY } from '@/graphql/queries/company';
 
-type GestioneParametriBoat = {
-  email: string;
-};
+import { useMutation } from '@apollo/client';
 
-export const useGestioneParametri = ({ email }: GestioneParametriBoat) => {
-  return useQuery(gestioneParametriQuery, {
-    variables: {
-      email,
-    },
-  });
-};
-
-export const useAddBoat = ({ email }: GestioneParametriBoat) => {
+export const useAddBoat = (companyId: string) => {
   return useMutation(addBoatMutation, {
     refetchQueries: [
       {
-        query: gestioneParametriQuery,
+        query: GET_COMPANY_QUERY,
         variables: {
-          email,
-        },
-      },
-      {
-        query: calendarioParametriQuery,
-        variables: {
-          email,
+          companyId,
         },
       },
     ],
   });
 };
-export const useRemoveBoat = ({ email }: GestioneParametriBoat) => {
+export const useRemoveBoat = (companyId: string) => {
   return useMutation(removeBoatMutation, {
     refetchQueries: [
       {
-        query: gestioneParametriQuery,
+        query: GET_COMPANY_QUERY,
         variables: {
-          email,
-        },
-      },
-      {
-        query: calendarioParametriQuery,
-        variables: {
-          email,
+          companyId,
         },
       },
     ],

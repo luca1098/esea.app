@@ -11,7 +11,6 @@ type Boat {
   maxPeople: Int
   name: String
   services: [Service]
-  user: User
 }
 
 type Canale {
@@ -112,7 +111,6 @@ type Query {
   companyEvents(companyId: String!): [Event]!
   companyPersonale(companyId: String!): [Personale]!
   events: [Event]!
-  gestioneParametri(email: String!): User
   services: [Service]!
   user(email: String!): User
   users: [User]!
@@ -138,7 +136,6 @@ type Service {
 }
 
 type User {
-  boats: [Boat]
   codFisc: String
   company: Company
   companyId: String

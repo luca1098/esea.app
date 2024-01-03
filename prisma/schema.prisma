@@ -19,7 +19,6 @@ model User {
   codFisc      String?
   dataNascita      DateTime?
   accounts      Account[]
-  boats        Boat[]
   sessions      Session[]
   company       Company?  @relation(fields: [companyId], references: [id])
   companyId     String?
@@ -67,7 +66,6 @@ id             String  @id @unique @default(cuid())
 name           String
 image          String?
 maxPeople      Int?
-user           User?   @relation(fields: [userId], references: [id]) //to remove
 company           Company?   @relation(fields: [companyId], references: [id])
 unaviableSlots Slot[]  
 userId         String?
