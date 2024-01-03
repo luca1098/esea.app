@@ -10,7 +10,13 @@ import { useQuery } from '@apollo/client';
 import {
   BoatEventsResponseSchema,
   CompanyEventsResponseSchema,
+  CompanyResponseSchema,
 } from './schemas';
+
+import { useMutation } from '@apollo/client';
+import { ADD_CLIENT_MUTATION } from '@/graphql/queries/clients';
+import { EDIT_USER_MUTATION } from '@/graphql/queries/user';
+import { GET_COMPANY_QUERY } from '@/graphql/queries/company';
 
 type BoatEventsParams = {
   boatId: string;
@@ -27,10 +33,6 @@ export const useBoatEvents = ({ boatId }: BoatEventsParams) => {
     ...rest,
   };
 };
-
-import { useMutation } from '@apollo/client';
-import { ADD_CLIENT_MUTATION } from '@/graphql/queries/clients';
-import { EDIT_USER_MUTATION } from '@/graphql/queries/user';
 
 export const useAddEvent = (boatId: string, companyId: string) => {
   return useMutation(addEventMutation, {
@@ -68,6 +70,19 @@ export const useCompanyEvent = (companyId: string) => {
 
   return {
     data: data ? CompanyEventsResponseSchema.parse(data).companyEvents : data,
+    ...rest,
+  };
+};
+
+export const useCompany = (companyId: string) => {
+  const { data, ...rest } = useQuery(GET_COMPANY_QUERY, {
+    variables: {
+      companyId,
+    },
+  });
+
+  return {
+    data: data ? CompanyResponseSchema.parse(data).company : data,
     ...rest,
   };
 };

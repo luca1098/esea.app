@@ -1,6 +1,7 @@
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 import { baseUrl } from './lib/server';
+import { NEXTAUTH_SECRET } from './lib/utils';
 
 export default withAuth(
   function middleware(req: NextRequestWithAuth) {
@@ -26,6 +27,7 @@ export default withAuth(
     callbacks: {
       authorized: ({ token }) => !!token,
     },
+    secret: NEXTAUTH_SECRET,
   },
 );
 export const config = {

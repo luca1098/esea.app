@@ -1,12 +1,13 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Image from 'next/image';
-import COMPANY_PLACEHOLDER from '@/assets/company-placeholder.svg';
+import { CompanyProps } from '@/core/types/company';
 
 type CompanyBoxProps = {
   isExpandend: boolean;
+  company?: CompanyProps;
 };
 
-const CompanyBox = ({ isExpandend }: CompanyBoxProps) => {
+const CompanyBox = ({ company, isExpandend }: CompanyBoxProps) => {
   return (
     <Flex
       bg={'esea.blueLight'}
@@ -25,7 +26,7 @@ const CompanyBox = ({ isExpandend }: CompanyBoxProps) => {
         rounded={'2xl'}
       >
         <Image
-          src={COMPANY_PLACEHOLDER}
+          src={company?.logo ?? ''}
           fill
           style={{ objectFit: 'cover' }}
           alt='Logo azienda'
@@ -33,7 +34,7 @@ const CompanyBox = ({ isExpandend }: CompanyBoxProps) => {
       </Box>
       {isExpandend ? (
         <Text fontWeight={700} color={'white'}>
-          Unavita vista mare
+          {company?.name}
         </Text>
       ) : null}
     </Flex>

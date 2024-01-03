@@ -6,8 +6,12 @@ import { Box, Flex, useDisclosure } from '@chakra-ui/react';
 import Footer from './Footer/Footer';
 import { menuByUserRole } from '@/core/config/menu';
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
+import { CompanyProps } from '@/core/types/company';
 
-type PrivateLayoutProps = PropsWithChildren & PropsWithUser;
+type PrivateLayoutProps = {
+  company?: CompanyProps;
+} & PropsWithChildren &
+  PropsWithUser;
 
 type SidebarContextProps = {
   isMobileOpen: boolean;
@@ -27,7 +31,7 @@ export const SidebarContext = createContext<SidebarContextProps>({
   onExpandedOpen: () => null,
 });
 
-const PrivateLayout = ({ children, user }: PrivateLayoutProps) => {
+const PrivateLayout = ({ children, user, company }: PrivateLayoutProps) => {
   const {
     isOpen: isMobileOpen,
     onClose: onMobileClose,
@@ -57,7 +61,10 @@ const PrivateLayout = ({ children, user }: PrivateLayoutProps) => {
         }}
       >
         <Flex bg={'esea.gray'}>
-          <Sidebar menu={menuByUserRole[(user?.role ?? 'OWNER') as Role]} />
+          <Sidebar
+            menu={menuByUserRole[(user?.role ?? 'OWNER') as Role]}
+            company={company}
+          />
           <Box w={'full'}>
             <Header user={user} />
 

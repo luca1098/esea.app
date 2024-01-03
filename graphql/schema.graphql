@@ -29,6 +29,7 @@ type Client {
 }
 
 type Company {
+  boats: [Boat]
   clients: [Client]
   employees: [Personale]
   events: [Event]
@@ -107,6 +108,7 @@ type Query {
   boatServices(boatId: String!): [Service]!
   calendarioParametri(email: String!): User
   canali: [Canale]!
+  company(id: String!): Company
   companyEvents(companyId: String!): [Event]!
   companyPersonale(companyId: String!): [Personale]!
   events: [Event]!

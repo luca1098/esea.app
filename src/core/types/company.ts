@@ -1,10 +1,8 @@
 import { z } from 'zod';
 import { BoatSchema } from './barca';
+import { EventSchema } from './event';
+import { ClientSchema } from './client';
 
-const CompanyOwnerSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-});
 const CompanyEmployeeSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -14,9 +12,15 @@ const CompanyEmployeeSchema = z.object({
 export const CompanySchema = z.object({
   id: z.string(),
   name: z.string(),
-  owner: CompanyOwnerSchema,
-  employees: z.array(CompanyEmployeeSchema),
-  boats: z.array(BoatSchema),
+  logo: z.string().nullish(),
+  employees: z.array(CompanyEmployeeSchema).nullish(),
+  events: z.array(EventSchema).nullish(),
+  boats: z.array(BoatSchema).nullish(),
+  clients: z.array(ClientSchema).nullish(),
 });
 
 export type CompanyProps = z.infer<typeof CompanySchema>;
+
+export type PropsWithCompany = {
+  company?: CompanyProps;
+};

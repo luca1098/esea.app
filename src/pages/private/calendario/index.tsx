@@ -12,6 +12,7 @@ import {
   useAddClient,
   useAddEvent,
   useCanali,
+  useCompany,
   useCompanyEvent,
   useDeleteEvent,
 } from '@/components/pages/shared/queries';
@@ -48,6 +49,7 @@ const Calendario = ({ user }: CalendarioProps) => {
       email: user?.email || '',
     },
   );
+  const { data: company } = useCompany(user?.companyId ?? '');
   const { data: allEvents } = useCompanyEvent(user?.companyId || '');
   const { data: canali } = useCanali();
   const [selectedBoat, setSelectedBoat] = useState<BoatProps | null>();
@@ -150,7 +152,7 @@ const Calendario = ({ user }: CalendarioProps) => {
 
   return (
     <>
-      <PrivateLayout user={user}>
+      <PrivateLayout user={user} company={company}>
         <PageTitle title='Calendario' />
         <Stack gap={3}>
           <ContentBox>

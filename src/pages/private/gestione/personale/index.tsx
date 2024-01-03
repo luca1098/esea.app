@@ -5,6 +5,7 @@ import {
   useDeletePersonale,
   usePersonale,
 } from '@/components/pages/Gestione/Personale/queries';
+import { useCompany } from '@/components/pages/shared/queries';
 import { navigation } from '@/core/config/navigation';
 import useResponseToast from '@/core/hooks/useResponseToast';
 import { PersonaleProps } from '@/core/types/personale';
@@ -22,6 +23,8 @@ const Personale = ({ user }: PersonalePageProps) => {
   const [selectedPersonaleId, setSelectedPersonaleId] = useState<string | null>(
     null,
   );
+  const { data: company } = useCompany(user?.companyId ?? '');
+
   const { successToast, errorToast } = useResponseToast();
   const { isOpen, onClose: closeModal, onOpen: openModal } = useDisclosure();
   const { data: personale } = usePersonale(user?.companyId ?? '');
@@ -75,7 +78,7 @@ const Personale = ({ user }: PersonalePageProps) => {
     },
   ];
   return (
-    <GestioneLayout user={user}>
+    <GestioneLayout user={user} company={company}>
       <PageTitle
         title='Personale'
         endElement={

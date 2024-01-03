@@ -1,5 +1,6 @@
 import GestioneLayout from '@/components/pages/Gestione/GestioneLayout';
 import NuovoPersonaleForm from '@/components/pages/Gestione/Personale/NuovoPersonaleForm';
+import { useCompany } from '@/components/pages/shared/queries';
 import { PropsWithUser } from '@/core/types/user';
 import ContentBox from '@/kit/Box/ContentBox';
 import BackButton from '@/kit/Button/BackButton';
@@ -8,8 +9,10 @@ import { GetSessionParams, getSession, useSession } from 'next-auth/react';
 
 const Nuovo = ({ user }: PropsWithUser) => {
   const { data: session } = useSession();
+  const { data: company } = useCompany(user?.companyId ?? '');
+
   return (
-    <GestioneLayout user={session?.user}>
+    <GestioneLayout user={session?.user} company={company}>
       <PageTitle title='Aggiungi collaboratore' endElement={<BackButton />} />
       <ContentBox>
         <NuovoPersonaleForm user={user} />

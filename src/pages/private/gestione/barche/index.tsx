@@ -14,6 +14,7 @@ import {
   useRemoveBoat,
 } from '@/components/pages/Gestione/queries';
 import useResponseToast from '@/core/hooks/useResponseToast';
+import { useCompany } from '@/components/pages/shared/queries';
 
 const Barche = () => {
   const { data: session } = useSession();
@@ -22,6 +23,7 @@ const Barche = () => {
     email: session?.user?.email || '',
   });
 
+  const { data: company } = useCompany(session?.user?.companyId ?? '');
   const [removeBoat, { loading }] = useRemoveBoat({
     email: session?.user?.email || '',
   });
@@ -38,7 +40,7 @@ const Barche = () => {
   };
 
   return (
-    <GestioneLayout user={session?.user}>
+    <GestioneLayout user={session?.user} company={company}>
       <PageTitle
         title='Barche'
         endElement={

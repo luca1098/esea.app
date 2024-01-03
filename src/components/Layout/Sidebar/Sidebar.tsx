@@ -7,11 +7,13 @@ import CompanyBox from './components/CompanyBox';
 import { SidebarContext } from '../PrivateLayout';
 import { breakpoint } from '@/core/theme/utils';
 import { scrollToTop } from '@/core/utils/helpers';
+import { CompanyProps } from '@/core/types/company';
 
 type SidebarProps = {
   menu: MenuItemProps[];
+  company?: CompanyProps;
 };
-const Sidebar = ({ menu }: SidebarProps) => {
+const Sidebar = ({ menu, company }: SidebarProps) => {
   const { isMobileOpen, isExpanded, onMobileClose, onExpandedToggle } =
     useContext(SidebarContext);
 
@@ -52,7 +54,7 @@ const Sidebar = ({ menu }: SidebarProps) => {
           hideFrom={'lg'}
         />
         <Heading color={'white'}>{espanded ? 'Esea.app' : 'E'}</Heading>
-        <CompanyBox isExpandend={espanded} />
+        <CompanyBox isExpandend={espanded} company={company} />
         <NavigationMenu
           menu={menu}
           isMenuExpanded={espanded}

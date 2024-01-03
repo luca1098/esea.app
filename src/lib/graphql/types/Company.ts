@@ -9,14 +9,17 @@ import { Event } from './Events';
 import { Personale } from './Personale';
 import { Client } from './Client';
 import { getErrorReturn } from '@/lib/utils';
+import { Boat } from './Barche';
 
 export const Company = objectType({
   name: 'Company',
   definition(t) {
     t.string('id');
     t.string('name');
-    t.string('logo'), t.list.field('employees', { type: Personale });
+    t.string('logo');
+    t.list.field('employees', { type: Personale });
     t.list.field('clients', { type: Client });
+    t.list.field('boats', { type: Boat });
     t.list.field('events', { type: Event });
   },
 });
@@ -58,3 +61,22 @@ const createCompanyResolver: FieldResolver<
     return error;
   }
 };
+
+export const GetCompany = extendType({
+  type: 'Query',
+
+  definition(t) {
+    t.field('company', {
+      type: Company,
+      args: {
+        id: nonNull(stringArg()),
+      },
+      resolve(_parents, args, ctx) {
+        return ctx.prisma.company.findUnique({
+          where: { id: args.id },
+          include: { boats: true, employees: true },
+        });
+      },
+    });
+  },
+});

@@ -3,6 +3,8 @@ import { EseaResponse } from '@/core/types/services';
 export const isDev = process.env.NODE_ENV === 'development';
 export const SALT = Number(process.env.ESEA_SALT);
 
+export const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
+
 export const NEXT_PUBLIC_AWS_S3_PUBLIC_KEY =
   process.env.NEXT_PUBLIC_AWS_S3_PUBLIC_KEY;
 export const NEXT_PUBLIC_AWS_S3_PRIVATE_KEY =

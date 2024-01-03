@@ -12,6 +12,7 @@ import apolloClient from './apollo';
 import { GET_USER_QUERY } from './graphql/queries/user';
 import { authPage } from '@/core/config/authpage';
 import bcrypt from 'bcryptjs';
+import { NEXTAUTH_SECRET } from './utils';
 
 export const config = {
   adapter: PrismaAdapter(prisma),
@@ -20,6 +21,8 @@ export const config = {
     maxAge: 30 * 24 * 60 * 60, // tempo di scadenza 30 gg
   },
   pages: authPage,
+
+  secret: NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user, session, trigger }) {
       if (user) {

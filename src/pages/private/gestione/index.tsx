@@ -5,29 +5,18 @@ import PageTitle from '@/kit/Text/PageTitle';
 import { Grid, GridItem } from '@chakra-ui/react';
 import AziendaBox from '@/components/pages/Gestione/Overview/AziendaBox';
 import ProfiloBox from '@/components/pages/Gestione/Overview/ProfiloBox';
-import { CompanyProps } from '@/core/types/company';
-import { personaleMok } from 'mok';
 import { PropsWithUser } from '@/core/types/user';
 import UltimiAccreditiBox from '@/components/pages/Gestione/Overview/UltimiAccreditiBox';
-
-const companyMok: CompanyProps = {
-  name: 'Unavitavistamare',
-  id: 'unas-12312x',
-  employees: personaleMok.map(({ id, image, name }) => ({ id, image, name })),
-  boats: [],
-  owner: {
-    id: 'ownber-id',
-    name: 'Luca La Marca',
-  },
-};
+import { useCompany } from '@/components/pages/shared/queries';
 
 type GestioneProps = PropsWithUser;
 
 const Gestione = ({ user }: GestioneProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = useSession();
+  const { data: company } = useCompany(data?.user?.companyId ?? '');
+
   return (
-    <GestioneLayout user={user}>
+    <GestioneLayout user={user} company={company}>
       <PageTitle title='Gestione' />
       <Grid
         templateColumns={{
@@ -41,7 +30,7 @@ const Gestione = ({ user }: GestioneProps) => {
           <ProfiloBox user={user} />
         </GridItem>
         <GridItem colSpan={1}>
-          <AziendaBox company={companyMok} />
+          <AziendaBox company={company} />
         </GridItem>
         <GridItem colSpan={{ base: 1, md: 2, lg: 3 }}>
           <UltimiAccreditiBox />

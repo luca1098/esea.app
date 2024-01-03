@@ -10,10 +10,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Image from 'next/image';
-import DefoultLogo from '@/assets/company-placeholder.svg';
 import { CompanyProps } from '@/core/types/company';
 import EmptyBox from '@/components/Empty/EmptyBox';
-import ValueWithLabel from '../components/ValueWithLabel';
 
 type AziendaBox = {
   company: CompanyProps;
@@ -36,22 +34,21 @@ const AziendaBox = ({ company }: AziendaBox) => {
             overflow={'hidden'}
           >
             <Image
-              src={DefoultLogo}
+              src={company?.logo ?? ''}
               fill
               alt={`${company?.name} logo`}
               style={{ objectFit: 'cover' }}
             />
           </Box>
           <Box>
-            <Text fontWeight={'bold'}>{company.name}</Text>
-            <ValueWithLabel label='Proprietario' value={company.name} />
+            <Text fontWeight={'bold'}>{company?.name}</Text>
           </Box>
         </Flex>
         <Box>
           <Text fontWeight={'medium'}>Barche</Text>
           <AvatarGroup size='md' max={3}>
-            {company?.boats.length > 0 ? (
-              company.boats.map((b) => (
+            {company?.boats && company?.boats?.length > 0 ? (
+              company?.boats?.map((b) => (
                 <Avatar key={b.id} src={b?.image || ''} name={b.name} />
               ))
             ) : (
@@ -62,7 +59,7 @@ const AziendaBox = ({ company }: AziendaBox) => {
         <Box>
           <Text fontWeight={'medium'}>Personale</Text>
           <AvatarGroup size='md' max={3}>
-            {company?.employees.length > 0 ? (
+            {company?.employees && company?.employees?.length > 0 ? (
               company.employees?.map((e) => (
                 <Avatar key={e.id} src={e.image ?? ''} name={e.name} />
               ))
