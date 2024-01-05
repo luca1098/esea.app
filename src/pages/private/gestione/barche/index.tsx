@@ -53,7 +53,7 @@ const Barche = ({ user }: BarcheProps) => {
                 key={boat.id}
                 id={boat.id}
                 name={boat.name}
-                image={boat.image}
+                image={boat.image ?? ''}
                 onDelete={handleDelete}
                 isDeleteLoading={loading}
               />

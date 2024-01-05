@@ -21,9 +21,12 @@ export const GET_COMPANY_QUERY = gql`
         name
         maxPeople
         services {
-          label
           id
-          price
+          label
+          durations {
+            label
+            price
+          }
         }
       }
       employees {

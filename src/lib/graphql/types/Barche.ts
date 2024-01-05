@@ -12,6 +12,7 @@ import { Event } from './Events';
 import { Service } from './Services';
 import { getErrorReturn } from '@/lib/utils';
 import { Company } from './Company';
+import { Slot } from './Slot';
 
 export const Boat = objectType({
   name: 'Boat',
@@ -24,6 +25,7 @@ export const Boat = objectType({
     t.field('company', { type: Company });
     t.field('events', { type: list(Event) });
     t.list.field('services', { type: Service });
+    t.list.field('unaviableSlots', { type: Slot });
   },
 });
 
@@ -38,6 +40,7 @@ export const AddBoat = extendType({
         image: stringArg(),
         maxPeople: intArg(),
         services: list(nonNull(ServiceArgs)),
+        unaviableSlots: list(nonNull(SlotsArgs)),
       },
       resolve: addBoatResolver,
     });
@@ -47,9 +50,24 @@ export const AddBoat = extendType({
 export const ServiceArgs = inputObjectType({
   name: 'ServiceArgs',
   definition(t) {
-    t.nonNull.string('id');
+    t.string('label');
+    t.field('durations', { type: list(DurationArgs) });
+  },
+});
+
+export const DurationArgs = inputObjectType({
+  name: 'DurationArgs',
+  definition(t) {
     t.string('label');
     t.float('price');
+  },
+});
+
+export const SlotsArgs = inputObjectType({
+  name: 'SlotsArgs',
+  definition(t) {
+    t.float('from');
+    t.float('to');
   },
 });
 
@@ -60,17 +78,36 @@ const AddBoatResponse = objectType({
   },
 });
 
+type ServicesArgsType = {
+  label?: string;
+  durations?: {
+    label: string;
+    price: number;
+  }[];
+};
+
 const addBoatResolver: FieldResolver<'Mutation', 'AddBoat'> = async (
   _parents,
   args,
   ctx,
 ) => {
+  const servicesWithCreateMethod = args.services.map(
+    (service: ServicesArgsType) => ({
+      ...service,
+      durations: {
+        create: service?.durations,
+      },
+    }),
+  );
   try {
     await ctx.prisma.boat.create({
       data: {
         ...args,
         services: {
-          create: args.services,
+          create: servicesWithCreateMethod,
+        },
+        unaviableSlots: {
+          create: args.unaviableSlots,
         },
       },
     });

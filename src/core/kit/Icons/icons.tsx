@@ -29,6 +29,7 @@ import {
 import {
   IoMdNotifications as NotificationIcon,
   IoMdSettings as SettingsIcon,
+  IoMdRemove as RemoveIcon,
 } from 'react-icons/io';
 
 import {
@@ -67,4 +68,5 @@ export {
   PictureIcon,
   PlusIcon,
   CheckIcon,
+  RemoveIcon,
 };

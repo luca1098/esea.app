@@ -1,19 +1,21 @@
 import { gql } from '@apollo/client';
 
 export const ADD_BOAT_MUTATION = gql`
-  mutation AddBoat(
+  mutation AddBoatMutation(
     $companyId: String!
-    $services: [ServiceArgs!]
     $name: String
     $image: String
     $maxPeople: Int
+    $services: [ServiceArgs!]
+    $unaviableSlots: [SlotsArgs!]
   ) {
     addBoat(
       companyId: $companyId
-      services: $services
       name: $name
       image: $image
       maxPeople: $maxPeople
+      services: $services
+      unaviableSlots: $unaviableSlots
     ) {
       message
       valido

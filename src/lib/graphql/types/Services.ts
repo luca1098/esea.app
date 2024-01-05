@@ -2,12 +2,21 @@ import { extendType, nonNull, objectType, stringArg } from 'nexus';
 import { Boat } from './Barche';
 import { getErrorReturn } from '@/lib/utils';
 
+const Duration = objectType({
+  name: 'Duration',
+  definition(t) {
+    t.nonNull.string('id');
+    t.nonNull.string('label');
+    t.string('price');
+  },
+});
+
 export const Service = objectType({
   name: 'Service',
   definition(t) {
     t.string('id');
     t.string('label');
-    t.float('price');
+    t.list.field('durations', { type: Duration });
     t.field('boat', { type: Boat });
   },
 });

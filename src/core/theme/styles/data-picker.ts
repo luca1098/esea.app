@@ -58,41 +58,44 @@ export const dataPickerStyles: SystemStyleObject = {
   '.react-datepicker__day.react-datepicker__day--disabled.react-datepicker__day--excluded':
     {
       bgColor: 'gray.100',
-      rounded: 'full',
+      rounded: 'lg',
     },
   '.react-datepicker__day:hover': {
     bgColor: 'vita.light',
-    borderRadius: 'full',
+    borderRadius: 'lg',
   },
   '.react-datepicker__day--today': {
     color: 'black',
+  },
+  '.react-datepicker__day--outside-month': {
+    opacity: 0.4,
   },
   '.react-datepicker__day--today.react-datepicker__day--keyboard-selected': {
     color: 'white',
   },
   '.react-datepicker__day--keyboard-selected': {
     bgColor: 'esea.primary',
-    borderRadius: 'full',
+    borderRadius: 'lg',
     color: 'white',
   },
   '.react-datepicker__day--keyboard-selected:hover': {
     bgColor: 'esea.dark',
-    borderRadius: 'full',
+    borderRadius: 'lg',
   },
   '.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range)':
     {
       bgColor: 'esea.primary',
-      borderRadius: 'full',
+      borderRadius: 'lg',
       color: 'white',
     },
   '.react-datepicker__day--in-range, .react-datepicker__day--selected': {
     bgColor: 'esea.primary',
-    borderRadius: 'full',
+    borderRadius: 'lg',
     color: 'white',
   },
   '.react-datepicker__day--in-range, .react-datepicker__day--selected:hover': {
     bgColor: 'esea.dark',
-    borderRadius: 'full',
+    borderRadius: 'lg',
   },
   '.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected':
     {
@@ -113,5 +116,30 @@ export const dataPickerStyles: SystemStyleObject = {
     borderColor: 'gray.200',
     '.react-datepicker__navigation--previous': { top: 4, left: 4 },
     '.react-datepicker__navigation--next': { top: 4, right: 24 },
+  },
+  '.esea-datapicker-inserisci-barche': {
+    width: 'full',
+    borderColor: 'gray.100',
+
+    '.react-datepicker__month-container': {
+      width: 'full',
+    },
+    '.react-datepicker__day-names, .react-datepicker__week': {
+      display: 'flex',
+    },
+    '.react-datepicker__day-name, .react-datepicker__day': {
+      width: 'auto',
+      flex: 1,
+    },
+    '.react-datepicker__day': {
+      minHeight: '35px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    '.react-datepicker__day--disabled': {
+      bgColor: 'gray.100',
+      rounded: '2xl',
+    },
   },
 };

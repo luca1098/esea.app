@@ -2,7 +2,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { FormInserisciBarca } from './schemas';
 import Button from '@/kit/Button/Button';
-import { Box, Stack } from '@chakra-ui/react';
+import { Box, Grid, GridItem, Stack } from '@chakra-ui/react';
 import { PropsWithUser } from '@/core/types/user';
 import { navigation } from '@/core/config/navigation';
 import { useAddBoat } from '../queries';
@@ -12,7 +12,7 @@ import useResponseToast from '@/core/hooks/useResponseToast';
 import BaseInfoFields from './components/BaseInfoFields';
 import ServicesFields from './components/ServicesFields';
 import { FormInserisciBarcaCustomResolver } from './resolver';
-import { uniqueId } from 'lodash';
+import CalendarBoat from './components/CalendarBoat';
 
 const InserisciForm = ({ user }: PropsWithUser) => {
   const [fileUploadLoading, setFileUploadLoading] = useState<boolean>(false);
@@ -21,7 +21,17 @@ const InserisciForm = ({ user }: PropsWithUser) => {
   const methods = useForm<FormInserisciBarca>({
     resolver: FormInserisciBarcaCustomResolver,
     defaultValues: {
-      services: [{ label: '', price: 0, id: uniqueId('service') }],
+      services: [
+        {
+          label: '',
+          durations: [
+            {
+              label: 'Intera giornata',
+              price: 0,
+            },
+          ],
+        },
+      ],
     },
   });
 
@@ -35,12 +45,18 @@ const InserisciForm = ({ user }: PropsWithUser) => {
     );
     setFileUploadLoading(false);
 
+    // rimuovo gli id dai servizi e li faccio creare da Prisma in modo da non avere servizi con id duplicati
+    const servicesWithoutId = (values?.services || []).map(
+      ({ id, ...rest }) => ({ ...rest }),
+    );
+
     const args = {
       name: values.name,
       image: path,
       companyId: user?.companyId || '',
       maxPeople: Number(values.maxPeople),
-      services: values.services,
+      services: servicesWithoutId,
+      unaviableSlots: values.unavailableSlots,
     };
 
     const { data, errors } = await addBoat({
@@ -62,9 +78,19 @@ const InserisciForm = ({ user }: PropsWithUser) => {
     <Box flex={2}>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <BaseInfoFields methods={methods} />
-          <ServicesFields methods={methods} />
-          {/* <GridItem colSpan={2}>TODO:section calendar</GridItem>*/}
+          <Grid
+            templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }}
+            gap={6}
+          >
+            <GridItem colSpan={2}>
+              <BaseInfoFields methods={methods} />
+              <ServicesFields methods={methods} />
+            </GridItem>
+            <GridItem colSpan={1}>
+              <CalendarBoat methods={methods} />
+            </GridItem>
+          </Grid>
+
           <Stack borderTopWidth={1} mt={6} p={4} alignItems={'end'}>
             <Button
               label='Inserisci'
