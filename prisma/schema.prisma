@@ -19,11 +19,9 @@ model User {
   codFisc      String?
   dataNascita      DateTime?
   accounts      Account[]
-  boats        Boat[]
   sessions      Session[]
   company       Company?  @relation(fields: [companyId], references: [id])
   companyId     String?
-  services      Service[]
   createdAt        DateTime           @default(now())
 
 }
@@ -67,7 +65,6 @@ id             String  @id @unique @default(cuid())
 name           String
 image          String?
 maxPeople      Int?
-user           User?   @relation(fields: [userId], references: [id]) //to remove
 company           Company?   @relation(fields: [companyId], references: [id])
 unaviableSlots Slot[]  
 userId         String?
@@ -144,12 +141,18 @@ model Client {
 model Service {
   id        String @id @unique @default(cuid())
   label     String   
-  slug     String 
-  userId     String 
-  boats   Boat[] 
+  boats Boat[] 
   events Event[] 
-  user User @relation(fields: [userId], references: [id]) 
   createdAt        DateTime           @default(now())
+  durations Duration[]
+}
+
+model Duration {
+  id      String @id @unique @default(cuid())
+  label     String   
+  price     Float?   @default(0)
+  serviceId String?
+  service   Service? @relation(fields: [serviceId], references: [id])
 }
 
 enum Role {

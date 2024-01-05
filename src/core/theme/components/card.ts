@@ -15,7 +15,8 @@ const baseStyle: ComponentMultiStyleConfig['baseStyle'] =
     container: {
       borderRadius: '2xl',
       overflow: 'hidden',
-      boxShadow: 'card',
+      boxShadow: 'none',
+      borderColor: 'gray.300',
     },
   });
 export const card = helpers.defineMultiStyleConfig({

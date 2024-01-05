@@ -74,7 +74,18 @@ export const GetCompany = extendType({
       resolve(_parents, args, ctx) {
         return ctx.prisma.company.findUnique({
           where: { id: args.id },
-          include: { boats: true, employees: true },
+          include: {
+            boats: {
+              include: {
+                services: {
+                  include: {
+                    durations: true,
+                  },
+                },
+              },
+            },
+            employees: true,
+          },
         });
       },
     });

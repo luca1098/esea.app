@@ -2,16 +2,17 @@ import {
   FieldResolver,
   extendType,
   inputObjectType,
+  intArg,
   list,
   nonNull,
   objectType,
   stringArg,
 } from 'nexus';
-import { User } from './User';
 import { Event } from './Events';
 import { Service } from './Services';
 import { getErrorReturn } from '@/lib/utils';
 import { Company } from './Company';
+import { Slot } from './Slot';
 
 export const Boat = objectType({
   name: 'Boat',
@@ -21,10 +22,10 @@ export const Boat = objectType({
     t.string('name');
     t.string('image');
     t.int('maxPeople');
-    t.field('user', { type: User });
     t.field('company', { type: Company });
     t.field('events', { type: list(Event) });
-    t.field('services', { type: list(Service) });
+    t.list.field('services', { type: Service });
+    t.list.field('unaviableSlots', { type: Slot });
   },
 });
 
@@ -33,21 +34,43 @@ export const AddBoat = extendType({
   definition(t) {
     t.field('addBoat', {
       type: AddBoatResponse,
-      args: { args: nonNull(AddBoatArgs) },
+      args: {
+        companyId: nonNull(stringArg()),
+        name: stringArg(),
+        image: stringArg(),
+        maxPeople: intArg(),
+        services: list(nonNull(ServiceArgs)),
+        unaviableSlots: list(nonNull(SlotsArgs)),
+      },
       resolve: addBoatResolver,
     });
   },
 });
 
-const AddBoatArgs = inputObjectType({
-  name: 'addBoatArgs',
+export const ServiceArgs = inputObjectType({
+  name: 'ServiceArgs',
   definition(t) {
-    t.nonNull.string('companyId'),
-      t.nonNull.string('name'),
-      t.nonNull.string('image'),
-      t.nonNull.int('maxPeople');
+    t.string('label');
+    t.field('durations', { type: list(DurationArgs) });
   },
 });
+
+export const DurationArgs = inputObjectType({
+  name: 'DurationArgs',
+  definition(t) {
+    t.string('label');
+    t.float('price');
+  },
+});
+
+export const SlotsArgs = inputObjectType({
+  name: 'SlotsArgs',
+  definition(t) {
+    t.float('from');
+    t.float('to');
+  },
+});
+
 const AddBoatResponse = objectType({
   name: 'addBoatResponse',
   definition(t) {
@@ -55,15 +78,37 @@ const AddBoatResponse = objectType({
   },
 });
 
+type ServicesArgsType = {
+  label?: string;
+  durations?: {
+    label: string;
+    price: number;
+  }[];
+};
+
 const addBoatResolver: FieldResolver<'Mutation', 'AddBoat'> = async (
   _parents,
   args,
   ctx,
 ) => {
+  const servicesWithCreateMethod = args.services.map(
+    (service: ServicesArgsType) => ({
+      ...service,
+      durations: {
+        create: service?.durations,
+      },
+    }),
+  );
   try {
     await ctx.prisma.boat.create({
       data: {
-        ...args.args,
+        ...args,
+        services: {
+          create: servicesWithCreateMethod,
+        },
+        unaviableSlots: {
+          create: args.unaviableSlots,
+        },
       },
     });
 

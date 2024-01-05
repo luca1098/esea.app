@@ -11,7 +11,7 @@ type Boat {
   maxPeople: Int
   name: String
   services: [Service]
-  user: User
+  unaviableSlots: [Slot]
 }
 
 type Canale {
@@ -36,6 +36,17 @@ type Company {
   id: String
   logo: String
   name: String
+}
+
+type Duration {
+  id: String!
+  label: String!
+  price: String
+}
+
+input DurationArgs {
+  label: String
+  price: Float
 }
 
 type Event {
@@ -70,7 +81,7 @@ enum EventStatusType {
 }
 
 type Mutation {
-  addBoat(args: addBoatArgs!): addBoatResponse
+  addBoat(companyId: String!, image: String, maxPeople: Int, name: String, services: [ServiceArgs!], unaviableSlots: [SlotsArgs!]): addBoatResponse
   addClient(args: addClientArgs!): addClienResponse
   addPersonale(args: addPersonaleArgs!): addPersonaleResponse
   createCompany(logo: String, name: String!): createCompanyResponse
@@ -106,13 +117,11 @@ type Personale {
 type Query {
   boatEvents(boatId: String!): [Event]!
   boatServices(boatId: String!): [Service]!
-  calendarioParametri(email: String!): User
   canali: [Canale]!
   company(id: String!): Company
   companyEvents(companyId: String!): [Event]!
   companyPersonale(companyId: String!): [Personale]!
   events: [Event]!
-  gestioneParametri(email: String!): User
   services: [Service]!
   user(email: String!): User
   users: [User]!
@@ -132,13 +141,30 @@ enum SalaryType {
 
 type Service {
   boat: Boat
+  durations: [Duration]
   id: String
   label: String
-  slug: String
+}
+
+input ServiceArgs {
+  durations: [DurationArgs]
+  label: String
+}
+
+type Slot {
+  boat: Boat
+  boatId: String
+  from: Float
+  id: String!
+  to: Float
+}
+
+input SlotsArgs {
+  from: Float
+  to: Float
 }
 
 type User {
-  boats: [Boat]
   codFisc: String
   company: Company
   companyId: String
@@ -154,13 +180,6 @@ type User {
   password: String
   phone: String
   role: Role
-}
-
-input addBoatArgs {
-  companyId: String!
-  image: String!
-  maxPeople: Int!
-  name: String!
 }
 
 type addBoatResponse {

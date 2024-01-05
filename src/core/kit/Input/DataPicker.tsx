@@ -38,6 +38,10 @@ type BaseDataPicker = {
   | 'excludeDateIntervals'
   | 'filterTime'
   | 'minTime'
+  | 'inline'
+  | 'selectsRange'
+  | 'startDate'
+  | 'endDate'
 >;
 
 export type DataPickerProps = BaseDataPicker & Omit<InputProps, 'width'>;
@@ -63,6 +67,8 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
       excludeDateIntervals,
       showTimeSelectOnly,
       minTime,
+      inline,
+      selectsRange,
       filterTime,
       ...inputProps
     },
@@ -112,6 +118,8 @@ const DataPicker = forwardRef<HTMLInputElement, DataPickerProps>(
         excludeTimes={excludeTimes}
         popperPlacement='bottom'
         excludeDates={excludeDates}
+        inline={inline}
+        selectsRange={selectsRange}
         showTimeSelect={showTimeSelect}
         filterTime={filterTime}
         customInput={

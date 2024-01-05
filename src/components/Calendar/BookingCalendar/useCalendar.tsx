@@ -1,31 +1,8 @@
+import { month, weekDays } from '@/core/utils/calendar';
 import { unionBy } from 'lodash';
 import { useState } from 'react';
 
 const useCalendar = () => {
-  const month = [
-    'Gennaio',
-    'Febbraio',
-    'Marzo',
-    'Aprile',
-    'Maggio',
-    'Giugno',
-    'Luglio',
-    'Agosto',
-    'Settembre',
-    'Ottobre',
-    'Novembre',
-    'Dicembre',
-  ];
-  const weekDays = [
-    'Domenica',
-    'Lunedì',
-    'Martedì',
-    'Mercoledì',
-    'Giovedì',
-    'Venerdì',
-    'Sabato',
-  ];
-
   const date = new Date();
 
   const [currentDay, setCurrentDay] = useState<number>(date.getDate());

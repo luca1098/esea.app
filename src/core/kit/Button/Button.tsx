@@ -50,6 +50,7 @@ const Button = ({
       isLoading={isLoading}
       loadingText={label}
       role='button'
+      isDisabled={disabled || isLoading}
       {...rest}
     >
       {label}
@@ -58,7 +59,7 @@ const Button = ({
     <ChakraButton
       isLoading={isLoading}
       loadingText={label}
-      disabled={disabled || isLoading}
+      isDisabled={disabled || isLoading}
       aria-label={label}
       {...rest}
     >

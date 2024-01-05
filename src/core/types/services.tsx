@@ -1,10 +1,15 @@
 import { z } from 'zod';
 
+const DurationSchema = z.object({
+  label: z.string(),
+  price: z.number(),
+});
+
 export const ServiceSchema = z.object({
   id: z.string(),
   label: z.string(),
-  slug: z.string(),
   boatId: z.string().nullish(),
+  duration: z.array(DurationSchema).nullish(),
 });
 
 export type ServiceProps = z.infer<typeof ServiceSchema>;

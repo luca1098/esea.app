@@ -1,10 +1,24 @@
 import { gql } from '@apollo/client';
 
-export const addBoatMutation = gql`
-  mutation AddBoat($args: addBoatArgs!) {
-    addBoat(args: $args) {
-      valido
+export const ADD_BOAT_MUTATION = gql`
+  mutation AddBoatMutation(
+    $companyId: String!
+    $name: String
+    $image: String
+    $maxPeople: Int
+    $services: [ServiceArgs!]
+    $unaviableSlots: [SlotsArgs!]
+  ) {
+    addBoat(
+      companyId: $companyId
+      name: $name
+      image: $image
+      maxPeople: $maxPeople
+      services: $services
+      unaviableSlots: $unaviableSlots
+    ) {
       message
+      valido
     }
   }
 `;

@@ -1,34 +1,28 @@
 import CardBarche from '@/components/Card/CardBarche';
 import GestioneLayout from '@/components/pages/Gestione/GestioneLayout';
 import { Flex } from '@chakra-ui/react';
-import { GetSessionParams, getSession, useSession } from 'next-auth/react';
+import { GetSessionParams, getSession } from 'next-auth/react';
 import React from 'react';
 import PageTitle from '@/kit/Text/PageTitle';
 import Button from '@/kit/Button/Button';
 import { navigation } from '@/core/config/navigation';
-import apolloClient from '@/lib/apollo';
-import { gestioneParametriQuery } from '@/graphql/queries/gestione';
+
 import { CardBarcheProps } from '@/components/Card/types';
-import {
-  useGestioneParametri,
-  useRemoveBoat,
-} from '@/components/pages/Gestione/queries';
+import { useRemoveBoat } from '@/components/pages/Gestione/queries';
 import useResponseToast from '@/core/hooks/useResponseToast';
 import { useCompany } from '@/components/pages/shared/queries';
+import { PropsWithUser } from '@/core/types/user';
+import ContentBox from '@/kit/Box/ContentBox';
+import EmptyBox from '@/components/Empty/EmptyBox';
 
-const Barche = () => {
-  const { data: session } = useSession();
+type BarcheProps = PropsWithUser;
+
+const Barche = ({ user }: BarcheProps) => {
   const { errorToast, successToast } = useResponseToast();
-  const { data } = useGestioneParametri({
-    email: session?.user?.email || '',
-  });
 
-  const { data: company } = useCompany(session?.user?.companyId ?? '');
-  const [removeBoat, { loading }] = useRemoveBoat({
-    email: session?.user?.email || '',
-  });
+  const { data: company } = useCompany(user?.companyId ?? '');
 
-  const { gestioneParametri } = data || {};
+  const [removeBoat, { loading }] = useRemoveBoat(user?.companyId ?? '');
 
   const handleDelete = async (id: string) => {
     const { data, errors } = await removeBoat({ variables: { boatId: id } });
@@ -40,7 +34,7 @@ const Barche = () => {
   };
 
   return (
-    <GestioneLayout user={session?.user} company={company}>
+    <GestioneLayout user={user} company={company}>
       <PageTitle
         title='Barche'
         endElement={
@@ -51,20 +45,24 @@ const Barche = () => {
           />
         }
       />
-      <Flex gap={2} flexWrap={'wrap'}>
-        {gestioneParametri?.boats
-          ? gestioneParametri?.boats?.map((boat: CardBarcheProps) => (
+      <ContentBox>
+        <Flex gap={2} flexWrap={'wrap'}>
+          {company?.boats?.length ? (
+            company?.boats?.map((boat: CardBarcheProps) => (
               <CardBarche
                 key={boat.id}
                 id={boat.id}
                 name={boat.name}
-                image={boat.image}
+                image={boat.image ?? ''}
                 onDelete={handleDelete}
                 isDeleteLoading={loading}
               />
             ))
-          : 'inserisci la tua prima barca '}
-      </Flex>
+          ) : (
+            <EmptyBox msg='Ancora nessuna barca inserita' />
+          )}
+        </Flex>
+      </ContentBox>
     </GestioneLayout>
   );
 };
@@ -74,16 +72,9 @@ export default Barche;
 export const getServerSideProps = async (ctx: GetSessionParams) => {
   const session = await getSession(ctx);
   if (session) {
-    const { data } = await apolloClient.query({
-      query: gestioneParametriQuery,
-      variables: {
-        email: session?.user.email,
-      },
-    });
     return {
       props: {
         user: session.user,
-        boats: data?.gestioneParametri?.boats || [],
       },
     };
   }
