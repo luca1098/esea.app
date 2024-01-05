@@ -7,7 +7,6 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import Image from 'next/image';
-import React from 'react';
 import { CardBarcheProps } from './types';
 import Button from '@/kit/Button/Button';
 import { TrashIcon } from '@/kit/Icons/icons';
@@ -20,7 +19,7 @@ const CardBarche = ({
   onDelete,
 }: CardBarcheProps) => {
   return (
-    <Card maxW='xs' padding={0}>
+    <Card maxW='xs' padding={0} borderWidth={1} boxShadow={'none'}>
       <CardBody>
         <Flex gap={5} direction={'column'} alignItems={'center'}>
           <Box

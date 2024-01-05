@@ -6,6 +6,7 @@ import { UseFormReturn } from 'react-hook-form';
 import { FormInserisciBarca } from '../schemas';
 import Button from '@/kit/Button/Button';
 import { PictureIcon } from '@/kit/Icons/icons';
+import NumberInputField from '@/kit/Input/NumberInputField';
 
 type BaseInfoFieldsProps = {
   methods: UseFormReturn<FormInserisciBarca>;
@@ -45,7 +46,7 @@ const BaseInfoFields = ({ methods }: BaseInfoFieldsProps) => {
           <InputField name='name' label='Nome della barca' />
         </GridItem>
         <GridItem>
-          <InputField name='maxPeople' label='Massimo persone' />
+          <NumberInputField name='maxPeople' label='Massimo persone' />
         </GridItem>
       </Grid>
       {renderCropModal()}
