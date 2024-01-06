@@ -23,7 +23,9 @@ const Personale = ({ user }: PersonalePageProps) => {
   const [selectedPersonaleId, setSelectedPersonaleId] = useState<string | null>(
     null,
   );
-  const { data: company } = useCompany(user?.companyId ?? '');
+  const { data: company, loading: companyLoading } = useCompany(
+    user?.companyId ?? '',
+  );
 
   const { successToast, errorToast } = useResponseToast();
   const { isOpen, onClose: closeModal, onOpen: openModal } = useDisclosure();
@@ -78,7 +80,11 @@ const Personale = ({ user }: PersonalePageProps) => {
     },
   ];
   return (
-    <GestioneLayout user={user} company={company}>
+    <GestioneLayout
+      user={user}
+      company={company}
+      isCompanyLoading={companyLoading}
+    >
       <PageTitle
         title='Personale'
         endElement={

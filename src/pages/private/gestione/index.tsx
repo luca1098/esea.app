@@ -13,10 +13,10 @@ type GestioneProps = PropsWithUser;
 
 const Gestione = ({ user }: GestioneProps) => {
   const { data } = useSession();
-  const { data: company } = useCompany(data?.user?.companyId ?? '');
+  const { data: company, loading } = useCompany(data?.user?.companyId ?? '');
 
   return (
-    <GestioneLayout user={user} company={company}>
+    <GestioneLayout user={user} company={company} isCompanyLoading={loading}>
       <PageTitle title='Gestione' />
       <Grid
         templateColumns={{

@@ -5,9 +5,13 @@ import { useCompany } from '@/components/pages/shared/queries';
 
 const Profilo = () => {
   const { data: session } = useSession();
-  const { data: company } = useCompany(session?.user?.companyId ?? '');
+  const { data: company, loading } = useCompany(session?.user?.companyId ?? '');
   return (
-    <PrivateLayout user={session?.user} company={company}>
+    <PrivateLayout
+      user={session?.user}
+      company={company}
+      isCompanyLoading={loading}
+    >
       <Stack spacing={2}>
         <Heading textAlign={'center'}>Profilo, {session?.user?.name}</Heading>
         <Box></Box>

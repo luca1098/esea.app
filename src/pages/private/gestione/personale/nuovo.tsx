@@ -9,10 +9,16 @@ import { GetSessionParams, getSession, useSession } from 'next-auth/react';
 
 const Nuovo = ({ user }: PropsWithUser) => {
   const { data: session } = useSession();
-  const { data: company } = useCompany(user?.companyId ?? '');
+  const { data: company, loading: companyLoading } = useCompany(
+    user?.companyId ?? '',
+  );
 
   return (
-    <GestioneLayout user={session?.user} company={company}>
+    <GestioneLayout
+      user={session?.user}
+      company={company}
+      isCompanyLoading={companyLoading}
+    >
       <PageTitle title='Aggiungi collaboratore' endElement={<BackButton />} />
       <ContentBox>
         <NuovoPersonaleForm user={user} />

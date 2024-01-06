@@ -1,4 +1,10 @@
-import { CloseButton, Heading, Stack, useMediaQuery } from '@chakra-ui/react';
+import {
+  CloseButton,
+  Heading,
+  Skeleton,
+  Stack,
+  useMediaQuery,
+} from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import NavigationMenu from './components/NavigationMenu';
 import { MenuItemProps } from '@/core/config/menu';
@@ -12,8 +18,9 @@ import { CompanyProps } from '@/core/types/company';
 type SidebarProps = {
   menu: MenuItemProps[];
   company?: CompanyProps;
+  isLoading?: boolean;
 };
-const Sidebar = ({ menu, company }: SidebarProps) => {
+const Sidebar = ({ menu, company, isLoading }: SidebarProps) => {
   const { isMobileOpen, isExpanded, onMobileClose, onExpandedToggle } =
     useContext(SidebarContext);
 
@@ -54,7 +61,9 @@ const Sidebar = ({ menu, company }: SidebarProps) => {
           hideFrom={'lg'}
         />
         <Heading color={'white'}>{espanded ? 'Esea.app' : 'E'}</Heading>
-        <CompanyBox isExpandend={espanded} company={company} />
+        <Skeleton isLoaded={!isLoading} rounded={'2xl'}>
+          <CompanyBox isExpandend={espanded} company={company} />
+        </Skeleton>
         <NavigationMenu
           menu={menu}
           isMenuExpanded={espanded}

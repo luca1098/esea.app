@@ -20,7 +20,9 @@ type BarcheProps = PropsWithUser;
 const Barche = ({ user }: BarcheProps) => {
   const { errorToast, successToast } = useResponseToast();
 
-  const { data: company } = useCompany(user?.companyId ?? '');
+  const { data: company, loading: companyLoading } = useCompany(
+    user?.companyId ?? '',
+  );
 
   const [removeBoat, { loading }] = useRemoveBoat(user?.companyId ?? '');
 
@@ -34,7 +36,11 @@ const Barche = ({ user }: BarcheProps) => {
   };
 
   return (
-    <GestioneLayout user={user} company={company}>
+    <GestioneLayout
+      user={user}
+      company={company}
+      isCompanyLoading={companyLoading}
+    >
       <PageTitle
         title='Barche'
         endElement={

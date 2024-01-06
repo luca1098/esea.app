@@ -149,7 +149,11 @@ const Calendario = ({ user }: CalendarioProps) => {
 
   return (
     <>
-      <PrivateLayout user={user} company={company}>
+      <PrivateLayout
+        user={user}
+        company={company}
+        isCompanyLoading={companyLoading}
+      >
         <PageTitle title='Calendario' />
         <Stack gap={3}>
           <ContentBox>

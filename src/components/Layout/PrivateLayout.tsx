@@ -10,6 +10,7 @@ import { CompanyProps } from '@/core/types/company';
 
 type PrivateLayoutProps = {
   company?: CompanyProps;
+  isCompanyLoading?: boolean;
 } & PropsWithChildren &
   PropsWithUser;
 
@@ -64,6 +65,7 @@ const PrivateLayout = ({ children, user, company }: PrivateLayoutProps) => {
           <Sidebar
             menu={menuByUserRole[(user?.role ?? 'OWNER') as Role]}
             company={company}
+            isLoading={false}
           />
           <Box w={'full'}>
             <Header user={user} />

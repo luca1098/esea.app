@@ -9,9 +9,13 @@ import React from 'react';
 
 const Inserisci = () => {
   const { data } = useSession();
-  const { data: company } = useCompany(data?.user?.companyId ?? '');
+  const { data: company, loading } = useCompany(data?.user?.companyId ?? '');
   return (
-    <GestioneLayout user={data?.user} company={company}>
+    <GestioneLayout
+      user={data?.user}
+      company={company}
+      isCompanyLoading={loading}
+    >
       <PageTitle
         title='Inserisci una nuova barca'
         endElement={<BackButton />}
