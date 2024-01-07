@@ -22,9 +22,13 @@ import { PlusIcon, RemoveIcon } from '@/kit/Icons/icons';
 
 type ServicesFieldsProps = {
   methods: UseFormReturn<FormInserisciBarca>;
+  hideServiziPiuUsati?: boolean;
 };
 
-const ServicesFields = ({ methods }: ServicesFieldsProps) => {
+const ServicesFields = ({
+  methods,
+  hideServiziPiuUsati,
+}: ServicesFieldsProps) => {
   const currentServices = useWatch({
     control: methods.control,
     name: 'services',
@@ -56,19 +60,21 @@ const ServicesFields = ({ methods }: ServicesFieldsProps) => {
       <Heading variant={'h3'} as={'h3'}>
         Servizi
       </Heading>
-      <Stack bg={'esea.gray'} rounded={'2xl'} p={6} gap={2} mb={6}>
-        <Text fontSize={'sm'}>Servizi più usati:</Text>
-        <Flex gap={2}>
-          {DEFAULT_SERVICES.map((s, i) => (
-            <AddServicesTag
-              key={i}
-              service={s}
-              onAddClick={handleAddDefaultService}
-              isAdded={isDefaultServiceAdded(s.id)}
-            />
-          ))}
-        </Flex>
-      </Stack>
+      {!hideServiziPiuUsati ? (
+        <Stack bg={'esea.gray'} rounded={'2xl'} p={6} gap={2} mb={6}>
+          <Text fontSize={'sm'}>Servizi più usati:</Text>
+          <Flex gap={2}>
+            {DEFAULT_SERVICES.map((s, i) => (
+              <AddServicesTag
+                key={i}
+                service={s}
+                onAddClick={handleAddDefaultService}
+                isAdded={isDefaultServiceAdded(s.id)}
+              />
+            ))}
+          </Flex>
+        </Stack>
+      ) : null}
       <Grid templateColumns='repeat(4, 1fr)' gap={6} mb={6}>
         {fields.map((item, index) => (
           <Fragment key={item.id}>

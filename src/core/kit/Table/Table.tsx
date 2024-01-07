@@ -6,6 +6,7 @@ import {
   Tr,
   Tbody,
   Flex,
+  Box,
 } from '@chakra-ui/react';
 import {
   Cell,
@@ -20,15 +21,18 @@ import {
 } from '@tanstack/react-table';
 import { SortDownIcon, SortUpIcon, UnsortedIcon } from '../Icons/icons';
 import Pagination from './components/Pagination';
+import EmptyBox from '@/components/Empty/EmptyBox';
 
 type TableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  emptyLabel?: string;
 };
 
 const Table = <TData extends RowData, TValue = unknown>({
   data,
   columns,
+  emptyLabel,
 }: TableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
@@ -37,7 +41,6 @@ const Table = <TData extends RowData, TValue = unknown>({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
-
   return (
     <>
       <ChakraTable>
@@ -50,17 +53,26 @@ const Table = <TData extends RowData, TValue = unknown>({
             </Tr>
           ))}
         </Thead>
-        <Tbody>
-          {table.getRowModel().rows.map((row) => (
-            <Tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <RowCell key={cell.id} cell={cell} />
-              ))}
-            </Tr>
-          ))}
-        </Tbody>
+
+        {table.getRowModel().rows.length ? (
+          <Tbody>
+            {table.getRowModel().rows.map((row) => (
+              <Tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <RowCell key={cell.id} cell={cell} />
+                ))}
+              </Tr>
+            ))}
+          </Tbody>
+        ) : null}
       </ChakraTable>
-      <Pagination table={table} />
+      {table.getRowModel().rows.length ? (
+        <Pagination table={table} />
+      ) : (
+        <Box p={6}>
+          <EmptyBox msg={emptyLabel ?? 'Ancora essun elemento'} />
+        </Box>
+      )}
     </>
   );
 };

@@ -1,10 +1,10 @@
 import CardBarche from '@/components/Card/CardBarche';
 import GestioneLayout from '@/components/pages/Gestione/GestioneLayout';
-import { Flex } from '@chakra-ui/react';
+import { Flex, useDisclosure, Text } from '@chakra-ui/react';
 import { GetSessionParams, getSession } from 'next-auth/react';
-import React from 'react';
+import React, { useState } from 'react';
 import PageTitle from '@/kit/Text/PageTitle';
-import Button from '@/kit/Button/Button';
+import Button, { ButtonProps } from '@/kit/Button/Button';
 import { navigation } from '@/core/config/navigation';
 
 import { CardBarcheProps } from '@/components/Card/types';
@@ -14,11 +14,20 @@ import { useCompany } from '@/components/pages/shared/queries';
 import { PropsWithUser } from '@/core/types/user';
 import ContentBox from '@/kit/Box/ContentBox';
 import EmptyBox from '@/components/Empty/EmptyBox';
+import Modal from '@/components/Modal/Modal';
+import { useRouter } from 'next/router';
 
 type BarcheProps = PropsWithUser;
 
 const Barche = ({ user }: BarcheProps) => {
+  const router = useRouter();
   const { errorToast, successToast } = useResponseToast();
+  const {
+    isOpen: isDeleteModalOpen,
+    onClose: onCloseDeleteModal,
+    onOpen: onOpenDeleteModal,
+  } = useDisclosure();
+  const [selectedBoatId, setSelectedBoatId] = useState<string | null>(null);
 
   const { data: company, loading: companyLoading } = useCompany(
     user?.companyId ?? '',
@@ -26,15 +35,45 @@ const Barche = ({ user }: BarcheProps) => {
 
   const [removeBoat, { loading }] = useRemoveBoat(user?.companyId ?? '');
 
-  const handleDelete = async (id: string) => {
-    const { data, errors } = await removeBoat({ variables: { boatId: id } });
+  const handleDeleteClick = async (id: string) => {
+    setSelectedBoatId(id);
+    onOpenDeleteModal();
+  };
+  const deleteBoat = async () => {
+    const { data, errors } = await removeBoat({
+      variables: { boatId: selectedBoatId },
+    });
     if (errors || !data?.deleteBoat) {
       errorToast(errors, data?.deleteBoat);
     } else {
       successToast(data?.deleteBoat);
+      onCloseDeleteModal();
     }
   };
 
+  const handleDetailClick = (id: string) => {
+    router.push(`${navigation.private.gestione.barche.index}/${id}`);
+  };
+
+  const handleModalClose = () => {
+    setSelectedBoatId(null);
+    onCloseDeleteModal();
+  };
+
+  const actionsButtons: ButtonProps[] = [
+    {
+      label: 'Annulla',
+      variant: 'outline',
+      onClick: handleModalClose,
+      disabled: loading,
+    },
+    {
+      label: 'Elimina',
+      variant: 'solid',
+      onClick: deleteBoat,
+      disabled: loading,
+    },
+  ];
   return (
     <GestioneLayout
       user={user}
@@ -60,7 +99,8 @@ const Barche = ({ user }: BarcheProps) => {
                 id={boat.id}
                 name={boat.name}
                 image={boat.image ?? ''}
-                onDelete={handleDelete}
+                onDelete={handleDeleteClick}
+                onDetailClick={handleDetailClick}
                 isDeleteLoading={loading}
               />
             ))
@@ -69,6 +109,18 @@ const Barche = ({ user }: BarcheProps) => {
           )}
         </Flex>
       </ContentBox>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={handleModalClose}
+        actionButtons={actionsButtons}
+        title='Elimina barca definitivamente'
+      >
+        <Text>
+          Sei sicuro di voler eliminare questa barca definitivamente?
+          <br />
+          L&apos;azione sarà irreversibile
+        </Text>
+      </Modal>
     </GestioneLayout>
   );
 };

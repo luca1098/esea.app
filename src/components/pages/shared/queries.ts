@@ -11,12 +11,14 @@ import {
   BoatEventsResponseSchema,
   CompanyEventsResponseSchema,
   CompanyResponseSchema,
+  UnaviableSlotResponseSchema,
 } from './schemas';
 
 import { useMutation } from '@apollo/client';
 import { ADD_CLIENT_MUTATION } from '@/graphql/queries/clients';
 import { EDIT_USER_MUTATION } from '@/graphql/queries/user';
 import { GET_COMPANY_QUERY } from '@/graphql/queries/company';
+import { GET_UNAVIABLE_SLOT_QUERY } from '@/graphql/queries/slots';
 
 type BoatEventsParams = {
   boatId: string;
@@ -80,9 +82,21 @@ export const useCompany = (companyId: string) => {
       companyId,
     },
   });
-
   return {
     data: data ? CompanyResponseSchema.parse(data).company : data,
+    ...rest,
+  };
+};
+
+export const useUnaviableSlots = (boatId: string) => {
+  const { data, ...rest } = useQuery(GET_UNAVIABLE_SLOT_QUERY, {
+    variables: {
+      boatId,
+    },
+  });
+
+  return {
+    data: data ? UnaviableSlotResponseSchema.parse(data).unaviableSlot : data,
     ...rest,
   };
 };

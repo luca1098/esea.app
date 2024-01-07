@@ -7,7 +7,7 @@ const Duration = objectType({
   definition(t) {
     t.nonNull.string('id');
     t.nonNull.string('label');
-    t.string('price');
+    t.float('price');
   },
 });
 

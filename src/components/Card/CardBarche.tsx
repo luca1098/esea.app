@@ -17,6 +17,7 @@ const CardBarche = ({
   id,
   isDeleteLoading,
   onDelete,
+  onDetailClick,
 }: CardBarcheProps) => {
   return (
     <Card maxW='xs' padding={0} borderWidth={1} boxShadow={'none'}>
@@ -40,6 +41,7 @@ const CardBarche = ({
             {name}
           </Heading>
           <Flex gap={2}>
+            <Button label='Dettaglio' onClick={() => onDetailClick(id)} />
             {!!onDelete ? (
               <IconButton
                 icon={<TrashIcon />}
@@ -49,8 +51,6 @@ const CardBarche = ({
                 isLoading={isDeleteLoading}
               />
             ) : null}
-            <Button label='Modifica' variant='outline' />
-            <Button label='Dettaglio' />
           </Flex>
         </Flex>
       </CardBody>

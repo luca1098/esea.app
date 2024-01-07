@@ -24,6 +24,7 @@ export const GET_COMPANY_QUERY = gql`
           id
           label
           durations {
+            id
             label
             price
           }

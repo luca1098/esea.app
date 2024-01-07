@@ -17,6 +17,7 @@ import {
   IoStatsChartSharp as StatsIcon,
   IoArrowBack as BackIcon,
   IoTimeOutline as TimeIcon,
+  IoPeople as PeopleIcon,
 } from 'react-icons/io5';
 import { SiGoogledocs as DocsIcon } from 'react-icons/si';
 import { RxDoubleArrowRight as DoubleArrowDxIcon } from 'react-icons/rx';
@@ -69,4 +70,5 @@ export {
   PlusIcon,
   CheckIcon,
   RemoveIcon,
+  PeopleIcon,
 };

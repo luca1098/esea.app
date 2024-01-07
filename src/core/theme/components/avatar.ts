@@ -39,6 +39,12 @@ const sizes: ComponentMultiStyleConfig['sizes'] = defineStyle({
       height: '200px',
     },
   }),
+  '5xl': helpers.definePartsStyle({
+    container: {
+      width: '350px',
+      height: '350px',
+    },
+  }),
 });
 
 const esea = helpers.definePartsStyle({

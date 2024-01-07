@@ -6,4 +6,5 @@ export type CardBarcheProps = {
   name: string;
   isDeleteLoading?: boolean;
   onDelete?: (id: string) => void;
+  onDetailClick: (id: string) => void;
 };

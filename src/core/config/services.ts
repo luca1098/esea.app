@@ -4,7 +4,7 @@ export const DEFAULT_SERVICES: ServiceProps[] = [
   {
     id: 'service-locazione',
     label: 'Locazione',
-    duration: [
+    durations: [
       {
         label: 'Intera giornata',
         price: 0,
@@ -14,7 +14,7 @@ export const DEFAULT_SERVICES: ServiceProps[] = [
   {
     id: 'service-noleggio',
     label: 'Noleggio',
-    duration: [
+    durations: [
       {
         label: 'Intera giornata',
         price: 0,

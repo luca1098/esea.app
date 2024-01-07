@@ -6,3 +6,4 @@ export * from './Canale';
 export * from './Company';
 export * from './Personale';
 export * from './Client';
+export * from './Slot';

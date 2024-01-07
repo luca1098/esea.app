@@ -8,6 +8,7 @@ import {
   PopoverCloseButton,
   PopoverContent,
   PopoverHeader,
+  Skeleton,
   Stack,
   Text,
 } from '@chakra-ui/react';
@@ -22,9 +23,10 @@ import { isWithinInterval } from 'date-fns';
 
 type CalendarBoatProps = {
   methods: UseFormReturn<FormInserisciBarca>;
+  isLoading?: boolean;
 };
 
-const CalendarBoat = ({ methods }: CalendarBoatProps) => {
+const CalendarBoat = ({ methods, isLoading }: CalendarBoatProps) => {
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const unaviableSlots = useWatch({
     control: methods.control,
@@ -92,16 +94,18 @@ const CalendarBoat = ({ methods }: CalendarBoatProps) => {
       >
         <PopoverAnchor>
           <Box position={{ lg: 'sticky' }} top={10}>
-            <DataPickerInline
-              calendarClassName='esea-datapicker-inserisci-barche'
-              helperText='Selezionando delle date puoi bloccarle oppure inserire un prezzo specifico'
-              onChange={handleDataChange}
-              minDate={new Date()}
-              isRange
-              startDate={startDate}
-              endDate={endDate}
-              filterDate={filterUnviableDays}
-            />
+            <Skeleton isLoaded={!isLoading} rounded={'2xl'}>
+              <DataPickerInline
+                calendarClassName='esea-datapicker-inserisci-barche'
+                helperText='Selezionando delle date puoi bloccarle oppure inserire un prezzo specifico'
+                onChange={handleDataChange}
+                minDate={new Date()}
+                isRange
+                startDate={startDate}
+                endDate={endDate}
+                filterDate={filterUnviableDays}
+              />
+            </Skeleton>
           </Box>
         </PopoverAnchor>
         <PopoverContent borderWidth={1} borderColor={'esea.primary'} pb={4}>

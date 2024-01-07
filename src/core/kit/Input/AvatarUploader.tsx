@@ -13,10 +13,10 @@ const defaultFileAccepted = {
   'image/*': ['.png', '.jpeg', '.jpg', '.webp'],
 };
 
-export type AvatarUploaderProps = { preview: Nullish<string> } & Pick<
-  AvatarProps,
-  'size' | 'icon'
-> &
+export type AvatarUploaderProps = {
+  preview: Nullish<string>;
+  disableUpload?: boolean;
+} & Pick<AvatarProps, 'size' | 'icon'> &
   Omit<FileUploaderProps, 'maxFiles'>;
 
 const AvatarUploader = forwardRef<HTMLInputElement, AvatarUploaderProps>(
@@ -26,6 +26,7 @@ const AvatarUploader = forwardRef<HTMLInputElement, AvatarUploaderProps>(
       icon,
       name,
       preview,
+      disableUpload,
       onBlur,
       onChange,
       value,
@@ -59,16 +60,19 @@ const AvatarUploader = forwardRef<HTMLInputElement, AvatarUploaderProps>(
             ignoreFallback
             bg='gray.400'
             icon={icon}
+            sx={disableUpload ? { pointerEvents: 'none' } : {}}
           />
           <Box as={'input'} {...getInputProps({ onChange })} onBlur={onBlur} />
-          <IconButton
-            icon={<CameraIcon />}
-            aria-label='Seleziona una foto'
-            position={'absolute'}
-            bottom={-2}
-            right={-2}
-            onClick={open}
-          />
+          {!disableUpload ? (
+            <IconButton
+              icon={<CameraIcon />}
+              aria-label='Seleziona una foto'
+              position={'absolute'}
+              bottom={-2}
+              right={-2}
+              onClick={open}
+            />
+          ) : null}
         </Box>
       </FormControlWrapper>
     );

@@ -8,6 +8,7 @@ import { card } from './card';
 import { select } from './select';
 import { avatar } from './avatar';
 import { stepper } from './stepper';
+import { skeleton } from './skeletron';
 
 export const components: ThemeOverride['components'] = {
   List: listItem,
@@ -19,4 +20,5 @@ export const components: ThemeOverride['components'] = {
   Card: card,
   Avatar: avatar,
   Stepper: stepper,
+  Skeleto: skeleton,
 };

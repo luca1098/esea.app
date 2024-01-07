@@ -20,14 +20,14 @@ import { PropsWithUser } from '@/core/types/user';
 import { dateToTimestamp } from '@/core/utils/date';
 import ContentBox from '@/kit/Box/ContentBox';
 import PageTitle from '@/kit/Text/PageTitle';
-import { Stack, useDisclosure } from '@chakra-ui/react';
+import { Heading, Stack, useDisclosure } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personaleMok } from 'mok';
 import { GetSessionParams, getSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useResponseToast from '@/core/hooks/useResponseToast';
-import EventiTable from '@/components/pages/Calendario/EventiTable';
+import EventiTable from '@/components/pages/shared/components/EventiTable';
 import { CellContext } from '@tanstack/react-table';
 import {
   BOAT_EVENT_QUERY,
@@ -164,12 +164,14 @@ const Calendario = ({ user }: CalendarioProps) => {
               isLoading={companyLoading}
             />
           </ContentBox>
-
-          <EventiTable
-            events={allEvents || []}
-            onDelete={handleDeleteEvent}
-            isLoading={deleteEventLoading}
-          />
+          <ContentBox>
+            <Heading variant={'h2'}>Lista prenotazioni</Heading>
+            <EventiTable
+              events={allEvents || []}
+              onDelete={handleDeleteEvent}
+              isLoading={deleteEventLoading}
+            />
+          </ContentBox>
         </Stack>
       </PrivateLayout>
       <NuovoEventoDrawer
